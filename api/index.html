@@ -477,12 +477,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.15" data-path="../middleware/neutrino-middleware-named-modules/">
+        <li class="chapter " data-level="1.7.15" data-path="../middleware/neutrino-middleware-pwa/">
             
-                <a href="../middleware/neutrino-middleware-named-modules/">
+                <a href="../middleware/neutrino-middleware-pwa/">
             
                     
-                    named-modules
+                    pwa
             
                 </a>
             
@@ -516,6 +516,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.7.18" data-path="../middleware/community-middleware.html">
+            
+                <a href="../middleware/community-middleware.html">
+            
+                    
+                    Community middleware
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -531,38 +544,6 @@
                 </a>
             
 
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="1.8.1" data-path="../customization/simple.html">
-            
-                <a href="../customization/simple.html">
-            
-                    
-                    Simple
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.8.2" data-path="../customization/advanced.html">
-            
-                <a href="../customization/advanced.html">
-            
-                    
-                    Advanced
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
             
         </li>
     
@@ -623,7 +604,7 @@
                 <a href="../upgrading-neutrino.html">
             
                     
-                    Upgrading from v4 to v5
+                    Upgrading from v5 to v6
             
                 </a>
             
@@ -632,6 +613,19 @@
         </li>
     
         <li class="chapter " data-level="1.14" >
+            
+                <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v5/docs">
+            
+                    
+                    v5 Documentation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" >
             
                 <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v4/docs">
             
@@ -644,7 +638,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15" data-path="../contributing/">
+        <li class="chapter " data-level="1.16" data-path="../contributing/">
             
                 <a href="../contributing/">
             
@@ -658,7 +652,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.15.1" data-path="../contributing/development.html">
+        <li class="chapter " data-level="1.16.1" data-path="../contributing/development.html">
             
                 <a href="../contributing/development.html">
             
@@ -671,7 +665,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15.2" data-path="../contributing/code-of-conduct.html">
+        <li class="chapter " data-level="1.16.2" data-path="../contributing/code-of-conduct.html">
             
                 <a href="../contributing/code-of-conduct.html">
             
@@ -736,22 +730,22 @@
                                 
                                 <h1 id="neutrino-api">Neutrino API</h1>
 <p>When using Neutrino via the <a href="../cli/">CLI</a>, it creates an instance of the Neutrino API which picks up
-any middleware and arguments passed on the command line or located in package.json. If you desire, you can also create
-your own instance of the Neutrino API and interact with it programmatically.</p>
+any middleware and arguments passed on the command line or located in your <code>.neutrinorc.js</code>. If you desire, you can
+also create your own instance of the Neutrino API and interact with it programmatically.</p>
 <h2 id="importing">Importing</h2>
-<p>The default export of the Neutrino module is an object with several mechanisms for interacting with the API:</p>
+<p>The default export of the Neutrino module is an object with the core Neutrino API, along with available
+built-in functions for the API to run:</p>
 <pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span>
   Neutrino<span class="token punctuation">,</span>
-  run<span class="token punctuation">,</span>
   build<span class="token punctuation">,</span>
   inspect<span class="token punctuation">,</span>
   start<span class="token punctuation">,</span>
   test
 <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p>The <code>Neutrino</code> function is the lowest-level API, with each of the other methods a higher-level API
-which creates an instance of the API internally. First, we will cover the low-level <code>Neutrino</code> API and
-later showing how to use the higher-level functions.</p>
+<p>The <code>Neutrino</code> function is the lowest-level API, and each of the other methods can be used with the Neutrino
+API for executing their functionality. First, we will cover the <code>Neutrino</code> API and
+later showing how to use the runnable functions.</p>
 <h2 id="instantiation">Instantiation</h2>
 <p>In order to access the Neutrino API, you must require or import it and invoke it, passing in any
 options:</p>
@@ -786,8 +780,8 @@ path is specified, it will be resolved relative to <code>process.cwd()</code>; a
 <pre class="language-"><code class="lang-js"><span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
   <span class="token comment" spellcheck="true">// if not specified, defaults to process.cwd()</span>
 
-  <span class="token comment" spellcheck="true">// relative, resolves to process.cwd() + ./website</span>
-  root<span class="token punctuation">:</span> <span class="token string">&apos;./website&apos;</span><span class="token punctuation">,</span>
+  <span class="token comment" spellcheck="true">// relative, resolves to process.cwd() + website</span>
+  root<span class="token punctuation">:</span> <span class="token string">&apos;website&apos;</span><span class="token punctuation">,</span>
 
   <span class="token comment" spellcheck="true">// absolute</span>
   root<span class="token punctuation">:</span> <span class="token string">&apos;/code/website&apos;</span>
@@ -799,8 +793,8 @@ If a relative path is specified, it will be resolved relative to <code>options.r
 <pre class="language-"><code class="lang-js"><span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
   <span class="token comment" spellcheck="true">// if not specified, defaults to options.root + src</span>
 
-  <span class="token comment" spellcheck="true">// relative, resolves to options.root + ./lib</span>
-  source<span class="token punctuation">:</span> <span class="token string">&apos;./lib&apos;</span><span class="token punctuation">,</span>
+  <span class="token comment" spellcheck="true">// relative, resolves to options.root + lib</span>
+  source<span class="token punctuation">:</span> <span class="token string">&apos;lib&apos;</span><span class="token punctuation">,</span>
 
   <span class="token comment" spellcheck="true">// absolute</span>
   source<span class="token punctuation">:</span> <span class="token string">&apos;/code/website/lib&apos;</span>
@@ -812,8 +806,8 @@ If a relative path is specified, it will be resolved relative to <code>options.r
 <pre class="language-"><code class="lang-js"><span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
   <span class="token comment" spellcheck="true">// if not specified, defaults to options.root + build</span>
 
-  <span class="token comment" spellcheck="true">// relative, resolves to options.root + ./dist</span>
-  output<span class="token punctuation">:</span> <span class="token string">&apos;./dist&apos;</span><span class="token punctuation">,</span>
+  <span class="token comment" spellcheck="true">// relative, resolves to options.root + dist</span>
+  output<span class="token punctuation">:</span> <span class="token string">&apos;dist&apos;</span><span class="token punctuation">,</span>
 
   <span class="token comment" spellcheck="true">// absolute</span>
   output<span class="token punctuation">:</span> <span class="token string">&apos;/code/website/dist&apos;</span>
@@ -825,23 +819,39 @@ If a relative path is specified, it will be resolved relative to <code>options.r
 <pre class="language-"><code class="lang-js"><span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
   <span class="token comment" spellcheck="true">// if not specified, defaults to options.root + test</span>
 
-  <span class="token comment" spellcheck="true">// relative, resolves to options.root + ./testing</span>
-  tests<span class="token punctuation">:</span> <span class="token string">&apos;./testing&apos;</span><span class="token punctuation">,</span>
+  <span class="token comment" spellcheck="true">// relative, resolves to options.root + testing</span>
+  tests<span class="token punctuation">:</span> <span class="token string">&apos;testing&apos;</span><span class="token punctuation">,</span>
 
   <span class="token comment" spellcheck="true">// absolute</span>
   tests<span class="token punctuation">:</span> <span class="token string">&apos;/code/website/testing&apos;</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
 <h3 id="optionsentry"><code>options.entry</code></h3>
-<p>Set the main entry point for the application. If the option is not set, Neutrino defaults it to <code>index.*</code> - the extension is resolved by Webpack. The main file by default is not required to be in JavaScript format. If a relative path is specified, it will be resolved relative to <code>options.source</code>; absolute paths will be used as-is.</p>
+<p>Set the main entry point for the application. If the option is not set, Neutrino defaults it to <code>index.*</code> - the
+extension is resolved by Webpack. The main file by default is not required to be in JavaScript format. If a relative
+path is specified, it will be resolved relative to <code>options.source</code>; absolute paths will be used as-is.</p>
 <pre class="language-"><code class="lang-js"><span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
   <span class="token comment" spellcheck="true">// if not specified, defaults to options.source + index</span>
 
-  <span class="token comment" spellcheck="true">// relative, resolves to options.source + ./entry.js</span>
-  entry<span class="token punctuation">:</span> <span class="token string">&apos;./entry.js&apos;</span><span class="token punctuation">,</span>
+  <span class="token comment" spellcheck="true">// relative, resolves to options.source + entry.js</span>
+  entry<span class="token punctuation">:</span> <span class="token string">&apos;entry.js&apos;</span><span class="token punctuation">,</span>
 
   <span class="token comment" spellcheck="true">// absolute</span>
-  entry<span class="token punctuation">:</span> <span class="token string">&apos;/code/website/lib/entry.js&apos;</span>
+  entry<span class="token punctuation">:</span> <span class="token string">&apos;/code/website/src/entry.js&apos;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="optionsstatic"><code>options.static</code></h3>
+<p>Designate a directory within <code>source</code> for containing static/non-compiled assets. If the option is not set, Neutrino
+defaults it to <code>static</code>. If a relative path is specified, it will be resolved relative to <code>options.source</code>; absolute
+paths will be used as-is (not recommended).</p>
+<pre class="language-"><code class="lang-js"><span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// if not specified, defaults to options.source + static</span>
+
+  <span class="token comment" spellcheck="true">// relative, resolves to options.source + public</span>
+  <span class="token keyword">static</span><span class="token punctuation">:</span> <span class="token string">&apos;public&apos;</span><span class="token punctuation">,</span>
+
+  <span class="token comment" spellcheck="true">// absolute</span>
+  <span class="token keyword">static</span><span class="token punctuation">:</span> <span class="token string">&apos;/code/website/src/public&apos;</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
 <h3 id="optionsnodemodules"><code>options.node_modules</code></h3>
@@ -851,8 +861,8 @@ used as-is.</p>
 <pre class="language-"><code class="lang-js"><span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
   <span class="token comment" spellcheck="true">// if not specified, defaults to options.root + node_modules</span>
 
-  <span class="token comment" spellcheck="true">// relative, resolves to options.root + ./modules</span>
-  node_modules<span class="token punctuation">:</span> <span class="token string">&apos;./modules&apos;</span><span class="token punctuation">,</span>
+  <span class="token comment" spellcheck="true">// relative, resolves to options.root + modules</span>
+  node_modules<span class="token punctuation">:</span> <span class="token string">&apos;modules&apos;</span><span class="token punctuation">,</span>
 
   <span class="token comment" spellcheck="true">// absolute</span>
   node_modules<span class="token punctuation">:</span> <span class="token string">&apos;/code/website/modules&apos;</span>
@@ -860,37 +870,22 @@ used as-is.</p>
 </code></pre>
 <h2 id="other-options">Other options</h2>
 <h3 id="optionsdebug"><code>options.debug</code></h3>
-<p>Informs interested middleware that they should be in a state of debugging. This doesn&apos;t currently make Neutrino itself
+<p>Informs interested middleware that they should be in a state of debugging. This does not currently make Neutrino itself
 behave any differently, rather it can be used to inform middleware to behave differently, by outputting console
-information, inspecting processes, or changing configuration helpful for debugging.</p>
-<h2 id="loading-middleware">Loading middleware</h2>
-<p>Using the Neutrino API you can load <a href="../middleware/">middleware</a> and presets (which are also just middleware)
-using the <code>use</code> method. The <code>use</code> method takes in a middleware function, and optionally any options that should be
-passed to the middleware function.</p>
-<pre class="language-"><code class="lang-js">neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>middleware<span class="token punctuation">,</span> middlewareOptions<span class="token punctuation">)</span>
-</code></pre>
-<p>Typically presets do not require any additional options, and middleware may, but check with your particular package
-for specifics. As an example, if you wanted to require the list of presets and Neutrino options from a package.json:</p>
-<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">const</span> pkg <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;./package.json&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token keyword">const</span> neutrino <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span>pkg<span class="token punctuation">.</span>neutrino<span class="token punctuation">.</span>options<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token function">require</span><span class="token punctuation">(</span>pkg<span class="token punctuation">.</span>neutrino<span class="token punctuation">.</span>use<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
-<p>You can call <code>.use</code> iteratively for multiple presets:</p>
-<pre class="language-"><code class="lang-js">pkg<span class="token punctuation">.</span>neutrino<span class="token punctuation">.</span>use
-  <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>require<span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>neutrino<span class="token punctuation">.</span>use<span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
-<h2 id="environment">Environment</h2>
+information, inspecting processes, or changing configuration which is helpful for debugging.</p>
+<h3 id="optionsenv"><code>options.env</code></h3>
 <p>When using the CLI and the higher-level API functions, environment variables are automatically set based on the command
-you are using. When using the <code>Neutrino</code> low-level API this is not the case, and you <strong>must</strong> set it prior to calling
-any build commands or loading any middleware if you expect them to build correctly based on their target.</p>
-<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> neutrino <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+you are using. When using the <code>Neutrino</code> low-level API this is not the case, and you should specify an <code>env</code> option
+to the API prior to calling any build commands or loading any middleware if you expect them to build correctly based on
+their environment target.</p>
+<p>Use <code>options.env</code> to set environment variables and make them available to middleware for conditional operations.</p>
+<pre class="language-"><code class="lang-js"><span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  env<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    NODE_ENV<span class="token punctuation">:</span> <span class="token string">&apos;production&apos;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-process<span class="token punctuation">.</span>env<span class="token punctuation">.</span>NODE_ENV <span class="token operator">=</span> <span class="token string">&apos;production&apos;</span><span class="token punctuation">;</span>
-<span class="token comment" spellcheck="true">// load middleware...</span>
+process<span class="token punctuation">.</span>env<span class="token punctuation">.</span>NODE_ENV <span class="token comment" spellcheck="true">// &quot;production&quot;</span>
 </code></pre>
 <h2 id="neutrino-api">Neutrino API</h2>
 <p>When creating a Neutrino instance, you have the option of providing an object which can be passed as options to
@@ -900,34 +895,55 @@ middleware as <code>neutrino.options</code>.</p>
 <span class="token keyword">const</span> neutrino <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token comment" spellcheck="true">// or with optional options</span>
-<span class="token keyword">const</span> neutrino <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">{</span> jest<span class="token punctuation">:</span> <span class="token punctuation">{</span> bail<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> neutrino <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">{</span> output<span class="token punctuation">:</span> <span class="token string">&apos;dist&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h3 id="options"><code>options</code></h3>
 <p>An object containing various properties for the benefit of the API and middleware. This can contain
 options set by both Neutrino and any included middleware.</p>
 <h3 id="config"><code>config</code></h3>
 <p>When constructing a Neutrino instance, a property of <code>config</code> is set to be a new instance of
-<a href="https://github.com/mozilla-neutrino/webpack-chain" target="_blank">webpack-chain</a>. This property is then available to all presets
+<a href="https://github.com/mozilla-neutrino/webpack-chain" target="_blank">webpack-chain</a>. This property is then available to all middleware
 which subsequently augment it with their specific configuration. All middleware and presets added use this single
 <code>config</code> to store their data, meaning that middleware load order has an effect on which config values take precedence.
 Middleware loaded first will have any configuration overridden by later middleware with matching properties.</p>
-<h3 id="usemiddleware-middlewareoptions"><code>use(middleware, middlewareOptions)</code></h3>
-<p>Invoke a Neutrino middleware function, optionally providing options which will be passed to the middleware function.
-Middleware will be invoked with two arguments:</p>
+<h3 id="usemiddlewareformat"><code>use(middlewareFormat)</code></h3>
+<p>Use a Neutrino middleware format, optionally providing options which will be passed to the middleware.
+Middleware functions will be invoked with two arguments:</p>
 <ol>
-<li>The Neutrino instance</li>
-<li>The optional <code>middlewareOptions</code></li>
+<li>The Neutrino API instance</li>
+<li>Any middleware options argument passed to <code>use</code>.</li>
 </ol>
-<p>For example, given the following middleware function:</p>
-<pre class="language-"><code class="lang-js"><span class="token keyword">function</span> <span class="token function">middleware</span><span class="token punctuation">(</span>neutrino<span class="token punctuation">,</span> options<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  neutrino<span class="token punctuation">.</span>config
-    <span class="token punctuation">.</span><span class="token function">entry</span><span class="token punctuation">(</span><span class="token string">&apos;index&apos;</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">prepend</span><span class="token punctuation">(</span>options<span class="token punctuation">.</span>entryPoint<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<h4 id="manually-loading-middleware-with-use">Manually loading middleware with <code>use</code></h4>
+<p>Using the Neutrino API you can load <a href="../middleware/">middleware</a> and presets (which are also just middleware)
+using the <code>use</code> method. The <code>use</code> method takes in a middleware format and optionally any options that should be
+passed to the middleware. See <a href="../middleware/#formats">middleware formats</a> for details on the different ways to
+specify middleware.</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">/**
+* use::
+*   (Function, Object)
+*   (String, Object)
+*   (Array [Middleware, Object])
+*   (Object)
+*/</span>
+<span class="token comment" spellcheck="true">// use :: (Function, Object)</span>
+neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>neutrino <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">/* ... */</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">/* options */</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
 
-<span class="token comment" spellcheck="true">// Passing this middleware function to Neutrino, along with some options:</span>
-neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>middleware<span class="token punctuation">,</span> <span class="token punctuation">{</span> entryPoint<span class="token punctuation">:</span> <span class="token string">&apos;babel-polyfill&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// use :: (String, Object)</span>
+neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">&apos;middleware&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">/* options */</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// use :: (Array [Middleware, Object])</span>
+neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;middleware&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">/* options */</span> <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// use :: (Object)</span>
+neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  options<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">/* ... */</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token comment" spellcheck="true">// ...even more middleware</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
+<p>Any <code>options</code> passed to a middleware <em>object format</em> will be set on the Neutrino API instance prior to consuming any
+middleware in the <code>use</code> array.</p>
 <h3 id="emitforalleventname-payload"><code>emitForAll(eventName, payload)</code></h3>
 <p>Trigger a Promise-dependent event. For example, calling <code>emitForAll(&apos;build&apos;)</code> will trigger an event named build, and
 each event handler can return a Promise denoting when it is finished. When all events have finished, this call will
@@ -952,65 +968,61 @@ is understandable by Webpack. With <code>config.toConfig()</code>, the webpack-c
 a configuration object readable directly by Webpack.</p>
 <pre class="language-"><code class="lang-js">api<span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token function">toConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// -&gt; { ... }</span>
 </code></pre>
-<h3 id="requiresandusesmiddleware"><code>requiresAndUses(middleware)</code></h3>
-<p>This method takes an array of module strings which map to the location of middleware and returns a
-<a href="https://github.com/fluture-js/Fluture" target="_blank"><code>Future</code></a> which will attempt to look up, require, and <code>use</code> each middleware.
-This function is shorthand for <code>api.useRequires(api.requires(middleware))</code>.</p>
-<p>The Future can be resolved with an <a href="https://facebook.github.io/immutable-js/docs/#/List" target="_blank">Immutable List</a> of middleware,
-or rejected with an error if a failure occurs requiring the middleware.</p>
-<pre class="language-"><code class="lang-js">api<span class="token punctuation">.</span><span class="token function">requiresAndUses</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;middleware-alpha&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;middleware-beta&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">fork</span><span class="token punctuation">(</span>
-    err <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;Could not import middleware&apos;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;Finished importing all middleware&apos;</span><span class="token punctuation">)</span>
-  <span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
-<h3 id="requiresmiddleware"><code>requires(middleware)</code></h3>
-<p>This method takes an array of module strings which map to the location of middleware and returns a
-<a href="https://github.com/fluture-js/Fluture" target="_blank"><code>Future</code></a> which will attempt to look up and require each middleware.
-The middleware is not <code>use</code>d at this point, only required.</p>
-<p>The Future can be resolved with an <a href="https://facebook.github.io/immutable-js/docs/#/List" target="_blank">Immutable List</a> of middleware,
-or rejected with an error if a failure occurs requiring the middleware.</p>
-<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Using Future to fork and handle any errors</span>
-api
-  <span class="token punctuation">.</span><span class="token function">requires</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;middleware-alpha&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;middleware-beta&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">fork</span><span class="token punctuation">(</span>
-    err <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;Could not require middleware&apos;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    middleware <span class="token operator">=</span><span class="token operator">&gt;</span> middleware<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>console<span class="token punctuation">.</span>log<span class="token punctuation">)</span>
-  <span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
-<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Using Future promise API to fork and handle any errors</span>
-api
-  <span class="token punctuation">.</span><span class="token function">requires</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;middleware-alpha&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;middleware-beta&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">promise</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>middleware <span class="token operator">=</span><span class="token operator">&gt;</span> middleware<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>console<span class="token punctuation">.</span>log<span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token keyword">catch</span><span class="token punctuation">(</span>err <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;Could not require middleware&apos;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
-<h3 id="userequiresrequires"><code>useRequires(requires)</code></h3>
-<p>Accepts a <a href="https://github.com/fluture-js/Fluture" target="_blank"><code>Future</code></a> of a
-<a href="https://facebook.github.io/immutable-js/docs/#/List" target="_blank">List</a> of middleware to run through <code>api.use</code>. Useful for passing
-the Future from <code>api.requires</code> to have the List to be subsequently <code>use</code>d.</p>
-<p>The Future can be resolved with an <a href="https://facebook.github.io/immutable-js/docs/#/List" target="_blank">Immutable List</a> of middleware,
-or rejected with an error if a failure occurs requiring the middleware.</p>
-<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Using Future to fork and handle any errors</span>
-api<span class="token punctuation">.</span><span class="token function">useRequires</span><span class="token punctuation">(</span>api<span class="token punctuation">.</span><span class="token function">requires</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;middleware-alpha&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;middleware-beta&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">fork</span><span class="token punctuation">(</span>
-    err <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;Could not import middleware&apos;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;Finished importing all middleware&apos;</span><span class="token punctuation">)</span>
-  <span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
 <h3 id="registercommand-handler"><code>register(command, handler)</code></h3>
 <p>This method registers a new command which can be run from the API at a later time. This function takes two
-arguments: a string command name, and a function which accepts a Webpack configuration and returns a
-<a href="https://github.com/fluture-js/Fluture" target="_blank"><code>Future</code></a>.</p>
+arguments: a String command name, and a Function which accepts a Webpack configuration and the API. The return value of
+<code>handler</code> depends on the expected usage of the command.</p>
+<p>The handler function can accept two arguments:</p>
+<ol>
+<li>A Webpack configuration object. This is the result of calling <code>api.config.toConfig()</code>, and represents a
+Webpack-usable object</li>
+<li>The Neutrino API instance</li>
+</ol>
 <p>_Example: add a new runnable command which resolves with a JSON-formatted Webpack configuration:`</p>
-<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">const</span> Future <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;fluture&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-api<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token string">&apos;jsonify&apos;</span><span class="token punctuation">,</span> config <span class="token operator">=</span><span class="token operator">&gt;</span> Future<span class="token punctuation">.</span><span class="token keyword">of</span><span class="token punctuation">(</span>JSON<span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class="language-"><code class="lang-js">api<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token string">&apos;jsonify&apos;</span><span class="token punctuation">,</span> config <span class="token operator">=</span><span class="token operator">&gt;</span> JSON<span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<h3 id="runcommand"><code>run(command)</code></h3>
-<p>This method returns a Future which executes a command which has been registered in the Neutrino API. It accepts a
-single argument for the command name to run.</p>
+<p>The registered command can be triggered from <code>call()</code>, <code>run()</code>, or via the CLI.</p>
+<h3 id="requiremoduleid"><code>require(moduleId)</code></h3>
+<p>This method is typically used internally by the Neutrino API to attempt to require a string module ID in various paths
+before failing. Takes a String <code>moduleId</code> and returns the first exports of the module it is able to require. This
+will throw an exception if Neutrino is unable to require the specified module ID in any of its know paths.</p>
+<h3 id="callcommandname-middleware"><code>call(commandName, middleware)</code></h3>
+<p>This API method will invoke a command function that has been previously defined by the <code>register</code> method after
+consuming any specified middleware. The <code>commandName</code> argument should be a String, and optionally <code>middleware</code>
+should be an Array of middleware formats. If <code>middleware</code> is not specified, Neutrino will load middleware from the
+local <code>.neutrinorc.js</code> file.</p>
+<p>The <code>call</code> method will invoke the registered command with two arguments: a Webpack configuration object, and the
+instance of the Neutrino API. The return value of using <code>call</code> will be the return value of invoking the registered
+handler with these two arguments.</p>
+<p>For a concrete example, the <a href="../middleware/neutrino-middleware-eslint">eslint middleware</a> registers an <code>eslintrc</code>
+command. The results of this command can be returned with <code>call</code> (provided this middleware is loaded within
+<code>.neutrinorc.js</code> in this example):</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> eslintConfig <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token string">&apos;eslintrc&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="runcommandname-middleware"><code>run(commandName, middleware)</code></h3>
+<p>This API method will invoke a command function that has been previously defined by the <code>register</code> method after
+consuming any specified middleware. The <code>commandName</code> argument should be a String, and optionally <code>middleware</code>
+should be an Array of middleware formats. If <code>middleware</code> is not specified, Neutrino will load middleware from the
+local <code>.neutrinorc.js</code> file.</p>
+<p>The Neutrino package exports functions to automate key parts of interacting with the Neutrino API, and they are named
+<code>build</code>, <code>inspect</code>, <code>start</code>, and <code>test</code>. These are functions that are invoked when using the CLI.</p>
+<p>Every runnable command performs the following flow:</p>
+<ul>
+<li>Requires and <code>use</code>s provided middleware, or pulls from <code>.neutrinorc.js</code> if not specified</li>
+<li>Triggers all <code>pre*</code> event handlers for the given command name</li>
+<li>Triggers all <code>prerun</code> event handlers</li>
+<li>Invokes the given registered command name</li>
+<li>Triggers all event handlers for the given command name</li>
+<li>Triggers all <code>run</code> event handlers</li>
+</ul>
+<p>The <code>run</code> method will invoke the registered command with two arguments: a Webpack configuration object, and the
+instance of the Neutrino API. Calling a runnable command will return a
+<a href="https://github.com/fluture-js/Fluture" target="_blank"><code>Future</code></a> which can then be used to kick off the above flow. This Future will
+be resolved with the resolution value of the command, or rejected with any errors the command provides. The return
+value from the registered command can be any synchronous value, Promise, or Future, and Neutrino will properly chain
+from this.</p>
 <p>_Example: execute the <code>jsonify</code> command we registered in the <code>register()</code> example`:</p>
 <pre class="language-"><code class="lang-js"><span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> Future <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;fluture&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1023,33 +1035,18 @@ api
   <span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token string">&apos;jsonify&apos;</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">fork</span><span class="token punctuation">(</span>console<span class="token punctuation">.</span>error<span class="token punctuation">,</span> json <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>json<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<h2 id="run-api"><code>run</code> API</h2>
-<p>The Neutrino package contains several functions automate several pieces of interacting with the Neutrino API.
-There is the mid-level <code>run</code> function, and higher-level functions <code>build</code>, <code>inspect</code>, <code>start</code>, and <code>test</code>. These are
-functions that are invoked when using the CLI.</p>
-<p>Every runnable command performs the following flow:</p>
+<p>The <code>run</code> method takes two arguments:</p>
 <ul>
-<li>Instantiates a <code>Neutrino</code> API</li>
-<li>Sets the <code>NODE_ENV</code> environment variable</li>
-<li>Requires and <code>use</code>s provided middleware</li>
-<li>Merges any config overrides at <code>options.config</code> into the <code>api.config</code> at a higher precedence</li>
-<li>Triggers all <code>pre</code> events for the given command name</li>
-<li>Invokes <code>api.run</code> for the registered command name</li>
-<li>Triggers all events for the given command name</li>
+<li>A String command name which the API can execute, which has been previously registered</li>
+<li>An optional Array which will be iterated and used as middleware. Not providing this will cause Neutrino to attempt
+to load middleware from the local <code>.neutrinorc.js</code> file.</li>
 </ul>
-<p>Calling a runnable command will return a <a href="https://github.com/fluture-js/Fluture" target="_blank"><code>Future</code></a> which can then be used to
-kick off the above flow. This Future will be resolved with the resolution value of the command, or rejected
-with any errors the command provides.</p>
-<h3 id="runcommand-middleware-options"><code>run(command, middleware, options)</code></h3>
-<p>The lower-level <code>run</code> function takes three arguments:</p>
-<ul>
-<li>A string command name which the API can call</li>
-<li>An array of module strings which will be required and used as middleware</li>
-<li>An object of options that should be specified to the Neutrino API</li>
-</ul>
-<p>Prior to starting this process, Neutrino will trigger and wait for <code>pre{command}</code> events to
-finish. After it is complete, Neutrino will trigger and wait for <code>{command}</code> events to finish.</p>
-<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> run <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<p>Prior to starting this process, Neutrino will trigger and wait for <code>pre{command}</code> and <code>prerun</code> events to
+finish. After it is complete, Neutrino will trigger and wait for <code>{command}</code> and <code>run</code> events to finish.</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino<span class="token punctuation">,</span> build <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+api<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token string">&apos;build&apos;</span><span class="token punctuation">,</span> build<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token function">run</span><span class="token punctuation">(</span><span class="token string">&apos;build&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">fork</span><span class="token punctuation">(</span>
@@ -1057,103 +1054,157 @@ finish. After it is complete, Neutrino will trigger and wait for <code>{command}
     stats <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>stats<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">{</span> colors<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
   <span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<h3 id="startmiddleware-options"><code>start(middleware, options)</code></h3>
-<p>The <code>start</code> function takes two arguments:</p>
-<ul>
-<li>An array of module strings which will be required and used as middleware</li>
-<li>An object of options that should be specified to the Neutrino API</li>
-</ul>
-<p>The <code>start()</code> function is responsible for creating a development bundle, and when possible, starting a development
-server or source watcher. Prior to starting this process, Neutrino will trigger and wait for <code>prestart</code> events to
-finish. After it is complete, Neutrino will trigger and wait for <code>start</code> events to finish.</p>
-<p>If the Neutrino config contains options for <code>devServer</code>, then a webpack-dev-server will be started, otherwise a Webpack
-source watcher will be started.</p>
-<p>Calling start will return a <a href="https://github.com/fluture-js/Fluture" target="_blank"><code>Future</code></a> which can then be used to
+<h2 id="runnable-functions">Runnable Functions</h2>
+<p>The following functions are exported from Neutrino and can be registered with the API to be executed from <code>run</code>
+(recommended) or <code>call</code>. These functions are used internally by the CLI, which creates its own instance of the API and
+registers them prior to <code>run</code>. Since each of them can be registered directly with the API, they each have the same
+signature accepting a Webpack configuration and an API instance.</p>
+<h3 id="startwebpackconfig-neutrinoapi"><code>start(webpackConfig, neutrinoApi)</code></h3>
+<p>The <code>start</code> function is responsible for creating a development bundle, and when possible, starting a development
+server or source watcher. If the Neutrino config contains options for <code>devServer</code>, then a webpack-dev-server will be
+started, otherwise a Webpack source watcher will be started.</p>
+<p>The <code>start</code> function returns a <a href="https://github.com/fluture-js/Fluture" target="_blank"><code>Future</code></a> which can then be used to
 kick off the runnable flow. This Future will be resolved with a Webpack compiler (for example, if you wish to listen for
 additional build events), or reject with an <strong>array of errors</strong>. This resolution will be completed when the dev server
 or Webpack watcher has been started.</p>
-<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> start <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<p>Using the <code>run</code> method:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino<span class="token punctuation">,</span> start <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+api<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token string">&apos;start&apos;</span><span class="token punctuation">,</span> start<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+api<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token string">&apos;start&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">fork</span><span class="token punctuation">(</span>
-    errors <span class="token operator">=</span><span class="token operator">&gt;</span> errors<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>console<span class="token punctuation">.</span>error<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    errors <span class="token operator">=</span><span class="token operator">&gt;</span> errors<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>err <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
     compiler <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;App running!&apos;</span><span class="token punctuation">)</span>
   <span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<h3 id="buildmiddleware-options"><code>build(middleware, options)</code></h3>
-<p>The <code>build</code> function takes two arguments:</p>
-<ul>
-<li>An array of module strings which will be required and used as middleware</li>
-<li>An object of options that should be specified to the Neutrino API</li>
-</ul>
-<p>The <code>build()</code> function is responsible for creating a bundle typically used for production. Prior to starting this process,
-Neutrino will trigger and wait for <code>prebuild</code> events to finish. After it is complete, Neutrino will trigger and wait for
-<code>build</code> events to finish.</p>
-<p>Calling start will return a <a href="https://github.com/fluture-js/Fluture" target="_blank"><code>Future</code></a> which can then be used to
+<p>Calling <code>start</code> manually:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino<span class="token punctuation">,</span> start <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+api<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token function">start</span><span class="token punctuation">(</span>api<span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token function">toConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> api<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">fork</span><span class="token punctuation">(</span>
+    errors <span class="token operator">=</span><span class="token operator">&gt;</span> errors<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>err <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    compiler <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;App running!&apos;</span><span class="token punctuation">)</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="buildwebpackconfig-neutrinoapi"><code>build(webpackConfig, neutrinoApi)</code></h3>
+<p>The <code>build</code> function is responsible for creating a bundle typically used for production.</p>
+<p>The <code>build</code> function returns a <a href="https://github.com/fluture-js/Fluture" target="_blank"><code>Future</code></a> which can then be used to
 kick off the runnable flow. This Future will be resolved with a Webpack stats object about the build, or reject with an
 <strong>array of errors</strong>. This resolution will be completed when the build has been completed.</p>
-<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> build <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<p>Using the <code>run</code> method:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino<span class="token punctuation">,</span> build <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-node&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+api<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token string">&apos;build&apos;</span><span class="token punctuation">,</span> build<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+api<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token string">&apos;build&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-node&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">fork</span><span class="token punctuation">(</span>
-    errors <span class="token operator">=</span><span class="token operator">&gt;</span> errors<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>console<span class="token punctuation">.</span>error<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    errors <span class="token operator">=</span><span class="token operator">&gt;</span> errors<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>err <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
     stats <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>stats<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">{</span> colors<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
   <span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<h3 id="testmiddleware-options"><code>test(middleware, options)</code></h3>
-<p>The <code>test</code> function takes two arguments:</p>
-<ul>
-<li>An array of module strings which will be required and used as middleware</li>
-<li>An object of options that should be specified to the Neutrino API</li>
-</ul>
-<p>The <code>test()</code> function is responsible for gathering middleware and options needed for testing and triggering relevant
+<p>Calling <code>build</code> manually:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino<span class="token punctuation">,</span> build <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+api<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-preset-node&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token function">build</span><span class="token punctuation">(</span>api<span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token function">toConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> api<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">fork</span><span class="token punctuation">(</span>
+    errors <span class="token operator">=</span><span class="token operator">&gt;</span> errors<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>err <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    stats <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>stats<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">{</span> colors<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="testwebpackconfig-neutrinoapi"><code>test(webpackConfig, neutrinoApi)</code></h3>
+<p>The <code>test</code> function is typically used for gathering middleware and options needed for testing and triggering relevant
 events as a signal to test middleware that they may run. Using the <code>test</code> method has no other functionality other than
 performing the automated runnable flow outlined above. Since <code>test()</code> does nothing other than triggering this flow,
-without middleware listening for <code>test</code> events, nothing will happen. Prior to starting this process, Neutrino will
-trigger and wait for <code>pretest</code> events to finish. After it is complete, Neutrino will trigger and wait for
-<code>test</code> events to finish, in which test runners will do their work.</p>
-<p>Any <code>args</code> passed to <code>test()</code> are passed on to the event handles and typically have properties for an array of
-<code>files</code> to test, as well as a property for <code>watch</code>ing and rerunning tests.</p>
-<p>Calling start will return a <a href="https://github.com/fluture-js/Fluture" target="_blank"><code>Future</code></a> which can then be used to
-kick off the runnable flow. This Future will be resolved, or reject with <strong>an error</strong>. This resolution will be completed
+without middleware listening for <code>test</code> events, nothing will happen. For this reason, it is recommended that <code>test</code> be
+used with the <code>run</code> method to ensure that all test-related events are properly retriggered. After Neutrino triggers and
+waits for <code>test</code> events to finish, the test runners will do their work and <code>test()</code> can resolve.</p>
+<p>Any <code>args</code> passed to the API as options are passed on to the event handlers and typically have properties for an array
+of <code>files</code> to test, as well as a property for <code>watch</code>ing and rerunning tests.</p>
+<p>The <code>test</code> function returns a <a href="https://github.com/fluture-js/Fluture" target="_blank"><code>Future</code></a> which can then be used to
+kick off the runnable flow. This Future will be resolved, or reject with an error. This resolution will be completed
 when the testing has been finished.</p>
-<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> test <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<p>Using the <code>run</code> method:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino<span class="token punctuation">,</span> test <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-node&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+api<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token string">&apos;test&apos;</span><span class="token punctuation">,</span> test<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+api<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token string">&apos;test&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-node&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;neutrino-preset-mocha&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">fork</span><span class="token punctuation">(</span>
     err <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">,</span>
     <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;Testing completed!&apos;</span><span class="token punctuation">)</span>
   <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token comment" spellcheck="true">// ---</span>
+<span class="token comment" spellcheck="true">// With API args</span>
+<span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  args<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    files<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token comment" spellcheck="true">/* ... */</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    watch<span class="token punctuation">:</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-node&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> args<span class="token punctuation">:</span> <span class="token punctuation">{</span> files<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token comment" spellcheck="true">/* ... */</span><span class="token punctuation">]</span><span class="token punctuation">,</span> watch<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+api<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token string">&apos;test&apos;</span><span class="token punctuation">,</span> test<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+api<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token string">&apos;test&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-node&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;neutrino-preset-mocha&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">fork</span><span class="token punctuation">(</span>
+    errors <span class="token operator">=</span><span class="token operator">&gt;</span> errors<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>err <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;Testing completed!&apos;</span><span class="token punctuation">)</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Calling <code>test</code> manually:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino<span class="token punctuation">,</span> test <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+api<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-preset-node&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+api<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-preset-mocha&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token function">test</span><span class="token punctuation">(</span>api<span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token function">toConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> api<span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">fork</span><span class="token punctuation">(</span>
     err <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">,</span>
     <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&apos;Testing completed!&apos;</span><span class="token punctuation">)</span>
   <span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<h3 id="inspectmiddleware-options"><code>inspect(middleware, options)</code></h3>
-<p>The <code>inspect</code> function takes two arguments:</p>
-<ul>
-<li>An array of module strings which will be required and used as middleware</li>
-<li>An object of options that should be specified to the Neutrino API</li>
-</ul>
+<h3 id="inspectwebpackconfig-neutrinoapi"><code>inspect(webpackConfig, neutrinoApi)</code></h3>
 <p>The <code>inspect()</code> function is responsible for creating an object string which represents a Webpack configuration for the
-provided middleware and options. Upon following the runnable flow, <code>inspect()</code> will:</p>
+provided middleware and options. Upon execution <code>inspect</code> will:</p>
 <ul>
-<li>Grab the Webpack configuration object</li>
+<li>Receive the Webpack configuration object</li>
 <li>Deep-sort the object</li>
 <li>Stringify the object with 2 spaces (<strong>not</strong> JSON stringified!)</li>
 </ul>
-<p>Calling start will return a <a href="https://github.com/fluture-js/Fluture" target="_blank"><code>Future</code></a> which can then be used to
+<p>The <code>inspect</code> function returns a <a href="https://github.com/fluture-js/Fluture" target="_blank"><code>Future</code></a> which can then be used to
 kick off the runnable flow. This Future will be resolved with a string representation of the Webpack config, or reject
-with <strong>an error</strong>. This resolution will be completed when the build has been completed.</p>
-<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> inspect <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+with an error.</p>
+<p>Using the <code>run</code> method:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino<span class="token punctuation">,</span> inspect <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token function">inspect</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-node&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+api<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token string">&apos;inspect&apos;</span><span class="token punctuation">,</span> inspect<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+api<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token string">&apos;inspect&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-node&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token function">fork</span><span class="token punctuation">(</span>
-    err <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    errors <span class="token operator">=</span><span class="token operator">&gt;</span> errors<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>err <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    config <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Calling <code>inspect</code> manually:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino<span class="token punctuation">,</span> inspect <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+api<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-preset-node&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token function">inspect</span><span class="token punctuation">(</span>api<span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token function">toConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> api<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">fork</span><span class="token punctuation">(</span>
+    err <span class="token operator">=</span><span class="token operator">&gt;</span> err <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">,</span>
     config <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span>
   <span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
@@ -1200,7 +1251,7 @@ with <strong>an error</strong>. This resolution will be completed when the build
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"API","level":"1.11","depth":1,"next":{"title":"CLI","level":"1.12","depth":1,"path":"cli/README.md","ref":"./cli/README.md","articles":[]},"previous":{"title":"Learning Resources","level":"1.10","depth":1,"path":"learning-resources.md","ref":"./learning-resources.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"api/README.md","mtime":"2017-06-14T01:15:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-14T01:16:06.383Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"API","level":"1.11","depth":1,"next":{"title":"CLI","level":"1.12","depth":1,"path":"cli/README.md","ref":"./cli/README.md","articles":[]},"previous":{"title":"Learning Resources","level":"1.10","depth":1,"path":"learning-resources.md","ref":"./learning-resources.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"api/README.md","mtime":"2017-06-15T16:04:46.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-15T16:18:35.403Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

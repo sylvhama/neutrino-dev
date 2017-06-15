@@ -477,12 +477,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.15" data-path="../../middleware/neutrino-middleware-named-modules/">
+        <li class="chapter " data-level="1.7.15" data-path="../../middleware/neutrino-middleware-pwa/">
             
-                <a href="../../middleware/neutrino-middleware-named-modules/">
+                <a href="../../middleware/neutrino-middleware-pwa/">
             
                     
-                    named-modules
+                    pwa
             
                 </a>
             
@@ -516,6 +516,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.7.18" data-path="../../middleware/community-middleware.html">
+            
+                <a href="../../middleware/community-middleware.html">
+            
+                    
+                    Community middleware
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -531,38 +544,6 @@
                 </a>
             
 
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="1.8.1" data-path="../../customization/simple.html">
-            
-                <a href="../../customization/simple.html">
-            
-                    
-                    Simple
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.8.2" data-path="../../customization/advanced.html">
-            
-                <a href="../../customization/advanced.html">
-            
-                    
-                    Advanced
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
             
         </li>
     
@@ -623,7 +604,7 @@
                 <a href="../../upgrading-neutrino.html">
             
                     
-                    Upgrading from v4 to v5
+                    Upgrading from v5 to v6
             
                 </a>
             
@@ -632,6 +613,19 @@
         </li>
     
         <li class="chapter " data-level="1.14" >
+            
+                <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v5/docs">
+            
+                    
+                    v5 Documentation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" >
             
                 <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v4/docs">
             
@@ -644,7 +638,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15" data-path="../../contributing/">
+        <li class="chapter " data-level="1.16" data-path="../../contributing/">
             
                 <a href="../../contributing/">
             
@@ -658,7 +652,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.15.1" data-path="../../contributing/development.html">
+        <li class="chapter " data-level="1.16.1" data-path="../../contributing/development.html">
             
                 <a href="../../contributing/development.html">
             
@@ -671,7 +665,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15.2" data-path="../../contributing/code-of-conduct.html">
+        <li class="chapter " data-level="1.16.2" data-path="../../contributing/code-of-conduct.html">
             
                 <a href="../../contributing/code-of-conduct.html">
             
@@ -745,9 +739,9 @@
 </ul>
 <h2 id="requirements">Requirements</h2>
 <ul>
-<li>Node.js v6.9+</li>
+<li>Node.js v6.10+</li>
 <li>Yarn or npm client</li>
-<li>Neutrino v5, Neutrino build preset</li>
+<li>Neutrino v6, Neutrino build preset</li>
 </ul>
 <h2 id="installation">Installation</h2>
 <p><code>neutrino-preset-mocha</code> can be installed via the Yarn or npm clients. Inside your project, make sure
@@ -785,15 +779,13 @@ let&apos;s pretend this is a Node.js project:</p>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>Or if you have set up Neutrino with <code>neutrino.use</code> in your package.json:</p>
-<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
-  <span class="token property">&quot;neutrino&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">&quot;use&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-      <span class="token string">&quot;neutrino-preset-node&quot;</span><span class="token punctuation">,</span>
-      <span class="token string">&quot;neutrino-preset-mocha&quot;</span>
-    <span class="token punctuation">]</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+<p>Or if you are using <code>.neutrinorc.js</code>, add this preset to your use array instead of <code>--use</code> flags:</p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token string">&apos;neutrino-preset-node&apos;</span><span class="token punctuation">,</span>
+    <span class="token string">&apos;neutrino-preset-mocha&apos;</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Run the tests, and view the results in your console:</p>
 <h4 id="yarn">Yarn</h4>
@@ -823,52 +815,18 @@ let&apos;s pretend this is a Node.js project:</p>
 <h2 id="executing-single-tests">Executing single tests</h2>
 <p>By default this preset will execute every test file located in your test directory ending in <code>_test.js</code>.
 Use the command line <a href="../../cli/#neutrino-test"><code>files</code> parameters</a> to execute individual tests.</p>
-<h2 id="customizing">Customizing</h2>
-<p>To override the test configuration, start with the documentation on <a href="../../customization/">customization</a>.
-<code>neutrino-preset-mocha</code> creates some conventions to make overriding the configuration easier once you are ready to make
-changes.</p>
-<h3 id="rules">Rules</h3>
-<p>The following is a list of rules and their identifiers which can be overridden:</p>
-<ul>
-<li><code>compile</code>: Compiles JS files from the <code>test</code> directory using Babel. Contains a single loader named <code>babel</code>. Adopts
-Babel configuration from other presets that have been loaded.</li>
-</ul>
-<h3 id="simple-customization">Simple customization</h3>
-<p>By following the <a href="../../customization/simple.html">customization guide</a> you can override and augment the test configuration
-directly from package.json. <code>neutrino-preset-mocha</code> will import Mocha configuration from your package.json&apos;s
-<code>neutrino.options.mocha</code> object if defined. The format is defined on the
-<a href="https://mochajs.org/#usage" target="_blank">Mocha documentation site</a>, with command-line flags mapping to camel-cased options
-in <code>neutrino.options.mocha</code>.</p>
+<h2 id="preset-options">Preset options</h2>
+<p>You can provide custom options and have them merged with this preset&apos;s default options, which are subsequently passed
+to Mocha. You can modify Mocha settings from <code>.neutrinorc.js</code> by overriding with any options Mocha accepts. In a standalone
+Mocha project this is typically done from a <code>mocha.opts</code> file, but <code>neutrino-preset-mocha</code> allows configuration through
+<code>.neutrinorc.js</code>. This accepts the same options specified by Mocha defined on the
+<a href="https://mochajs.org/#usage" target="_blank">Mocha documentation site</a>, with command-line flags mapping to camel-cased options.
+Use an array pair instead of a string to supply these options in <code>.neutrinorc.js</code>.</p>
 <p><em>Example: Switch the test reporter from the default <code>spec</code> to <code>nyan</code>:</em></p>
-<pre class="language-"><code class="lang-js"><span class="token punctuation">{</span>
-  <span class="token string">&quot;neutrino&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-    <span class="token string">&quot;options&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      <span class="token string">&quot;mocha&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        <span class="token string">&quot;reporter&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;nyan&quot;</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<pre class="language-"><code class="lang-bash">&#x276F; yarn <span class="token function">test</span>
-
- 1   -__,------,
- 0   -__<span class="token operator">|</span>  /\_/\
- 0   -_~<span class="token operator">|</span>_<span class="token punctuation">(</span> ^ .^<span class="token punctuation">)</span>
-     -_ <span class="token string">&quot;&quot;</span>  <span class="token string">&quot;&quot;</span>
-
-  1 passing <span class="token punctuation">(</span>362ms<span class="token punctuation">)</span>
-
-&#x2728;  Done <span class="token keyword">in</span> 3.28s.
-</code></pre>
-<h3 id="advanced-configuration">Advanced configuration</h3>
-<p>By following the <a href="../../customization/advanced.html">customization guide</a> and knowing the rule, and loader IDs above,
-you can override and augment testing by creating a JS module which overrides the config.</p>
-<p>You can modify Mocha settings by overriding the preset with any options Mocha accepts. This is stored in the
-<code>neutrino.custom.mocha</code> object.</p>
-<p><em>Example: Switch the test reporter from the default <code>spec</code> to <code>nyan</code>:</em></p>
-<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> neutrino <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
-  neutrino<span class="token punctuation">.</span>options<span class="token punctuation">.</span>mocha<span class="token punctuation">.</span>reporter <span class="token operator">=</span> <span class="token string">&apos;nyan&apos;</span><span class="token punctuation">;</span>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-mocha&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> reporter<span class="token punctuation">:</span> <span class="token string">&apos;nyan&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">]</span>
+  <span class="token punctuation">]</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <pre class="language-"><code class="lang-bash">&#x276F; yarn <span class="token function">test</span>
@@ -882,9 +840,60 @@ you can override and augment testing by creating a JS module which overrides the
 
 &#x2728;  Done <span class="token keyword">in</span> 3.28s.
 </code></pre>
+<h2 id="customizing">Customizing</h2>
+<p>To override the test configuration, start with the documentation on <a href="../../customization/">customization</a>.
+<code>neutrino-preset-mocha</code> creates some conventions to make overriding the configuration easier once you are ready to make
+changes.</p>
+<h3 id="rules">Rules</h3>
+<p>The following is a list of rules and their identifiers which can be overridden:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Environments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>compile</code></td>
+<td>Compiles JS files from the <code>test</code> directory using adopted Babel settings from other build presets. Contains a single loader named <code>babel</code>.</td>
+<td>all</td>
+</tr>
+</tbody>
+</table>
+<h3 id="override-configuration">Override configuration</h3>
+<p>By following the <a href="../../customization">customization guide</a> and knowing the rule, and loader IDs above,
+you can override and augment testing by providing a function to your <code>.neutrinorc.js</code> use array. You can also
+make this change from the Neutrino API when using the <code>use</code> method.</p>
+<p>In a standalone Mocha project this is typically done in a <code>mocha.opts</code> file, but <code>neutrino-preset-mocha</code> allows
+configuration through <code>.neutrinorc.js</code>. This accepts the same options specified by Mocha defined on the
+<a href="https://mochajs.org/#usage" target="_blank">Mocha documentation site</a>, with command-line flags mapping to camel-cased options. Use an
+array pair instead of a string to supply these options.</p>
+<p><em>Example: Add a custom Babel plugin when testing:</em></p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token string">&apos;neutrino-preset-mocha&apos;</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  env<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    NODE_ENV<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      test<span class="token punctuation">:</span> <span class="token punctuation">(</span>neutrino<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>module
+        <span class="token punctuation">.</span><span class="token function">rule</span><span class="token punctuation">(</span><span class="token string">&apos;compile&apos;</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">&apos;babel&apos;</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">tap</span><span class="token punctuation">(</span>options <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token function">merge</span><span class="token punctuation">(</span>options<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+          env<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            test<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+              plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;custom-babel-plugin&apos;</span><span class="token punctuation">]</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
 <h2 id="contributing">Contributing</h2>
 <p>This preset is part of the <a href="https://github.com/mozilla-neutrino/neutrino-dev" target="_blank">neutrino-dev</a> repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 <a href="../../contributing/">contributing guide</a> for details.</p>
 
                                 
@@ -929,7 +938,7 @@ containing all resources for developing Neutrino and its core presets. Follow th
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Mocha","level":"1.6.6","depth":2,"next":{"title":"Jest","level":"1.6.7","depth":2,"path":"presets/neutrino-preset-jest/README.md","ref":"./presets/neutrino-preset-jest/README.md","articles":[]},"previous":{"title":"Karma","level":"1.6.5","depth":2,"path":"presets/neutrino-preset-karma/README.md","ref":"./presets/neutrino-preset-karma/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"presets/neutrino-preset-mocha/README.md","mtime":"2017-06-14T01:15:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-14T01:16:06.383Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Mocha","level":"1.6.6","depth":2,"next":{"title":"Jest","level":"1.6.7","depth":2,"path":"presets/neutrino-preset-jest/README.md","ref":"./presets/neutrino-preset-jest/README.md","articles":[]},"previous":{"title":"Karma","level":"1.6.5","depth":2,"path":"presets/neutrino-preset-karma/README.md","ref":"./presets/neutrino-preset-karma/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"presets/neutrino-preset-mocha/README.md","mtime":"2017-06-15T16:04:46.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-15T16:18:35.403Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

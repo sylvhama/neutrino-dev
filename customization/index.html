@@ -61,10 +61,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="simple.html" />
+    <link rel="next" href="../creating-presets.html" />
     
     
-    <link rel="prev" href="../middleware/neutrino-middleware-named-style-loader/README.md" />
+    <link rel="prev" href="../middleware/community-middleware.html" />
     
 
     </head>
@@ -477,12 +477,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.15" data-path="../middleware/neutrino-middleware-named-modules/">
+        <li class="chapter " data-level="1.7.15" data-path="../middleware/neutrino-middleware-pwa/">
             
-                <a href="../middleware/neutrino-middleware-named-modules/">
+                <a href="../middleware/neutrino-middleware-pwa/">
             
                     
-                    named-modules
+                    pwa
             
                 </a>
             
@@ -516,6 +516,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.7.18" data-path="../middleware/community-middleware.html">
+            
+                <a href="../middleware/community-middleware.html">
+            
+                    
+                    Community middleware
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -531,38 +544,6 @@
                 </a>
             
 
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="1.8.1" data-path="simple.html">
-            
-                <a href="simple.html">
-            
-                    
-                    Simple
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.8.2" data-path="advanced.html">
-            
-                <a href="advanced.html">
-            
-                    
-                    Advanced
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
             
         </li>
     
@@ -623,7 +604,7 @@
                 <a href="../upgrading-neutrino.html">
             
                     
-                    Upgrading from v4 to v5
+                    Upgrading from v5 to v6
             
                 </a>
             
@@ -632,6 +613,19 @@
         </li>
     
         <li class="chapter " data-level="1.14" >
+            
+                <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v5/docs">
+            
+                    
+                    v5 Documentation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" >
             
                 <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v4/docs">
             
@@ -644,7 +638,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15" data-path="../contributing/">
+        <li class="chapter " data-level="1.16" data-path="../contributing/">
             
                 <a href="../contributing/">
             
@@ -658,7 +652,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.15.1" data-path="../contributing/development.html">
+        <li class="chapter " data-level="1.16.1" data-path="../contributing/development.html">
             
                 <a href="../contributing/development.html">
             
@@ -671,7 +665,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15.2" data-path="../contributing/code-of-conduct.html">
+        <li class="chapter " data-level="1.16.2" data-path="../contributing/code-of-conduct.html">
             
                 <a href="../contributing/code-of-conduct.html">
             
@@ -736,16 +730,259 @@
                                 
                                 <h1 id="neutrino-customization">Neutrino Customization</h1>
 <p>No two JavaScript projects are ever the same, and as such there may be times when you will need to make modifications
-to the way your Neutrino preset is building your project. Neutrino provides two ways you can augment a preset in the
-context of a project without resorting to creating and publishing an entirely independent preset.</p>
-<h3 id="simple-customization">Simple Customization</h3>
-<p>By defining an object within your package.json at <code>neutrino</code>, Neutrino will merge this information with that provided by
-your presets or middleware, overriding the configuration and options with your own preferences.</p>
-<h3 id="advanced-customization">Advanced Customization</h3>
-<p>You can also create a configuration override directly in your project which can extend the presets and middleware you
-are using.</p>
-<hr>
-<p>Continue for details on each technique.</p>
+to the way your Neutrino presets are building your project. Neutrino provides a mechanism to augment presets and
+middleware in the context of a project without resorting to creating and publishing an entirely independent preset.</p>
+<h2 id="neutrinorcjs"><code>.neutrinorc.js</code></h2>
+<p>First, you will need to create a <code>.neutrinorc.js</code> file in the root of your project. You
+<a href="../usage.html#using-multiple-presets">may have already done this</a> if you specified your middleware via <code>.neutrinorc.js</code>
+as opposed to CLI <code>--use</code>.</p>
+<p>The <code>.neutrinorc.js</code> file is picked up by Neutrino automatically if it exists. This can simplify your Neutrino commands
+by making them as simple as <code>neutrino start</code> or <code>neutrino build</code>. If you do all your customization within
+<code>.neutrinorc.js</code>, the CLI will pick up these changes every time you run it.</p>
+<h3 id="middleware-formats">Middleware formats</h3>
+<p>Before we delve into making customizations in <code>.neutrinorc.js</code>, it&apos;s important to note that this file can be in any
+valid <a href="../middleware#formats">middleware format</a> that Neutrino accepts. For project-based customization, it is
+recommended to use the object format, and that will be the format we focus on for the remainder of this guide. Should
+you need a lot of API customization, you may still opt to write your <code>.neutrinorc.js</code> file in the function format.</p>
+<p>Your <code>.neutrinorc.js</code> file is a JavaScript module which will be required by Neutrino using Node.js. Any code written in
+this file should be usable by the version of Node.js you have running on your system when running Neutrino. The
+<code>.neutrinorc.js</code> file should export an object or function depending on which format you opt to use.</p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">/* make customizations */</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">(</span>neutrino<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">/* make customizations */</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p><strong>In a nutshell, the <code>.neutrinorc.js</code> file is wholly middleware</strong>.</p>
+<h2 id="overriding-neutrino-options">Overriding Neutrino options</h2>
+<p>Neutrino has a number of useful options for customizing its behavior, and these can be overriden by using an
+object at the <code>options</code> property:</p>
+<h3 id="optionsroot"><code>options.root</code></h3>
+<p>Set the base directory which Neutrino middleware and presets operate on. Typically this is the project directory where
+the package.json would be located. If the option is not set, Neutrino defaults it to <code>process.cwd()</code>. If a relative
+path is specified, it will be resolved relative to <code>process.cwd()</code>; absolute paths will be used as-is.</p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  options<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// Override to relative directory, resolves to process.cwd() + website</span>
+    root<span class="token punctuation">:</span> <span class="token string">&apos;website&apos;</span><span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">// Override to absolute directory</span>
+    root<span class="token punctuation">:</span> <span class="token string">&apos;/code/website&apos;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="optionssource"><code>options.source</code></h3>
+<p>Set the directory which contains the application source code. If the option is not set, Neutrino defaults it to <code>src</code>.
+If a relative path is specified, it will be resolved relative to <code>options.root</code>; absolute paths will be used as-is.</p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  options<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// Override to relative directory, resolves to options.root + lib</span>
+    source<span class="token punctuation">:</span> <span class="token string">&apos;lib&apos;</span><span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">// Override to absolute directory</span>
+    source<span class="token punctuation">:</span> <span class="token string">&apos;/code/website/lib&apos;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="optionsoutput"><code>options.output</code></h3>
+<p>Set the directory which will be the output of built assets. If the option is not set, Neutrino defaults it to <code>build</code>.
+If a relative path is specified, it will be resolved relative to <code>options.root</code>; absolute paths will be used as-is.</p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  options<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// Override to relative directory, resolves to options.root + dist</span>
+    output<span class="token punctuation">:</span> <span class="token string">&apos;dist&apos;</span><span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">// Override to absolute directory</span>
+    output<span class="token punctuation">:</span> <span class="token string">&apos;/code/website/dist&apos;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="optionstests"><code>options.tests</code></h3>
+<p>Set the directory that contains test files. If the option is not set, Neutrino defaults it to <code>test</code>.
+If a relative path is specified, it will be resolved relative to <code>options.root</code>; absolute paths will be used as-is.</p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  options<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// Override to relative directory, resolves to options.root + testing</span>
+    tests<span class="token punctuation">:</span> <span class="token string">&apos;testing&apos;</span><span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">// Override to absolute directory</span>
+    tests<span class="token punctuation">:</span> <span class="token string">&apos;/code/website/testing&apos;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="optionsstatic"><code>options.static</code></h3>
+<p>Designate a directory within <code>source</code> for containing static/non-compiled assets. If the option is not set, Neutrino
+defaults it to <code>static</code>. If a relative path is specified, it will be resolved relative to <code>options.source</code>; absolute
+paths will be used as-is (not recommended).</p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  options<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// Override to relative directory, resolves to options.source + public</span>
+    <span class="token keyword">static</span><span class="token punctuation">:</span> <span class="token string">&apos;public&apos;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="optionsentry"><code>options.entry</code></h3>
+<p>Set the main entry point for the application. If the option is not set, Neutrino defaults it to <code>index.*</code> - the
+extension is resolved by Webpack. If a relative path is specified, it will be resolved relative to <code>options.source</code>;
+absolute paths will be used as-is.</p>
+<p>The main file by default is not required to be in JavaScript format. It also potentially may be JSX, TypeScript, or
+any other preprocessor language. These extensions should be specified in middleware at
+<code>neutrino.config.resolve.extensions</code>. </p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  options<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// Override to relative file, resolves to options.source + entry.*</span>
+    entry<span class="token punctuation">:</span> <span class="token string">&apos;entry&apos;</span><span class="token punctuation">,</span>
+
+    <span class="token comment" spellcheck="true">// Override to relative file, resolves to options.source + app.js</span>
+    entry<span class="token punctuation">:</span> <span class="token string">&apos;app.js&apos;</span><span class="token punctuation">,</span>
+
+    <span class="token comment" spellcheck="true">// Override to absolute file</span>
+    entry<span class="token punctuation">:</span> <span class="token string">&apos;/code/website/src/entry.js&apos;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="optionsnodemodules"><code>options.node_modules</code></h3>
+<p>Set the directory which contains the Node.js modules of the project. If the option is not set, Neutrino defaults it to
+<code>node_modules</code>. If a relative path is specified, it will be resolved relative to <code>options.root</code>; absolute paths will be
+used as-is.</p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  options<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// Override to relative directory, resolves to options.root + modules</span>
+    node_modules<span class="token punctuation">:</span> <span class="token string">&apos;modules&apos;</span><span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">// Override to absolute directory</span>
+    node_modules<span class="token punctuation">:</span> <span class="token string">&apos;/code/website/modules&apos;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="using-middleware">Using middleware</h2>
+<p>By specifying a <code>use</code> array in your <code>.neutrinorc.js</code>, you can inform Neutrino to load additional middleware when it
+runs, including any additional files you wish to include as middleware. Each item in this <code>use</code> array can be any
+Neutrino-supported <a href="../middleware#formats">middleware format</a>.</p>
+<p>In its simplest form, each item can be the string module name or path to middleware you wish Neutrino to require and
+use for you:</p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token string">&apos;neutrino-preset-airbnb-base&apos;</span><span class="token punctuation">,</span>
+    <span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">,</span>
+    <span class="token string">&apos;neutrino-preset-jest&apos;</span><span class="token punctuation">,</span>
+    <span class="token string">&apos;./override.js&apos;</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>If your middleware module supports its own options, instead of referencing it by string, use an array pair of string
+module name and options:</p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-airbnb-base&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      eslint<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        rules<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+          semi<span class="token punctuation">:</span> <span class="token string">&apos;off&apos;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+
+    <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      polyfills<span class="token punctuation">:</span> <span class="token punctuation">{</span> babel<span class="token punctuation">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      html<span class="token punctuation">:</span> <span class="token punctuation">{</span> title<span class="token punctuation">:</span> <span class="token string">&apos;Epic React App&apos;</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+
+    <span class="token string">&apos;neutrino-preset-jest&apos;</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>If you need to make more advanced configuration changes, you can even directly pass a function as middleware to <code>use</code>
+and have access to the Neutrino API:</p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token string">&apos;neutrino-preset-airbnb-base&apos;</span><span class="token punctuation">,</span>
+    <span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">,</span>
+    <span class="token string">&apos;neutrino-preset-jest&apos;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">(</span>neutrino<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>module
+      <span class="token punctuation">.</span><span class="token function">rule</span><span class="token punctuation">(</span><span class="token string">&apos;style&apos;</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">&apos;css&apos;</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">options</span><span class="token punctuation">(</span><span class="token punctuation">{</span> modules<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="environment-specific-overrides">Environment-specific overrides</h2>
+<p>Sometimes you can only make certain configuration changes in certain Node.js environments, or you may choose to
+selectively make changes based on the values of any arbitrary environment variable. These can be done from
+<code>.neutrinorc.js</code> using the <code>env</code> property. Each property within <code>env</code> maps to an environment variable with key-values
+mapping to  environment values which contain further middleware. This works for any environment variable, not just
+<code>NODE_ENV</code>.</p>
+<p>For example, if you wanted to include additional middleware when <code>NODE_ENV</code> is <code>production</code>:</p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  env<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    NODE_ENV<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      production<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        use<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;neutrino-middleware-pwa&apos;</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p><em>Example: Turn on CSS modules when the environment variable <code>CSS_MODULES=enable</code>:</em></p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  env<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    CSS_MODULES<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// Turn on CSS modules when the environment variable CSS_MODULES=enable</span>
+      enable<span class="token punctuation">:</span> <span class="token punctuation">(</span>neutrino<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>module
+          <span class="token punctuation">.</span><span class="token function">rule</span><span class="token punctuation">(</span><span class="token string">&apos;style&apos;</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">&apos;css&apos;</span><span class="token punctuation">)</span>
+              <span class="token punctuation">.</span><span class="token function">options</span><span class="token punctuation">(</span><span class="token punctuation">{</span> modules<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>You may use any middleware format as the value for the matching environment-value mapping.</p>
+<h2 id="advanced-configuration-changes">Advanced configuration changes</h2>
+<p>Making deep or complex changes to Neutrino build configuration beyond what middleware options afford you can be done
+using the function middleware format. If you wish, your entire <code>.neutrinorc.js</code> file can be a middleware function, but
+typically this function can be inlined directly as an additional item in the <code>use</code> array.</p>
+<p>If you&apos;re familiar with middleware from the Express/connect world, this works similarly. When using Express middleware,
+you provide a function to Express which receives arguments to modify a request or response along its lifecycle. There
+can be a number of middleware functions that Express can load, each one potentially modifying a request or response in
+succession.</p>
+<p>When you add a middleware function to <code>use</code>, this is typically used to override Neutrino&apos;s configuration, and you can
+add as many functions as you wish in succession. Every preset or middleware that Neutrino has loaded follows this same
+middleware successive pipeline.</p>
+<p>The Neutrino API instance provided to your function has a <code>config</code> property that is an instance of
+<a href="https://github.com/mozilla-neutrino/webpack-chain" target="_blank">webpack-chain</a>. We won&apos;t go in-depth of all the configuration
+possibilities here, but encourage you to check out the documentation for webpack-chain for instructions on your
+particular use case. Just know that you can use webpack-chain to modify any part of the underlying Webpack configuration
+using its API.</p>
+<p>This <code>neutrino.config</code> is an accumulation of all configuration up to this moment. All Neutrino middleware and presets
+interact with and make changes through this config, which is all available to you. For example, if you are using the
+presets <code>neutrino-preset-react</code> and <code>neutrino-preset-karma</code>, any config set can be extended, manipulated, or removed.</p>
+<p><em>Example: Neutrino&apos;s React preset adds <code>.jsx</code> as a module extension. Let&apos;s remove it.</em></p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">(</span>neutrino<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>resolve<span class="token punctuation">.</span>extensions<span class="token punctuation">.</span><span class="token keyword">delete</span><span class="token punctuation">(</span><span class="token string">&apos;.jsx&apos;</span><span class="token punctuation">)</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p><em>Example: Neutrino&apos;s Node.js preset has performance hints disabled. Let&apos;s re-enable them.</em></p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token string">&apos;neutrino-preset-node&apos;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">(</span>neutrino<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>performance<span class="token punctuation">.</span><span class="token function">hints</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Remember, middleware can also have their own custom options for making some changes easier without having to resort to
+interacting with the Neutrino API; see your respective middleware for details. Again, rather than reiterate the
+documentation for <a href="https://github.com/mozilla-neutrino/webpack-chain" target="_blank">webpack-chain</a> here, please refer to its
+documentation for all ways you can modify a config instance to solve your use cases.</p>
+<h3 id="conditional-configuration">Conditional configuration</h3>
+<p>Some plugins and rules are only available in certain environments. For example, the Web preset only exposes a minify
+plugin during production, leading to issues when trying to modify its settings, but throws an exception during
+development.</p>
+<p><em>Example: Remove all arguments to the <code>minify</code> plugin when using the Web preset.</em></p>
+<pre class="language-"><code class="lang-js">config<span class="token punctuation">.</span><span class="token function">when</span><span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span>NODE_ENV <span class="token operator">===</span> <span class="token string">&apos;production&apos;</span><span class="token punctuation">,</span> config <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  config<span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">&apos;minify&apos;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">tap</span><span class="token punctuation">(</span>args <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
 
                                 
                                 </section>
@@ -773,12 +1010,12 @@ are using.</p>
 
             
                 
-                <a href="../middleware/neutrino-middleware-named-style-loader/README.md" class="navigation navigation-prev " aria-label="Previous page: style-loader">
+                <a href="../middleware/community-middleware.html" class="navigation navigation-prev " aria-label="Previous page: Community middleware">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="simple.html" class="navigation navigation-next " aria-label="Next page: Simple">
+                <a href="../creating-presets.html" class="navigation navigation-next " aria-label="Next page: Creating presets">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -789,7 +1026,7 @@ are using.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Customization","level":"1.8","depth":1,"next":{"title":"Simple","level":"1.8.1","depth":2,"path":"customization/simple.md","ref":"./customization/simple.md","articles":[]},"previous":{"title":"style-loader","level":"1.7.17","depth":2,"path":"middleware/neutrino-middleware-named-style-loader/README.md","ref":"./middleware/neutrino-middleware-named-style-loader/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"customization/README.md","mtime":"2017-06-14T01:15:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-14T01:16:06.383Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Customization","level":"1.8","depth":1,"next":{"title":"Creating presets","level":"1.9","depth":1,"path":"creating-presets.md","ref":"./creating-presets.md","articles":[]},"previous":{"title":"Community middleware","level":"1.7.18","depth":2,"path":"middleware/community-middleware.md","ref":"./middleware/community-middleware.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"customization/README.md","mtime":"2017-06-15T16:04:46.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-15T16:18:35.403Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

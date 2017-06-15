@@ -477,12 +477,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.15" data-path="../../middleware/neutrino-middleware-named-modules/">
+        <li class="chapter " data-level="1.7.15" data-path="../../middleware/neutrino-middleware-pwa/">
             
-                <a href="../../middleware/neutrino-middleware-named-modules/">
+                <a href="../../middleware/neutrino-middleware-pwa/">
             
                     
-                    named-modules
+                    pwa
             
                 </a>
             
@@ -516,6 +516,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.7.18" data-path="../../middleware/community-middleware.html">
+            
+                <a href="../../middleware/community-middleware.html">
+            
+                    
+                    Community middleware
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -531,38 +544,6 @@
                 </a>
             
 
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="1.8.1" data-path="../../customization/simple.html">
-            
-                <a href="../../customization/simple.html">
-            
-                    
-                    Simple
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.8.2" data-path="../../customization/advanced.html">
-            
-                <a href="../../customization/advanced.html">
-            
-                    
-                    Advanced
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
             
         </li>
     
@@ -623,7 +604,7 @@
                 <a href="../../upgrading-neutrino.html">
             
                     
-                    Upgrading from v4 to v5
+                    Upgrading from v5 to v6
             
                 </a>
             
@@ -632,6 +613,19 @@
         </li>
     
         <li class="chapter " data-level="1.14" >
+            
+                <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v5/docs">
+            
+                    
+                    v5 Documentation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" >
             
                 <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v4/docs">
             
@@ -644,7 +638,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15" data-path="../../contributing/">
+        <li class="chapter " data-level="1.16" data-path="../../contributing/">
             
                 <a href="../../contributing/">
             
@@ -658,7 +652,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.15.1" data-path="../../contributing/development.html">
+        <li class="chapter " data-level="1.16.1" data-path="../../contributing/development.html">
             
                 <a href="../../contributing/development.html">
             
@@ -671,7 +665,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15.2" data-path="../../contributing/code-of-conduct.html">
+        <li class="chapter " data-level="1.16.2" data-path="../../contributing/code-of-conduct.html">
             
                 <a href="../../contributing/code-of-conduct.html">
             
@@ -747,9 +741,9 @@ config, following the <a href="https://github.com/airbnb/javascript" target="_bl
 </ul>
 <h2 id="requirements">Requirements</h2>
 <ul>
-<li>Node.js v6.9+</li>
+<li>Node.js v6.10+</li>
 <li>Yarn or npm client</li>
-<li>Neutrino v5, Neutrino build preset</li>
+<li>Neutrino v6, Neutrino build preset</li>
 </ul>
 <h2 id="installation">Installation</h2>
 <p><code>neutrino-preset-airbnb-base</code> can be installed via the Yarn or npm clients. Inside your project, make sure
@@ -775,19 +769,17 @@ linting <strong>before</strong> your build preset. For example, if you are build
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>Or if you have set up Neutrino with <code>neutrino.use</code> in your package.json:</p>
-<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
-  <span class="token property">&quot;neutrino&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">&quot;use&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-      <span class="token string">&quot;neutrino-preset-airbnb-base&quot;</span><span class="token punctuation">,</span>
-      <span class="token string">&quot;neutrino-preset-web&quot;</span>
-    <span class="token punctuation">]</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+<p>Or if you are using a <code>.neutrinorc.js</code>, add this preset to your use array instead of <code>--use</code> flags:</p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token string">&apos;neutrino-preset-airbnb-base&apos;</span><span class="token punctuation">,</span>
+    <span class="token string">&apos;neutrino-preset-web&apos;</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Start the app, then check your console for any linting errors. If everything is successful, you should see no errors in
 the console. ESLint errors visible during development are reported, but will still continue to build and serve your
-project.</p>
+project. ESLint errors during build will not build the project, and will cause the command to fail.</p>
 <h4 id="yarn">Yarn</h4>
 <pre class="language-"><code class="lang-bash">&#x276F; yarn start
 &#x2714; Development server running on: http://localhost:5000
@@ -821,8 +813,8 @@ ERROR <span class="token keyword">in</span> ./src/index.js
 </code></pre>
 <h2 id="building">Building</h2>
 <p><code>neutrino-preset-airbnb-base</code> will cause errors to <strong>fail your build</strong> when creating a bundle via <code>neutrino build</code>. If
-you want to ease introduction of this linting preset to your project, consider only adding it to your preset list for
-<code>neutrino start</code> until all linting errors have been resolved.</p>
+you want to ease introduction of this linting preset to your project, consider only adding it to your use list for
+<code>neutrino start</code> or <code>development</code> environment until all linting errors have been resolved.</p>
 <pre class="language-"><code class="lang-bash">&#x276F; yarn build
 clean-webpack-plugin: /web/build has been removed.
 Build completed <span class="token keyword">in</span> 1.287s
@@ -839,112 +831,151 @@ Build completed <span class="token keyword">in</span> 1.287s
 
 error Command failed with <span class="token keyword">exit</span> code 1.
 </code></pre>
+<p><em>Example: ease linting into project by only adding when <code>NODE_ENV=development</code>, e.g. <code>neutrino start</code>:</em></p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token string">&apos;neutrino-preset-web&apos;</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  env<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    NODE_ENV<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      development<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        use<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-airbnb-base&apos;</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="middleware-options">Middleware options</h2>
+<p>This preset uses the same middleware options as <a href="../../middleware/neutrino-middleware-eslint">neutrino-middleware-eslint</a>.
+If you wish to customize what is included, excluded, or any ESLint options, you can provide an options object with the
+middleware and this will be merged with our internal defaults for this preset. Use an array pair instead of a string
+to supply these options.</p>
+<p><em>Example: Turn off semicolons from being required as defined by the Airbnb rules.</em></p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-airbnb-base&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      eslint<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        rules<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+          semi<span class="token punctuation">:</span> <span class="token string">&apos;off&apos;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">]</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
 <h2 id="customizing">Customizing</h2>
 <p>To override the build configuration, start with the documentation on <a href="../../customization/">customization</a>.
 <code>neutrino-preset-airbnb-base</code> creates some conventions to make overriding the configuration easier once you are ready to
 make changes.</p>
 <h3 id="rules">Rules</h3>
 <p>The following is a list of rules and their identifiers which can be overridden:</p>
-<ul>
-<li><code>lint</code>: Lints JS and JSX files from the <code>src</code> directory using ESLint. Contains a single loader named <code>eslint</code>. This is
-inherited from <code>neutrino-middleware-eslint</code>.</li>
-</ul>
-<h3 id="simple-customization">Simple customization</h3>
-<p>By following the <a href="../../customization/simple.html">customization guide</a> and knowing the rule and loader IDs above,
-you can override and augment the linting configuration directly from package.json. <em>Note: Using the simple customization
-approach for linting changes can be quite verbose. Consider using advanced configuration below if this bothers you.</em></p>
-<p><em>Example: Turn off semicolons from being required as defined by the Airbnb rules.</em></p>
-<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
-  <span class="token property">&quot;neutrino&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">&quot;config&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">&quot;module&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">&quot;rule&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-          <span class="token property">&quot;lint&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-            <span class="token property">&quot;use&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-              <span class="token property">&quot;eslint&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                <span class="token property">&quot;options&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                  <span class="token property">&quot;rules&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                    <span class="token property">&quot;semi&quot;</span><span class="token operator">:</span> <span class="token string">&quot;off&quot;</span>
-                  <span class="token punctuation">}</span>
-                <span class="token punctuation">}</span>
-              <span class="token punctuation">}</span>
-            <span class="token punctuation">}</span>
-          <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>Again, using simple customization for linting can be verbose. Consider using advanced customization if it suits your
-project.</p>
-<h3 id="advanced-configuration">Advanced configuration</h3>
-<p>By following the <a href="../../customization/advanced.html">customization guide</a> and knowing the rule and loader IDs above,
-you can override and augment the build by creating a JS module which overrides the config. This preset is also
-Neutrino middleware, making it easy to compose and extend the configuration.</p>
-<p><em>Example: Turn off semicolons from being required as defined by the Airbnb rules.</em></p>
-<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// If using as middleware, remove from middleware and .use it from your override:</span>
-<span class="token keyword">const</span> airbnb <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-preset-airbnb-base&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-module<span class="token punctuation">.</span>exports <span class="token operator">=</span> neutrino <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
-  neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>airbnb<span class="token punctuation">,</span> <span class="token punctuation">{</span>
-    eslint<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      rules<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-        semi<span class="token punctuation">:</span> <span class="token string">&apos;off&apos;</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre>
-<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// If using as a preset from the CLI or configured in package.json,</span>
-<span class="token comment" spellcheck="true">// override its configuration directly:</span>
-<span class="token keyword">const</span> merge <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;deepmerge&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-module<span class="token punctuation">.</span>exports <span class="token operator">=</span> neutrino <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
-  neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>module
-    <span class="token punctuation">.</span><span class="token function">rule</span><span class="token punctuation">(</span><span class="token string">&apos;lint&apos;</span><span class="token punctuation">)</span>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Environments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lint</code></td>
+<td>Lints JS and JSX files from the <code>src</code> directory using ESLint. Contains a single loader named <code>eslint</code>. This is inherited from <code>neutrino-middleware-eslint</code>.</td>
+<td>all</td>
+</tr>
+</tbody>
+</table>
+<h3 id="information">Information</h3>
+<p>If you want your preset or middleware to also extend from another <strong>ESLint configuration or preset</strong> that you have made
+a dependency, you must use <code>baseConfig.extends</code> rather than just <code>extends</code>. This is a limitation of ESLint, not this
+middleware.</p>
+<h3 id="override-configuration">Override configuration</h3>
+<p>By following the <a href="../../customization/">customization guide</a> and knowing the rule and loader IDs above,
+you can also override or augment the build by providing a function to your <code>.neutrinorc.js</code> use array. You can also
+make this change from the Neutrino API when using the <code>use</code> method.</p>
+<p><em>Example: Turn off semicolons from being required as defined by the Airbnb rules from <code>.neutrinorc.js</code> using a function and the API:</em></p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token string">&apos;neutrino-preset-airbnb-base&apos;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">(</span>neutrino<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>module
+      <span class="token punctuation">.</span><span class="token function">rule</span><span class="token punctuation">(</span><span class="token string">&apos;lint&apos;</span><span class="token punctuation">)</span>
       <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">&apos;eslint&apos;</span><span class="token punctuation">)</span>
-        <span class="token punctuation">.</span><span class="token function">tap</span><span class="token punctuation">(</span>options <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token function">merge</span><span class="token punctuation">(</span>options<span class="token punctuation">,</span> <span class="token punctuation">{</span>
-          rules<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-            semi<span class="token punctuation">:</span> <span class="token string">&apos;off&apos;</span>
-          <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">.</span><span class="token function">tap</span><span class="token punctuation">(</span>options <span class="token operator">=</span><span class="token operator">&gt;</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> options<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+        rules<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+          semi<span class="token punctuation">:</span> <span class="token string">&apos;off&apos;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">]</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="eslint-cli">eslint CLI</h2>
+<p><em>This is the recommended way to perform a one-off lint in a Neutrino project, and is inherited from neutrino-middleware-eslint.</em></p>
+<p>You can also have Neutrino invoke ESLint for you if you wish to perform a one-time lint. This avoids needing to install
+ESLint manually, creating a <code>.eslintrc.js</code> file, or having to manage includes and ignores. As long as the ESLint
+middleware is loaded, you have access to a command to run ESLint from the command line.</p>
+<p>This middleware registers a command named <code>lint</code> which programmatically calls ESLint and prints the results to
+the console.</p>
+<pre class="language-"><code class="lang-bash">&#x276F; neutrino lint
+</code></pre>
+<pre class="language-"><code class="lang-bash">&#x276F; neutrino lint --fix
 </code></pre>
 <h2 id="eslintrc-config">eslintrc Config</h2>
-<p><code>neutrino-lint-airbnb-base</code> also provides a method for getting the ESLint configuration suitable for use in an eslintrc
-file. Typically this is used for providing hints or fix solutions to the development environment, e.g. IDEs and text
-editors. Doing this requires <a href="../../api/">creating an instance of the Neutrino API</a> and providing the presets uses.
-If you keep this information in <code>neutrino.use</code> in package.json, this should be relatively straightforward. By
-providing all the presets used to Neutrino, you can ensure all the linting options used across all those preset will be
-merged together for your development environment, without the need for copying, duplication, or loss of organization and
-separation. This is inherited from <code>neutrino-middleware-eslint</code>.</p>
-<p><em>Example: Create a .eslintrc.js file in the root of the project.</em></p>
+<p>If you cannot or do not wish to use Neutrino to execute one-off linting, you can still use ESLint manually.</p>
+<p><code>neutrino-middleware-eslint</code>, from which this preset inherits, also provides a method for getting the ESLint
+configuration suitable for use in an eslintrc file. Typically this is used for providing hints or fix solutions to the
+development environment, e.g. IDEs and text editors. Doing this requires
+<a href="../../api/">creating an instance of the Neutrino API</a> and providing the middleware it uses. If you keep all
+this information in a <code>.neutrinorc.js</code>, this should be relatively straightforward. By providing all the middleware used
+to Neutrino, you can ensure all the linting options used across all middleware will be merged together for your
+development environment, without the need for copying, duplication, or loss of organization and separation.</p>
+<p>This middleware registers another command named <code>eslintrc</code> which returns an ESLint configuration object suitable for
+consumption by the ESLint CLI. Use the Neutrino API&apos;s <code>call</code> method to invoke this command:</p>
+<p><em>Example: Create a .eslintrc.js file in the root of the project, using <code>.neutrinorc.js</code> middleware.</em></p>
 <pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// .eslintrc.js</span>
+
+<span class="token comment" spellcheck="true">// If you do not specify any middleware to call(),</span>
+<span class="token comment" spellcheck="true">// it will use the local .neutrinorc.js file</span>
+
 <span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">const</span> pkg <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;./package.json&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token comment" spellcheck="true">// If the Airbnb preset is not included in pkg.neutrino.use,</span>
-<span class="token comment" spellcheck="true">// use it manually:</span>
-api<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-preset-airbnb-base&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token comment" spellcheck="true">// Add the rest of the presets:</span>
-pkg<span class="token punctuation">.</span>neutrino<span class="token punctuation">.</span>use
-  <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>require<span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>api<span class="token punctuation">.</span>use<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-module<span class="token punctuation">.</span>exports <span class="token operator">=</span> api<span class="token punctuation">.</span><span class="token function">eslintrc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> api<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token string">&apos;eslintrc&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p>Projects may face a problem when their editor or IDE lints all files and highlights errors that were normally excluded from source, i.e. Neutrino&apos;s <code>include</code> and <code>exclude</code> options. This is because the ESLint CLI does not have a way to specify included and excluded files from configuration. If you still wish to use ESLint&apos;s CLI for linting, consider setting <a href="http://eslint.org/docs/user-guide/command-line-interface#options" target="_blank">CLI flags</a> or using an <a href="http://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories" target="_blank">eslintignore</a> to choose which files to include or exclude from linting.</p>
-<p>Unfortunately ESlint doesn&apos;t provide possibility to configure ignored paths from Neutrino configuration to exclude them from linting. Projects authors should define this manually in their project root directory in <code>.eslintignore</code> file.</p>
-<p><em>.eslintignore:</em></p>
+<p><em>Example: Create a .eslintrc.js file in the root of the project, using specified middleware.</em></p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// .eslintrc.js</span>
+<span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> api<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token string">&apos;eslintrc&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>
+  <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-airbnb-base&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    eslint<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      rules<span class="token punctuation">:</span> <span class="token punctuation">{</span> semi<span class="token punctuation">:</span> <span class="token string">&apos;off&apos;</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">&apos;neutrino-preset-react&apos;</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>If you are able, only use a <code>.eslintrc.js</code> file for editor hints, and use the Neutrino <code>lint</code> command for one-off linting
+or fixes.</p>
+<p>Projects may face a problem when their editor or IDE lints all files and highlights errors that were normally excluded
+from source, i.e. Neutrino&apos;s <code>include</code> and <code>exclude</code> options. This is because the ESLint CLI does not have a way to
+specify included and excluded files from configuration. If you still wish to use ESLint&apos;s CLI for linting, consider
+setting <a href="http://eslint.org/docs/user-guide/command-line-interface#options" target="_blank">CLI flags</a> or using an
+<a href="http://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories" target="_blank">eslintignore</a> to choose which files to
+include or exclude from linting.</p>
+<p>Unfortunately ESLint does not provide the possibility to configure ignored paths from Neutrino configuration and exclude them
+from linting. Projects authors should define this manually in their project root directory in a <code>.eslintignore</code> file. This
+is one of the main reasons to prefer using the <code>lint</code> CLI command with this middleware, as it avoids a lot of manual
+configuration and boilerplate.</p>
+<p><code>.eslintignore</code> file:</p>
 <pre class="language-"><code>/build
 /*.*
-</code></pre><p>This paths exactly will exclude built files and any files in the root directory (e.g. custom Neutrino configuration) but <code>src</code> and <code>test</code> folders will be still checked. <code>/node_modules</code> are ignored by default in ESLint. More information can be found in the <a href="http://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories" target="_blank">ESLint user guide</a></p>
+</code></pre><p>ESLint will exclude built files and any files in the root directory (e.g. custom Neutrino configuration) but <code>src</code> and
+<code>test</code> folders will be still checked. <code>node_modules</code> are ignored by default in ESLint. More information can be found
+in the <a href="http://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories" target="_blank">ESLint user guide</a>.</p>
 <h2 id="contributing">Contributing</h2>
 <p>This preset is part of the <a href="https://github.com/mozilla-neutrino/neutrino-dev" target="_blank">neutrino-dev</a> repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 <a href="../../contributing/">contributing guide</a> for details.</p>
 
                                 
@@ -989,7 +1020,7 @@ containing all resources for developing Neutrino and its core presets. Follow th
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Airbnb","level":"1.6.4","depth":2,"next":{"title":"Karma","level":"1.6.5","depth":2,"path":"presets/neutrino-preset-karma/README.md","ref":"./presets/neutrino-preset-karma/README.md","articles":[]},"previous":{"title":"Node.js","level":"1.6.3","depth":2,"path":"presets/neutrino-preset-node/README.md","ref":"./presets/neutrino-preset-node/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"presets/neutrino-preset-airbnb-base/README.md","mtime":"2017-06-14T01:15:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-14T01:16:06.383Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Airbnb","level":"1.6.4","depth":2,"next":{"title":"Karma","level":"1.6.5","depth":2,"path":"presets/neutrino-preset-karma/README.md","ref":"./presets/neutrino-preset-karma/README.md","articles":[]},"previous":{"title":"Node.js","level":"1.6.3","depth":2,"path":"presets/neutrino-preset-node/README.md","ref":"./presets/neutrino-preset-node/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"presets/neutrino-preset-airbnb-base/README.md","mtime":"2017-06-15T16:04:46.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-15T16:18:35.403Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

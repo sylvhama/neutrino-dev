@@ -477,12 +477,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.15" data-path="../neutrino-middleware-named-modules/">
+        <li class="chapter " data-level="1.7.15" data-path="../neutrino-middleware-pwa/">
             
-                <a href="../neutrino-middleware-named-modules/">
+                <a href="../neutrino-middleware-pwa/">
             
                     
-                    named-modules
+                    pwa
             
                 </a>
             
@@ -516,6 +516,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.7.18" data-path="../community-middleware.html">
+            
+                <a href="../community-middleware.html">
+            
+                    
+                    Community middleware
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -531,38 +544,6 @@
                 </a>
             
 
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="1.8.1" data-path="../../customization/simple.html">
-            
-                <a href="../../customization/simple.html">
-            
-                    
-                    Simple
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.8.2" data-path="../../customization/advanced.html">
-            
-                <a href="../../customization/advanced.html">
-            
-                    
-                    Advanced
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
             
         </li>
     
@@ -623,7 +604,7 @@
                 <a href="../../upgrading-neutrino.html">
             
                     
-                    Upgrading from v4 to v5
+                    Upgrading from v5 to v6
             
                 </a>
             
@@ -632,6 +613,19 @@
         </li>
     
         <li class="chapter " data-level="1.14" >
+            
+                <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v5/docs">
+            
+                    
+                    v5 Documentation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" >
             
                 <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v4/docs">
             
@@ -644,7 +638,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15" data-path="../../contributing/">
+        <li class="chapter " data-level="1.16" data-path="../../contributing/">
             
                 <a href="../../contributing/">
             
@@ -658,7 +652,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.15.1" data-path="../../contributing/development.html">
+        <li class="chapter " data-level="1.16.1" data-path="../../contributing/development.html">
             
                 <a href="../../contributing/development.html">
             
@@ -671,7 +665,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15.2" data-path="../../contributing/code-of-conduct.html">
+        <li class="chapter " data-level="1.16.2" data-path="../../contributing/code-of-conduct.html">
             
                 <a href="../../contributing/code-of-conduct.html">
             
@@ -739,9 +733,9 @@
 <p><code>neutrino-middleware-eslint</code> is Neutrino middleware for linting source code using ESLint and eslint-loader.</p>
 <h2 id="requirements">Requirements</h2>
 <ul>
-<li>Node.js v6.9+</li>
+<li>Node.js v6.10+</li>
 <li>Yarn or npm client</li>
-<li>Neutrino v5</li>
+<li>Neutrino v6</li>
 </ul>
 <h2 id="installation">Installation</h2>
 <p><code>neutrino-middleware-eslint</code> can be installed via the Yarn or npm clients.</p>
@@ -754,7 +748,8 @@
 <h2 id="usage">Usage</h2>
 <p><code>neutrino-middleware-eslint</code> can be consumed from the Neutrino API, middleware, or presets. Require this package
 and plug it into Neutrino:</p>
-<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> eslint <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-middleware-eslint&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Using function middleware format</span>
+<span class="token keyword">const</span> eslint <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-middleware-eslint&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token comment" spellcheck="true">// Usage shows default values</span>
 neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>eslint<span class="token punctuation">,</span> <span class="token punctuation">{</span>
@@ -763,50 +758,59 @@ neutrino<span class="token punctuation">.</span><span class="token function">use
   exclude<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">/* Should specify either include or exclude */</span>
   eslint<span class="token punctuation">:</span> <span class="token punctuation">{</span>
     failOnError<span class="token punctuation">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span>NODE_ENV <span class="token operator">!==</span> <span class="token string">&apos;development&apos;</span><span class="token punctuation">,</span>
-     emitWarning<span class="token punctuation">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span>NODE_ENV <span class="token operator">!==</span> <span class="token string">&apos;development&apos;</span><span class="token punctuation">,</span>
-     emitError<span class="token punctuation">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span>NODE_ENV <span class="token operator">!==</span> <span class="token string">&apos;development&apos;</span><span class="token punctuation">,</span>
-     cwd<span class="token punctuation">:</span> neutrino<span class="token punctuation">.</span>options<span class="token punctuation">.</span>root<span class="token punctuation">,</span>
-     useEslintrc<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
-     root<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-     plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;babel&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-     baseConfig<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-     envs<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;es6&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-     parser<span class="token punctuation">:</span> <span class="token string">&apos;babel-eslint&apos;</span><span class="token punctuation">,</span>
-     parserOptions<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-       ecmaVersion<span class="token punctuation">:</span> <span class="token number">2017</span><span class="token punctuation">,</span>
-       sourceType<span class="token punctuation">:</span> <span class="token string">&apos;module&apos;</span><span class="token punctuation">,</span>
-       ecmaFeatures<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-         objectLiteralDuplicateProperties<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
-         generators<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-         impliedStrict<span class="token punctuation">:</span> <span class="token boolean">true</span>
-       <span class="token punctuation">}</span>
-     <span class="token punctuation">}</span><span class="token punctuation">,</span>
-     settings<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-     globals<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;process&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    emitWarning<span class="token punctuation">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span>NODE_ENV <span class="token operator">!==</span> <span class="token string">&apos;development&apos;</span><span class="token punctuation">,</span>
+    emitError<span class="token punctuation">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span>NODE_ENV <span class="token operator">!==</span> <span class="token string">&apos;development&apos;</span><span class="token punctuation">,</span>
+    cwd<span class="token punctuation">:</span> neutrino<span class="token punctuation">.</span>options<span class="token punctuation">.</span>root<span class="token punctuation">,</span>
+    useEslintrc<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    root<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;babel&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    baseConfig<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    envs<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;es6&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    parser<span class="token punctuation">:</span> <span class="token string">&apos;babel-eslint&apos;</span><span class="token punctuation">,</span>
+    parserOptions<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      ecmaVersion<span class="token punctuation">:</span> <span class="token number">2017</span><span class="token punctuation">,</span>
+      sourceType<span class="token punctuation">:</span> <span class="token string">&apos;module&apos;</span><span class="token punctuation">,</span>
+      ecmaFeatures<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        objectLiteralDuplicateProperties<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        generators<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        impliedStrict<span class="token punctuation">:</span> <span class="token boolean">true</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    settings<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    globals<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;process&apos;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
     rules<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <ul>
 <li><code>test</code>: Test which files should be linted.</li>
-<li><code>include</code>: An array of paths to include in linting. Maps to Webpack&apos;s
-<a href="https://webpack.js.org/configuration/module/#rule-include" target="_blank"><code>Rule.include</code></a></li>
-<li><code>exclude</code>: An array of paths to exclude from linting. Maps to Webpack&apos;s
-<a href="https://webpack.js.org/configuration/module/#rule-exclude" target="_blank"><code>Rule.exclude</code></a></li>
-<li><code>eslint</code>: An ESLint CLIEngine configuration object for configuring ESLint. Use this to configure rules,
-plugins, and other <a href="http://eslint.org/docs/user-guide/configuring" target="_blank">ESLint options</a>.</li>
+<li><code>include</code>: An array of paths to include in linting. Maps to Webpack&apos;s <a href="https://webpack.js.org/configuration/module/#rule-include" target="_blank"><code>Rule.include</code></a></li>
+<li><code>exclude</code>: An array of paths to exclude from linting. Maps to Webpack&apos;s <a href="https://webpack.js.org/configuration/module/#rule-exclude" target="_blank"><code>Rule.exclude</code></a></li>
+<li><code>eslint</code>: An ESLint CLIEngine configuration object for configuring ESLint. Use this to configure rules, plugins, and other <a href="http://eslint.org/docs/user-guide/configuring" target="_blank">ESLint options</a>.</li>
 </ul>
 <h2 id="customization">Customization</h2>
 <p><code>neutrino-middleware-eslint</code> creates some conventions to make overriding the configuration easier once you are ready to
 make changes.</p>
 <h3 id="rules">Rules</h3>
 <p>The following is a list of rules and their identifiers which can be overridden:</p>
-<ul>
-<li><code>lint</code>: By default, lints JS and JSX files from included directories using ESLint. Contains a single loader named
-<code>eslint</code>.</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Environments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lint</code></td>
+<td>By default, lints JS and JSX files from included directories using ESLint. Contains a single loader named <code>eslint</code>.</td>
+<td>all</td>
+</tr>
+</tbody>
+</table>
 <h2 id="information">Information</h2>
-<p>This middleware will show errors and warnings in the console during development, and will cause a failure when
+<p>By default this middleware will show errors and warnings in the console during development, and will cause a failure when
 creating a build bundle.</p>
 <hr>
 <p>If you want your preset or middleware to also extend from another <strong>ESLint configuration or preset</strong> that you have made
@@ -816,35 +820,74 @@ middleware.</p>
 <p>This middleware only configures a target environment for <code>es6</code>, leaving other build middleware free to add their own
 target environments. If your middleware puts restrictions on which environments it is capable of running, please
 document that clearly in your middleware.</p>
+<h2 id="eslint-cli">eslint CLI</h2>
+<p><em>This is the recommended way to perform a one-off lint in a Neutrino project.</em></p>
+<p>You can also have Neutrino invoke ESLint for you if you wish to perform a one-time lint. This avoids needing to install
+ESLint manually, creating a <code>.eslintrc.js</code> file, or having to manage includes and ignores. As long as the ESLint
+middleware is loaded, you have access to a command to run ESLint from the command line.</p>
+<p>This middleware registers a command named <code>lint</code> which programmatically calls ESLint and prints the results to
+the console.</p>
+<pre class="language-"><code class="lang-bash">&#x276F; neutrino lint
+</code></pre>
+<pre class="language-"><code class="lang-bash">&#x276F; neutrino lint --fix
+</code></pre>
 <h2 id="eslintrc-config">eslintrc Config</h2>
+<p>If you cannot or do not wish to use Neutrino to execute one-off linting, you can still use ESLint manually.</p>
 <p><code>neutrino-middleware-eslint</code> also provides a method for getting the ESLint configuration suitable for use in an eslintrc
 file. Typically this is used for providing hints or fix solutions to the development environment, e.g. IDEs and text
-editors. Doing this requires <a href="../../api/">creating an instance of the Neutrino API</a> and providing the presets uses.
-If you keep this information in <code>neutrino.use</code> in package.json, this should be relatively straightforward. By
-providing all the presets used to Neutrino, you can ensure all the linting options used across all presets will be
+editors. Doing this requires <a href="../../api/">creating an instance of the Neutrino API</a> and providing the
+middleware it uses. If you keep all this information in a <code>.neutrinorc.js</code>, this should be relatively straightforward. By
+providing all the middleware used to Neutrino, you can ensure all the linting options used across all middleware will be
 merged together for your development environment, without the need for copying, duplication, or loss of organization and
 separation.</p>
-<p><em>Example: Create a .eslintrc.js file in the root of the project.</em></p>
+<p>This middleware registers another command named <code>eslintrc</code> which returns an ESLint configuration object suitable for
+consumption by the ESLint CLI. Use the Neutrino API&apos;s <code>call</code> method to invoke this command:</p>
+<p><em>Example: Create a .eslintrc.js file in the root of the project, using <code>.neutrinorc.js</code> middleware.</em></p>
 <pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// .eslintrc.js</span>
+
+<span class="token comment" spellcheck="true">// If you do not specify any middleware to call(),</span>
+<span class="token comment" spellcheck="true">// it will use the local .neutrinorc.js file</span>
+
 <span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">const</span> pkg <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;./package.json&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-pkg<span class="token punctuation">.</span>neutrino<span class="token punctuation">.</span>use
-  <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>require<span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>api<span class="token punctuation">.</span>use<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-module<span class="token punctuation">.</span>exports <span class="token operator">=</span> api<span class="token punctuation">.</span><span class="token function">eslintrc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> api<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token string">&apos;eslintrc&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p>Projects may face a problem when their editor or IDE lints all files and highlights errors that were normally excluded from source, i.e. Neutrino&apos;s <code>include</code> and <code>exclude</code> options. This is because the ESLint CLI does not have a way to specify included and excluded files from configuration. If you still wish to use ESLint&apos;s CLI for linting, consider setting <a href="http://eslint.org/docs/user-guide/command-line-interface#options" target="_blank">CLI flags</a> or using an <a href="http://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories" target="_blank">eslintignore</a> to choose which files to include or exclude from linting.</p>
-<p>Unfortunately ESlint doesn&apos;t provide possibility to configure ignored paths from Neutrino configuration to exclude them from linting. Projects authors should define this manually in their project root directory in <code>.eslintignore</code> file.</p>
-<p><em>.eslintignore:</em></p>
+<p><em>Example: Create a .eslintrc.js file in the root of the project, using specified middleware.</em></p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// .eslintrc.js</span>
+<span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> api<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token string">&apos;eslintrc&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>
+  <span class="token punctuation">[</span><span class="token string">&apos;neutrino-middleware-eslint&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    eslint<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      rules<span class="token punctuation">:</span> <span class="token punctuation">{</span> semi<span class="token punctuation">:</span> <span class="token string">&apos;off&apos;</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">&apos;neutrino-preset-react&apos;</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>If you are able, only use a <code>.eslintrc.js</code> file for editor hints, and use the Neutrino <code>lint</code> command for one-off linting
+or fixes.</p>
+<p>Projects may face a problem when their editor or IDE lints all files and highlights errors that were normally excluded
+from source, i.e. Neutrino&apos;s <code>include</code> and <code>exclude</code> options. This is because the ESLint CLI does not have a way to
+specify included and excluded files from configuration. If you still wish to use ESLint&apos;s CLI for linting, consider
+setting <a href="http://eslint.org/docs/user-guide/command-line-interface#options" target="_blank">CLI flags</a> or using an
+<a href="http://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories" target="_blank">eslintignore</a> to choose which files to
+include or exclude from linting.</p>
+<p>Unfortunately ESLint does not provide the possibility to configure ignored paths from Neutrino configuration and exclude them
+from linting. Projects authors should define this manually in their project root directory in a <code>.eslintignore</code> file. This
+is one of the main reasons to prefer using the <code>lint</code> CLI command with this middleware, as it avoids a lot of manual
+configuration and boilerplate.</p>
+<p><code>.eslintignore</code> file:</p>
 <pre class="language-"><code>/build
 /*.*
-</code></pre><p>This paths exactly will exclude built files and any files in the root directory (e.g. custom Neutrino configuration) but <code>src</code> and <code>test</code> folders will be still checked. <code>/node_modules</code> are ignored by default in ESLint. More information can be found in the <a href="http://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories" target="_blank">ESLint user guide</a></p>
+</code></pre><p>ESLint will exclude built files and any files in the root directory (e.g. custom Neutrino configuration) but <code>src</code> and
+<code>test</code> folders will be still checked. <code>node_modules</code> are ignored by default in ESLint. More information can be found
+in the <a href="http://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories" target="_blank">ESLint user guide</a>.</p>
 <h2 id="contributing">Contributing</h2>
-<p>This preset is part of the <a href="https://github.com/mozilla-neutrino/neutrino-dev" target="_blank">neutrino-dev</a> repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+<p>This middleware is part of the <a href="https://github.com/mozilla-neutrino/neutrino-dev" target="_blank">neutrino-dev</a> repository, a monorepo
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 <a href="../../contributing/">contributing guide</a> for details.</p>
 
                                 
@@ -889,7 +932,7 @@ containing all resources for developing Neutrino and its core presets. Follow th
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"eslint","level":"1.7.7","depth":2,"next":{"title":"font-loader","level":"1.7.8","depth":2,"path":"middleware/neutrino-middleware-font-loader/README.md","ref":"./middleware/neutrino-middleware-font-loader/README.md","articles":[]},"previous":{"title":"env","level":"1.7.6","depth":2,"path":"middleware/neutrino-middleware-env/README.md","ref":"./middleware/neutrino-middleware-env/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"middleware/neutrino-middleware-eslint/README.md","mtime":"2017-06-14T01:15:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-14T01:16:06.383Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"eslint","level":"1.7.7","depth":2,"next":{"title":"font-loader","level":"1.7.8","depth":2,"path":"middleware/neutrino-middleware-font-loader/README.md","ref":"./middleware/neutrino-middleware-font-loader/README.md","articles":[]},"previous":{"title":"env","level":"1.7.6","depth":2,"path":"middleware/neutrino-middleware-env/README.md","ref":"./middleware/neutrino-middleware-env/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"middleware/neutrino-middleware-eslint/README.md","mtime":"2017-06-15T16:04:46.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-15T16:18:35.403Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

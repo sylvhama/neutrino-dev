@@ -477,12 +477,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.15" data-path="neutrino-middleware-named-modules/">
+        <li class="chapter " data-level="1.7.15" data-path="neutrino-middleware-pwa/">
             
-                <a href="neutrino-middleware-named-modules/">
+                <a href="neutrino-middleware-pwa/">
             
                     
-                    named-modules
+                    pwa
             
                 </a>
             
@@ -516,6 +516,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.7.18" data-path="community-middleware.html">
+            
+                <a href="community-middleware.html">
+            
+                    
+                    Community middleware
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -531,38 +544,6 @@
                 </a>
             
 
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="1.8.1" data-path="../customization/simple.html">
-            
-                <a href="../customization/simple.html">
-            
-                    
-                    Simple
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.8.2" data-path="../customization/advanced.html">
-            
-                <a href="../customization/advanced.html">
-            
-                    
-                    Advanced
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
             
         </li>
     
@@ -623,7 +604,7 @@
                 <a href="../upgrading-neutrino.html">
             
                     
-                    Upgrading from v4 to v5
+                    Upgrading from v5 to v6
             
                 </a>
             
@@ -632,6 +613,19 @@
         </li>
     
         <li class="chapter " data-level="1.14" >
+            
+                <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v5/docs">
+            
+                    
+                    v5 Documentation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" >
             
                 <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v4/docs">
             
@@ -644,7 +638,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15" data-path="../contributing/">
+        <li class="chapter " data-level="1.16" data-path="../contributing/">
             
                 <a href="../contributing/">
             
@@ -658,7 +652,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.15.1" data-path="../contributing/development.html">
+        <li class="chapter " data-level="1.16.1" data-path="../contributing/development.html">
             
                 <a href="../contributing/development.html">
             
@@ -671,7 +665,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15.2" data-path="../contributing/code-of-conduct.html">
+        <li class="chapter " data-level="1.16.2" data-path="../contributing/code-of-conduct.html">
             
                 <a href="../contributing/code-of-conduct.html">
             
@@ -735,41 +729,189 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="middleware">Middleware</h1>
-<p>The basic unit of interacting with Neutrino is middleware. In Neutrino, middleware are functions
-that are provided a Neutrino instance for the intent of modifying configuration, listening for
-events, getting build metadata, or augmenting with custom functionality. At its simplest, a middleware
-function accepts a Neutrino instance argument and does nothing:</p>
-<pre class="language-"><code class="lang-js"><span class="token keyword">function</span> <span class="token function">middleware</span><span class="token punctuation">(</span>neutrino<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<p>The basic unit of interacting with Neutrino is middleware. Middleware can modify configuration,
+listen for events, get build metadata, or augment Neutrino with custom functionality.</p>
+<h2 id="formats">Formats</h2>
+<p>Neutrino middleware can be specified in several different formats depending on the complexity and level of
+customization needed. The Neutrino API and CLI operate on the concept that they are provided a collection of middleware.
+Specifically:</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// The Neutrino API can use many middleware when it is run()</span>
+neutrino<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token string">&apos;command&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token comment" spellcheck="true">/* array of middleware */</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// When no middleware has been specified to run, it defaults</span>
+<span class="token comment" spellcheck="true">// to an array only containing the local .neutrinorc.js file</span>
+neutrino<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token string">&apos;command&apos;</span><span class="token punctuation">)</span>
 </code></pre>
-<p>A middleware function can also optionally accept an <code>options</code> argument which will be fed back into
-the middleware function when used.</p>
+<pre class="language-"><code class="lang-bash"><span class="token comment" spellcheck="true"># The Neutrino CLI can use many middleware when running a command</span>
+&#x276F; neutrino <span class="token function">command</span> --use middleware_a middleware_b
+
+<span class="token comment" spellcheck="true"># When no middleware has been specified to the CLI, it defaults</span>
+<span class="token comment" spellcheck="true"># to an array only containing the local .neutrinorc.js file</span>
+&#x276F; neutrino <span class="token function">command</span>
+</code></pre>
+<p>Each item in these collections can be provided in a number of different formats. For example, the CLI can only directly
+accept string formats, while the API and required middleware can be of any supported format.</p>
+<p>The string and array formats are generally used from within the more powerful object and function formats.</p>
+<h3 id="string-format">String format</h3>
+<p>Providing a string as a middleware item denotes it as being a require-able module. Neutrino will attempt to require
+this string and then try to use its exports as another middleware format. For example, using the string
+&quot;neutrino-preset-react&quot; will be required by Neutrino, and then be re-processed through Neutrino using its exports as a
+different middleware type, depending on what that preset exported.</p>
+<p>Using the string format is most commonly used to depend on other middleware. Referencing a string does not enable
+access to the Neutrino API, and options can only be passed to the string middleware if using the Neutrino API&apos;s <code>use</code>
+method.</p>
+<pre class="language-"><code class="lang-bash"><span class="token comment" spellcheck="true"># String format on the CLI</span>
+&#x276F; neutrino start --use neutrino-preset-react
+</code></pre>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// String format exported from other middleware</span>
+<span class="token comment" spellcheck="true">// not very useful, but possible</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// String format being used within an object-format .neutrinorc.js</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// String format being used within function format</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> neutrino <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    devServer<span class="token punctuation">:</span> <span class="token punctuation">{</span> port<span class="token punctuation">:</span> <span class="token number">3000</span> <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="array-format">Array format</h3>
+<p>Providing an array as a middleware item denotes it as being a pair of middleware format and options, i.e.
+<code>[middleware, options]</code>. The first item in the pair can be any other middleware format, although it is typically
+specified as a string to require, and options to be passed to the required middleware.</p>
+<p>Using the array format is most commonly used to depend on other middleware while being able to supply options to the
+required middleware. Referencing an array does not enable access to the Neutrino API.</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Array format exported from other middleware</span>
+<span class="token comment" spellcheck="true">// still not very useful, but possible</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> devServer<span class="token punctuation">:</span> <span class="token punctuation">{</span> port<span class="token punctuation">:</span> <span class="token number">3000</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Array format being used within an object-format .neutrinorc.js</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      devServer<span class="token punctuation">:</span> <span class="token punctuation">{</span> port<span class="token punctuation">:</span> <span class="token number">3000</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">]</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Array format being used within an object-format .neutrinorc.js</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      devServer<span class="token punctuation">:</span> <span class="token punctuation">{</span> port<span class="token punctuation">:</span> <span class="token number">3000</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">]</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Array format being used within function format</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> neutrino <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    devServer<span class="token punctuation">:</span> <span class="token punctuation">{</span> port<span class="token punctuation">:</span> <span class="token number">3000</span> <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="object-format">Object format</h3>
+<p>Providing an object as a middleware item denotes it as being a more complex middleware structure capable of
+overriding configuration and options. The object format is the recommended format when creating <code>.neutrinorc.js</code> files
+as it provides a good balance between easily setting options and using other middleware. The object format can be
+structured as follows:</p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// specify options to override in the Neutrino API</span>
+  options<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// for example, change the output directory to dist</span>
+    output<span class="token punctuation">:</span> <span class="token string">&apos;dist&apos;</span><span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">// or set the default development port to 3000</span>
+    port<span class="token punctuation">:</span> <span class="token number">3000</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token comment" spellcheck="true">// Specify environment-specific changes. This is a key-value</span>
+  <span class="token comment" spellcheck="true">// mapping of environment variable names to their matching values</span>
+  <span class="token comment" spellcheck="true">// during which to override. The matching environment value can</span>
+  <span class="token comment" spellcheck="true">// be any middleware format</span>
+  env<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    NODE_ENV<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// Require minify middleware during production</span>
+      production<span class="token punctuation">:</span> <span class="token string">&apos;neutrino-middleware-minify&apos;</span><span class="token punctuation">,</span>
+
+      <span class="token comment" spellcheck="true">// Use dev-server during development</span>
+      development<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;neutrino-middleware-dev-server&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> port<span class="token punctuation">:</span> <span class="token number">3000</span> <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+
+      <span class="token comment" spellcheck="true">// Use Jest during test-only</span>
+      test<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        use<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-jest&apos;</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+    CSS_MODULES<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// Turn on CSS modules when the environment variable CSS_MODULES=enable</span>
+      enable<span class="token punctuation">:</span> <span class="token punctuation">(</span>neutrino<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>module
+          <span class="token punctuation">.</span><span class="token function">rule</span><span class="token punctuation">(</span><span class="token string">&apos;style&apos;</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">&apos;css&apos;</span><span class="token punctuation">)</span>
+              <span class="token punctuation">.</span><span class="token function">options</span><span class="token punctuation">(</span><span class="token punctuation">{</span> modules<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token comment" spellcheck="true">// The &quot;use&quot; array defines another set of middleware for Neutrino to use.</span>
+  <span class="token comment" spellcheck="true">// Just like the CLI and API start with a collection of middleware to use,</span>
+  <span class="token comment" spellcheck="true">// providing a &quot;use&quot; array specifies another list of middleware formats to work with</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token comment" spellcheck="true">// string format</span>
+    <span class="token string">&apos;neutrino-preset-airbnb-base&apos;</span><span class="token punctuation">,</span>
+
+    <span class="token comment" spellcheck="true">// array format</span>
+    <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> polyfills<span class="token punctuation">:</span> <span class="token punctuation">{</span> babel<span class="token punctuation">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+
+    <span class="token comment" spellcheck="true">// function format</span>
+    <span class="token punctuation">(</span>neutrino<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// Make whatever configuration overrides needed</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Hopefully it is clear that the object format is quite powerful, and although it doesn&apos;t give you direct access to the
+Neutrino API, providing a function format <strong>within does</strong> give you API access.</p>
+<h3 id="function-format">Function format</h3>
+<p>The most powerful middleware format. Using a function as middleware gives direct access to the Neutrino API, configuration,
+options, and events for modification, as well as being able to accept options for driving the behavior of the middleware.</p>
 <pre class="language-"><code class="lang-js"><span class="token keyword">function</span> <span class="token function">middleware</span><span class="token punctuation">(</span>neutrino<span class="token punctuation">,</span> options<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 </code></pre>
-<p>The signature of this function is what we call &quot;Neutrino middleware&quot;. If you&apos;re familiar with middleware from the
-Express/connect world, this works similarly. When using Express middleware, you provide a function to Express which
-receives arguments to modify a request or response along its lifecycle. There can be a number of middleware functions
-that Express can load, each one potentially modifying a request or response in succession.</p>
-<p>Neutrino will execute middleware similarly, where each middleware function successively interacts with Neutrino along
-the lifecycle. This is done by plugging in the middleware to Neutrino via the <code>use()</code> method.</p>
-<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-api<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>middleware<span class="token punctuation">)</span><span class="token punctuation">;</span>
-api<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>middleware<span class="token punctuation">,</span> options<span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
+<p>A middleware function can optionally accept an <code>options</code> argument which will be fed back into
+the middleware function when used. The options argument can be whatever value you accept.</p>
+<p>If you&apos;re familiar with middleware from the Express/connect world, this works similarly. When using Express middleware,
+you provide a function to Express which receives arguments to modify a request or response along its lifecycle. There
+can be a number of middleware functions that Express can load, each one potentially modifying a request or response in
+succession. Neutrino will execute middleware functions similarly, where each function successively interacts with Neutrino along
+the lifecycle.</p>
 <p>To use a concrete example, let&apos;s create middleware that adds an environment plugin:</p>
 <pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> <span class="token punctuation">{</span> EnvironmentPlugin <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;webpack&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token keyword">function</span> <span class="token function">env</span><span class="token punctuation">(</span>neutrino<span class="token punctuation">,</span> additionalVars <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">(</span>neutrino<span class="token punctuation">,</span> additionalVars <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
   neutrino<span class="token punctuation">.</span>config
     <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">&apos;env&apos;</span><span class="token punctuation">)</span>
     <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>EnvironmentPlugin<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;NODE_ENV&apos;</span><span class="token punctuation">,</span> <span class="token operator">...</span>additionalVars<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-api<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>env<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// or:</span>
-api<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>env<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;SECRET_KEY&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// When this middleware gets used, options can be passed to it</span>
+<span class="token comment" spellcheck="true">// depending on the format:</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token string">&apos;your-env-middleware&apos;</span><span class="token punctuation">,</span>
+
+    <span class="token punctuation">[</span><span class="token string">&apos;your-env-middleware&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;CSS_MODULES&apos;</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+
+    <span class="token punctuation">(</span>neutrino<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">&apos;your-env-middleware&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;CSS_MODULES&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="loading-middleware">Loading middleware</h2>
 <p>Additional middleware can also be loaded from a middleware function. This makes their composition simpler for
@@ -782,7 +924,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
   <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>EnvironmentPlugin<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;NODE_ENV&apos;</span><span class="token punctuation">,</span> <span class="token operator">...</span>additionalVars<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// react preset (which is also middleware)</span>
-<span class="token keyword">const</span> env <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;./neutrino-middleware-env&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> env <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-middleware-env&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 module<span class="token punctuation">.</span>exports <span class="token operator">=</span> neutrino <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
   neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>env<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;SECRET_KEY&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -812,7 +954,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// react preset (which is also middleware)</span>
-<span class="token keyword">const</span> env <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;./neutrino-middleware-env&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> env <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-middleware-env&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 module<span class="token punctuation">.</span>exports <span class="token operator">=</span> neutrino <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
   neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token function">env</span><span class="token punctuation">(</span><span class="token string">&apos;ENV-PLUGIN&apos;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;SECRET_KEY&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -869,7 +1011,7 @@ distribute. Continue onward for documentation on these various middleware packag
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Middleware","level":"1.7","depth":1,"next":{"title":"banner","level":"1.7.1","depth":2,"path":"middleware/neutrino-middleware-banner/README.md","ref":"./middleware/neutrino-middleware-banner/README.md","articles":[]},"previous":{"title":"Community presets","level":"1.6.8","depth":2,"path":"presets/community-presets.md","ref":"./presets/community-presets.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"middleware/README.md","mtime":"2017-06-14T01:15:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-14T01:16:06.383Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Middleware","level":"1.7","depth":1,"next":{"title":"banner","level":"1.7.1","depth":2,"path":"middleware/neutrino-middleware-banner/README.md","ref":"./middleware/neutrino-middleware-banner/README.md","articles":[]},"previous":{"title":"Community presets","level":"1.6.8","depth":2,"path":"presets/community-presets.md","ref":"./presets/community-presets.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"middleware/README.md","mtime":"2017-06-15T16:04:46.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-15T16:18:35.403Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

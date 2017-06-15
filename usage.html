@@ -477,12 +477,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.15" data-path="middleware/neutrino-middleware-named-modules/">
+        <li class="chapter " data-level="1.7.15" data-path="middleware/neutrino-middleware-pwa/">
             
-                <a href="middleware/neutrino-middleware-named-modules/">
+                <a href="middleware/neutrino-middleware-pwa/">
             
                     
-                    named-modules
+                    pwa
             
                 </a>
             
@@ -516,6 +516,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.7.18" data-path="middleware/community-middleware.html">
+            
+                <a href="middleware/community-middleware.html">
+            
+                    
+                    Community middleware
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -531,38 +544,6 @@
                 </a>
             
 
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="1.8.1" data-path="customization/simple.html">
-            
-                <a href="customization/simple.html">
-            
-                    
-                    Simple
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.8.2" data-path="customization/advanced.html">
-            
-                <a href="customization/advanced.html">
-            
-                    
-                    Advanced
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
             
         </li>
     
@@ -623,7 +604,7 @@
                 <a href="upgrading-neutrino.html">
             
                     
-                    Upgrading from v4 to v5
+                    Upgrading from v5 to v6
             
                 </a>
             
@@ -632,6 +613,19 @@
         </li>
     
         <li class="chapter " data-level="1.14" >
+            
+                <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v5/docs">
+            
+                    
+                    v5 Documentation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" >
             
                 <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v4/docs">
             
@@ -644,7 +638,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15" data-path="contributing/">
+        <li class="chapter " data-level="1.16" data-path="contributing/">
             
                 <a href="contributing/">
             
@@ -658,7 +652,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.15.1" data-path="contributing/development.html">
+        <li class="chapter " data-level="1.16.1" data-path="contributing/development.html">
             
                 <a href="contributing/development.html">
             
@@ -671,7 +665,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15.2" data-path="contributing/code-of-conduct.html">
+        <li class="chapter " data-level="1.16.2" data-path="contributing/code-of-conduct.html">
             
                 <a href="contributing/code-of-conduct.html">
             
@@ -736,11 +730,11 @@
                                 
                                 <h1 id="usage">Usage</h1>
 <p>Neutrino is a command-line tool that wraps Webpack in order to support building JavaScript projects
-based on shared configuration presets. You can use Neutrino within your project, preferably using
+based on shared configuration presets and middleware. You can use Neutrino within your project, preferably using
 scripts defined in your project&apos;s <code>package.json</code>.</p>
 <h2 id="setup">Setup</h2>
 <p>After completing the <a href="installation.html">installation</a> of Neutrino and your Neutrino preset, you will
-want to define some scripts in your project&apos;s <code>package.json</code> in order to simply build your project.
+want to define some scripts in your project&apos;s <code>package.json</code> in order to more simply build your project.
 In a typical project:</p>
 <ul>
 <li><code>scripts.start</code> would be the command you wish to run during development</li>
@@ -752,7 +746,7 @@ typical recommendations for script target names. You may choose any different na
 for your project.</p>
 <h2 id="building-for-development">Building for development</h2>
 <p>Neutrino provides the command <code>neutrino start</code> for creating a bundle during development. Using
-<code>neutrino start</code> sets the Node.js environment to <code>development</code> using the <code>NODE_ENV</code> environment variable,
+<code>neutrino start</code> by default sets the Node.js environment to <code>development</code> using the <code>NODE_ENV</code> environment variable,
 which is available in your project source code. Depending on the presets you are using, <code>neutrino start</code>
 may also spin up a development server with Hot Module Replacement (HMR) capabilities.
 Check the documentation of your preset for details.</p>
@@ -770,7 +764,7 @@ neutrino start --use PRESET_MODULE
 </code></pre>
 <h2 id="building-for-production">Building for production</h2>
 <p>Neutrino provides the command <code>neutrino build</code> for creating a bundle for production deployment.
-Using <code>neutrino build</code> sets the Node.js environment to <code>production</code> using the <code>NODE_ENV</code> environment variable,
+Using <code>neutrino build</code> by default sets the Node.js environment to <code>production</code> using the <code>NODE_ENV</code> environment variable,
 which is available in your project source code. See the documentation for your preset for details regarding additional
 steps after your build is completed.</p>
 <pre class="language-"><code class="lang-bash"><span class="token comment" spellcheck="true"># PRESET_MODULE is the name of the preset to build with, e.g. neutrino-preset-react</span>
@@ -786,12 +780,12 @@ neutrino build --use PRESET_MODULE
 </code></pre>
 <h2 id="building-and-running-tests">Building and running tests</h2>
 <p>Neutrino provides the command <code>neutrino test</code> for invoking a set of tests included in your project.
-Using <code>neutrino test</code> sets the Node.js environment variable to <code>test</code> using the <code>NODE_ENV</code> environment
+Using <code>neutrino test</code> by default sets the Node.js environment variable to <code>test</code> using the <code>NODE_ENV</code> environment
 variable, which is available in your project source code. How your source code is built and consumed from tests
-is determined by the presets you are using. Running suites that are built the same as source files is encouraged by
-using a Neutrino-compatible preset. Neutrino currently provides three core testing presets: Karma, Jest, and Mocha.</p>
+is determined by the middleware you are using. Running suites that are built the same as source files is encouraged by
+using Neutrino-compatible middleware. Neutrino currently provides three core testing presets: Karma, Jest, and Mocha.</p>
 <pre class="language-"><code class="lang-bash"><span class="token comment" spellcheck="true"># PRESET_MODULE is the name of the preset to build with, e.g. neutrino-preset-react</span>
-<span class="token comment" spellcheck="true"># TESTING_MODULE is the name of another preset to build with, e.g. neutrino-preset-karma</span>
+<span class="token comment" spellcheck="true"># TESTING_MODULE is the name of another middleware to build with, e.g. neutrino-preset-karma</span>
 neutrino <span class="token function">test</span> --use PRESET_MODULE TESTING_MODULE
 </code></pre>
 <p>Putting this into your <code>package.json</code> will allow you to test your project using either
@@ -811,22 +805,25 @@ dashes after the last middleware to denote the end of the middleware and the beg
 <h2 id="using-multiple-presets">Using multiple presets</h2>
 <p>All Neutrino commands support the <code>--use</code> command line parameter, but having to specify this for each script target
 can be cumbersome and verbose, especially if you have many middleware or presets. Fortunately, Neutrino also supports
-specifying presets using the <code>neutrino.use</code> field in your project&apos;s package.json file. By omitting the <code>--use</code>
-flag and specifying a <code>neutrino.use</code> array, every call to a Neutrino command will look up which presets are
-configured in your package.json.</p>
-<p>This is the recommended approach when using more than one preset.</p>
-<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
-  <span class="token property">&quot;neutrino&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">&quot;use&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-      <span class="token string">&quot;neutrino-preset-react&quot;</span><span class="token punctuation">,</span>
-      <span class="token string">&quot;neutrino-preset-karma&quot;</span>
-    <span class="token punctuation">]</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;scripts&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">&quot;start&quot;</span><span class="token operator">:</span> <span class="token string">&quot;neutrino start&quot;</span><span class="token punctuation">,</span>
-    <span class="token property">&quot;build&quot;</span><span class="token operator">:</span> <span class="token string">&quot;neutrino build&quot;</span><span class="token punctuation">,</span>
-    <span class="token property">&quot;test&quot;</span><span class="token operator">:</span> <span class="token string">&quot;neutrino test&quot;</span>
+specifying presets using the <code>use</code> property in a <code>.neutrinorc.js</code> file. By omitting the <code>--use</code>
+flag and specifying a <code>use</code> array, every call to a Neutrino command will look up which middleware
+are configured in your in <code>.neutrinorc.js</code>.</p>
+<p>This is the recommended approach when using more than one preset/middleware.</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// package.json</span>
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;scripts&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;start&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;neutrino start&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;build&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;neutrino build&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;test&quot;</span><span class="token punctuation">:</span> <span class="token string">&quot;neutrino test&quot;</span>
   <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// .neutrinorc.js</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">,</span>
+    <span class="token string">&apos;neutrino-preset-karma&apos;</span>
+  <span class="token punctuation">]</span>
 <span class="token punctuation">}</span>
 </code></pre>
 
@@ -872,7 +869,7 @@ configured in your package.json.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Usage","level":"1.3","depth":1,"next":{"title":"Project Layout","level":"1.4","depth":1,"path":"project-layout.md","ref":"./project-layout.md","articles":[]},"previous":{"title":"Installation","level":"1.2","depth":1,"path":"installation.md","ref":"./installation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"usage.md","mtime":"2017-06-14T01:15:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-14T01:16:06.383Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Usage","level":"1.3","depth":1,"next":{"title":"Project Layout","level":"1.4","depth":1,"path":"project-layout.md","ref":"./project-layout.md","articles":[]},"previous":{"title":"Installation","level":"1.2","depth":1,"path":"installation.md","ref":"./installation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"usage.md","mtime":"2017-06-15T16:04:46.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-15T16:18:35.403Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

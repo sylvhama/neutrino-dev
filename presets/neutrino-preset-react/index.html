@@ -477,12 +477,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.15" data-path="../../middleware/neutrino-middleware-named-modules/">
+        <li class="chapter " data-level="1.7.15" data-path="../../middleware/neutrino-middleware-pwa/">
             
-                <a href="../../middleware/neutrino-middleware-named-modules/">
+                <a href="../../middleware/neutrino-middleware-pwa/">
             
                     
-                    named-modules
+                    pwa
             
                 </a>
             
@@ -516,6 +516,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.7.18" data-path="../../middleware/community-middleware.html">
+            
+                <a href="../../middleware/community-middleware.html">
+            
+                    
+                    Community middleware
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -531,38 +544,6 @@
                 </a>
             
 
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="1.8.1" data-path="../../customization/simple.html">
-            
-                <a href="../../customization/simple.html">
-            
-                    
-                    Simple
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.8.2" data-path="../../customization/advanced.html">
-            
-                <a href="../../customization/advanced.html">
-            
-                    
-                    Advanced
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
             
         </li>
     
@@ -623,7 +604,7 @@
                 <a href="../../upgrading-neutrino.html">
             
                     
-                    Upgrading from v4 to v5
+                    Upgrading from v5 to v6
             
                 </a>
             
@@ -632,6 +613,19 @@
         </li>
     
         <li class="chapter " data-level="1.14" >
+            
+                <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v5/docs">
+            
+                    
+                    v5 Documentation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" >
             
                 <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v4/docs">
             
@@ -644,7 +638,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15" data-path="../../contributing/">
+        <li class="chapter " data-level="1.16" data-path="../../contributing/">
             
                 <a href="../../contributing/">
             
@@ -658,7 +652,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.15.1" data-path="../../contributing/development.html">
+        <li class="chapter " data-level="1.16.1" data-path="../../contributing/development.html">
             
                 <a href="../../contributing/development.html">
             
@@ -671,7 +665,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15.2" data-path="../../contributing/code-of-conduct.html">
+        <li class="chapter " data-level="1.16.2" data-path="../../contributing/code-of-conduct.html">
             
                 <a href="../../contributing/code-of-conduct.html">
             
@@ -756,9 +750,9 @@
 </ul>
 <h2 id="requirements">Requirements</h2>
 <ul>
-<li>Node.js v6.9+</li>
+<li>Node.js v6.10+</li>
 <li>Yarn or npm client</li>
-<li>Neutrino v5</li>
+<li>Neutrino v6</li>
 </ul>
 <h2 id="installation">Installation</h2>
 <p><code>neutrino-preset-react</code> can be installed via the Yarn or npm clients. Inside your project, make sure
@@ -776,7 +770,7 @@ React development.</p>
 <p><code>neutrino-preset-react</code> follows the standard <a href="../../project-layout.html">project layout</a> specified by Neutrino. This
 means that by default all project source code should live in a directory named <code>src</code> in the root of the
 project. This includes JavaScript files, CSS stylesheets, images, and any other assets that would be available
-to your compiled project.</p>
+to import your compiled project.</p>
 <h2 id="quickstart">Quickstart</h2>
 <p>After installing Neutrino and the React preset, add a new directory named <code>src</code> in the root of the project, with
 a single JS file named <code>index.js</code> in it.</p>
@@ -797,6 +791,11 @@ your <code>src/index.js</code> file with the following:</p>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
+<p>If you are using <code>.neutrinorc.js</code>, add this preset to your use array instead of <code>--use</code> flags:</p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
 <p>Start the app, then open a browser to the address in the console:</p>
 <h4 id="yarn">Yarn</h4>
 <pre class="language-"><code class="lang-bash">&#x276F; yarn start
@@ -812,95 +811,71 @@ your <code>src/index.js</code> file with the following:</p>
 <p><code>neutrino-preset-react</code> builds static assets to the <code>build</code> directory by default when running <code>neutrino build</code>. Using
 the quick start example above as a reference:</p>
 <pre class="language-"><code class="lang-bash">&#x276F; yarn build
-clean-webpack-plugin: /react/build has been removed.
-Build completed <span class="token keyword">in</span> 6.692s
 
-Hash: 7a83f769b15f88b80727
-Version: webpack 2.2.1
-Time: 6695ms
-                                  Asset       Size  Chunks             Chunk Names
-   index.b615ea9e95317f530317.bundle.js     143 kB    0, 1  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  index
-manifest.2211d9c1970bbd3c952b.bundle.js    1.41 kB       1  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  manifest
-                             index.html  779 bytes          <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>
-&#x2728;  Done <span class="token keyword">in</span> 8.32s.
+&#x2714; Building project completed
+Hash: b26ff013b5a2d5f7b824
+Version: webpack 2.6.1
+Time: 9773ms
+                           Asset       Size    Chunks             Chunk Names
+   index.dfbad882ab3d86bfd747.js     181 kB     index  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  index
+polyfill.57dabda41992eba7552f.js    69.2 kB  polyfill  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  polyfill
+ runtime.3d9f9d2453f192a2b10f.js    1.51 kB   runtime  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  runtime
+                      index.html  846 bytes            <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>
+&#x2728;  Done <span class="token keyword">in</span> 14.62s.
 </code></pre>
 <p>You can either serve or deploy the contents of this <code>build</code> directory as a static site.</p>
+<h2 id="static-assets">Static assets</h2>
+<p>If you wish to copy files to the build directory that are not imported from application code, you can place
+them in a directory within <code>src</code> called <code>static</code>. All files in this directory will be copied from <code>src/static</code>
+to <code>build/static</code>.</p>
 <h2 id="paths">Paths</h2>
 <p>The <code>neutrino-preset-web</code> preset loads assets relative to the path of your application by setting Webpack&apos;s
 <a href="https://webpack.js.org/configuration/output/#output-publicpath" target="_blank"><code>output.publicPath</code></a> to <code>./</code>. If you wish to load
 assets instead from a CDN, or if you wish to change to an absolute path for your application, customize your build to
 override <code>output.publicPath</code>. See the <a href="#Customizing">Customizing</a> section below.</p>
+<h2 id="preset-options">Preset options</h2>
+<p>You can provide custom options and have them merged with this preset&apos;s default options to easily affect how this
+preset builds. You can modify React preset settings from <code>.neutrinorc.js</code> by overriding with an options object. Use
+an array pair instead of a string to supply these options in <code>.neutrinorc.js</code>.</p>
+<p>The following shows how you can pass an options object to the React preset and override its options. See the
+<a href="../neutrino-preset-web#presetoptions">Web documentation</a> for specific options you can override with this object.</p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">/* preset options */</span>
+
+      <span class="token comment" spellcheck="true">// Example: disable Hot Module Replacement</span>
+      hot<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+
+      <span class="token comment" spellcheck="true">// Example: change the page title</span>
+      html<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        title<span class="token punctuation">:</span> <span class="token string">&apos;Epic React App&apos;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">]</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
 <h2 id="customizing">Customizing</h2>
 <p>To override the build configuration, start with the documentation on <a href="../../customization/">customization</a>.
 <code>neutrino-preset-react</code> does not use any additional named rules, loaders, or plugins that aren&apos;t already in use by the
 Web preset. See the <a href="../neutrino-preset-web#customizing">Web documentation customization</a>
 for preset-specific configuration to override.</p>
-<h3 id="simple-customization">Simple customization</h3>
-<p>By following the <a href="../../customization/simple.html">customization guide</a> and knowing the rule, loader, and plugin IDs above,
-you can override and augment the build directly from package.json.</p>
-<h4 id="vendoring">Vendoring</h4>
-<p>By defining an entry point in package.json named <code>vendor</code> you can split out external dependencies into a chunk separate
-from your application code. When working with a React application, it is recommended to start out by splitting off
-React and React DOM into the <code>vendor</code> chunk.</p>
-<p><em>Example: Put React and React DOM into a separate &quot;vendor&quot; chunk:</em></p>
-<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
-  <span class="token property">&quot;neutrino&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">&quot;config&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">&quot;entry&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">&quot;vendor&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-          <span class="token string">&quot;react&quot;</span><span class="token punctuation">,</span>
-          <span class="token string">&quot;react-dom&quot;</span>
-        <span class="token punctuation">]</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token property">&quot;dependencies&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">&quot;react&quot;</span><span class="token operator">:</span> <span class="token string">&quot;^15.4.2&quot;</span><span class="token punctuation">,</span>
-    <span class="token property">&quot;react-dom&quot;</span><span class="token operator">:</span> <span class="token string">&quot;^15.4.2&quot;</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>Running the build again, you can contrast the bundles generated here with the one generated in the quick start:</p>
-<pre class="language-"><code class="lang-bash">&#x276F; yarn build
-clean-webpack-plugin: /react/build has been removed.
-Build completed <span class="token keyword">in</span> 6.726s
-
-Hash: 0468e662989da55bdc5e
-Version: webpack 2.2.1
-Time: 6730ms
-                                  Asset       Size  Chunks             Chunk Names
-  vendor.0b3c06ba6b2494d683ee.bundle.js     142 kB    0, 2  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  vendor
-   index.d264625fd405d81cb995.bundle.js  276 bytes    1, 2  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  index
-manifest.29ee4d0db8f2534cc643.bundle.js    1.44 kB       2  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  manifest
-                             index.html  866 bytes          <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>
-&#x2728;  Done <span class="token keyword">in</span> 8.21s.
-</code></pre>
-<h4 id="html-files">HTML files</h4>
-<p>If you wish to override how HTML files are created for your React app, refer to the <a href="../neutrino-preset-web/#html-files">relevant section on
-neutrino-preset-web</a>.</p>
-<p><em>Example: Change the application mount ID from &quot;root&quot; to &quot;app&quot;:</em></p>
-<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
-  <span class="token property">&quot;neutrino&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">&quot;options&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">&quot;html&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">&quot;appMountId&quot;</span><span class="token operator">:</span> <span class="token string">&quot;app&quot;</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
 <h3 id="advanced-configuration">Advanced configuration</h3>
-<p>By following the <a href="../../customization/advanced.html">customization guide</a> and knowing the rule, loader, and plugin IDs from
-neutrino-preset-web, you can override and augment the build by creating a JS module which overrides the config.</p>
+<p>By following the <a href="../../customization/advanced.md">customization guide</a> and knowing the rule, loader, and plugin IDs from
+<code>neutrino-preset-web</code>, you can override and augment the build by providing a function to your <code>.neutrinorc.js</code> use
+array. You can also make these changes from the Neutrino API in custom middleware.</p>
 <h4 id="vendoring">Vendoring</h4>
 <p>By defining an entry point named <code>vendor</code> you can split out external dependencies into a chunk separate
 from your application code.</p>
 <p><em>Example: Put React and React DOM into a separate &quot;vendor&quot; chunk:</em></p>
-<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> neutrino <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
-  neutrino<span class="token punctuation">.</span>config
-    <span class="token punctuation">.</span><span class="token function">entry</span><span class="token punctuation">(</span><span class="token string">&apos;vendor&apos;</span><span class="token punctuation">)</span>
-      <span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">&apos;react&apos;</span><span class="token punctuation">)</span>
-      <span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">&apos;react-dom&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">(</span>neutrino<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> neutrino<span class="token punctuation">.</span>config
+      <span class="token punctuation">.</span><span class="token function">entry</span><span class="token punctuation">(</span><span class="token string">&apos;vendor&apos;</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">&apos;react&apos;</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">&apos;react-dom&apos;</span><span class="token punctuation">)</span>
+  <span class="token punctuation">]</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="hot-module-replacement">Hot Module Replacement</h2>
@@ -941,7 +916,7 @@ from <code>react-hot-loader</code>. The main file may be named <code>index.js</c
 </code></pre>
 <h2 id="contributing">Contributing</h2>
 <p>This preset is part of the <a href="https://github.com/mozilla-neutrino/neutrino-dev" target="_blank">neutrino-dev</a> repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 <a href="../../contributing/">contributing guide</a> for details.</p>
 
                                 
@@ -986,7 +961,7 @@ containing all resources for developing Neutrino and its core presets. Follow th
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"React","level":"1.6.2","depth":2,"next":{"title":"Node.js","level":"1.6.3","depth":2,"path":"presets/neutrino-preset-node/README.md","ref":"./presets/neutrino-preset-node/README.md","articles":[]},"previous":{"title":"Web","level":"1.6.1","depth":2,"path":"presets/neutrino-preset-web/README.md","ref":"./presets/neutrino-preset-web/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"presets/neutrino-preset-react/README.md","mtime":"2017-06-14T01:15:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-14T01:16:06.383Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"React","level":"1.6.2","depth":2,"next":{"title":"Node.js","level":"1.6.3","depth":2,"path":"presets/neutrino-preset-node/README.md","ref":"./presets/neutrino-preset-node/README.md","articles":[]},"previous":{"title":"Web","level":"1.6.1","depth":2,"path":"presets/neutrino-preset-web/README.md","ref":"./presets/neutrino-preset-web/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"presets/neutrino-preset-react/README.md","mtime":"2017-06-15T16:04:46.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-15T16:18:35.403Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

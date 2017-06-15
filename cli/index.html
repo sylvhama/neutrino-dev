@@ -477,12 +477,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.15" data-path="../middleware/neutrino-middleware-named-modules/">
+        <li class="chapter " data-level="1.7.15" data-path="../middleware/neutrino-middleware-pwa/">
             
-                <a href="../middleware/neutrino-middleware-named-modules/">
+                <a href="../middleware/neutrino-middleware-pwa/">
             
                     
-                    named-modules
+                    pwa
             
                 </a>
             
@@ -516,6 +516,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.7.18" data-path="../middleware/community-middleware.html">
+            
+                <a href="../middleware/community-middleware.html">
+            
+                    
+                    Community middleware
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -531,38 +544,6 @@
                 </a>
             
 
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="1.8.1" data-path="../customization/simple.html">
-            
-                <a href="../customization/simple.html">
-            
-                    
-                    Simple
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.8.2" data-path="../customization/advanced.html">
-            
-                <a href="../customization/advanced.html">
-            
-                    
-                    Advanced
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
             
         </li>
     
@@ -623,7 +604,7 @@
                 <a href="../upgrading-neutrino.html">
             
                     
-                    Upgrading from v4 to v5
+                    Upgrading from v5 to v6
             
                 </a>
             
@@ -632,6 +613,19 @@
         </li>
     
         <li class="chapter " data-level="1.14" >
+            
+                <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v5/docs">
+            
+                    
+                    v5 Documentation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" >
             
                 <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v4/docs">
             
@@ -644,7 +638,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15" data-path="../contributing/">
+        <li class="chapter " data-level="1.16" data-path="../contributing/">
             
                 <a href="../contributing/">
             
@@ -658,7 +652,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.15.1" data-path="../contributing/development.html">
+        <li class="chapter " data-level="1.16.1" data-path="../contributing/development.html">
             
                 <a href="../contributing/development.html">
             
@@ -671,7 +665,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15.2" data-path="../contributing/code-of-conduct.html">
+        <li class="chapter " data-level="1.16.2" data-path="../contributing/code-of-conduct.html">
             
                 <a href="../contributing/code-of-conduct.html">
             
@@ -736,12 +730,11 @@
                                 
                                 <h1 id="neutrino-cli">Neutrino CLI</h1>
 <p>Using the command-line interface is the preferred and simplest way of interacting with Neutrino.</p>
-<p>When using the Neutrino CLI, you provide a list of presets for the API to attempt to load and merge configurations for.
-Each preset will attempt to be loaded from the current working directory&apos;s <code>node_modules</code>, nested within, by name, or
-relative file path. If it cannot be found, an exception will be thrown.</p>
-<p>In addition to any provided presets, Neutrino will also attempt to load configuration data from the package.json
-residing in the current working directory. If this package.json contains an object at <code>neutrino.config</code>, this data
-will be merged with the Neutrino configuration after all presets and middleware have been loaded.</p>
+<p>When using the Neutrino CLI, you can provide a list of middleware for the API to attempt to load and merge
+configurations. Each middleware will attempt to be loaded from the current working directory&apos;s <code>node_modules</code>, nested
+within, by name, or relative file path. If it cannot be found, an exception will be thrown. In addition to any provided
+middleware, Neutrino will attempt to load a <code>.neutrinorc.js</code> file as middleware from the current working directory if
+it exists.</p>
 <p>Let&apos;s take a look at the CLI usage.</p>
 <h2 id="-help"><code>--help</code></h2>
 <p>Using <code>neutrino --help</code> will bring up the following help guide:</p>
@@ -752,27 +745,27 @@ Commands:
   <span class="token function">test</span> <span class="token punctuation">[</span>files<span class="token punctuation">..</span><span class="token punctuation">]</span>  Run all suites from the <span class="token function">test</span> directory or provided files
 
 Options:
-  --inspect  Output a string representation of the configuration used by Neutrino and <span class="token keyword">exit</span>   <span class="token punctuation">[</span>boolean<span class="token punctuation">]</span>
-  --use      A list of Neutrino middleware used to configure the build                       <span class="token punctuation">[</span>array<span class="token punctuation">]</span> <span class="token punctuation">[</span>default: <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
-  --env      The value <span class="token keyword">for</span> the environment variable, NODE_ENV                                <span class="token punctuation">[</span>string<span class="token punctuation">]</span>
-  --debug    Run <span class="token keyword">in</span> debug mode                                                               <span class="token punctuation">[</span>boolean<span class="token punctuation">]</span> <span class="token punctuation">[</span>default: false<span class="token punctuation">]</span>
-  --version  Show version number                                                             <span class="token punctuation">[</span>boolean<span class="token punctuation">]</span>
-  --help     Show <span class="token function">help</span>                                                                       <span class="token punctuation">[</span>boolean<span class="token punctuation">]</span>
+  --inspect  Output a string representation of the configuration used by Neutrino and <span class="token keyword">exit</span>           <span class="token punctuation">[</span>boolean<span class="token punctuation">]</span> <span class="token punctuation">[</span>default: false<span class="token punctuation">]</span>
+  --use      A list of Neutrino middleware used to configure the build                               <span class="token punctuation">[</span>array<span class="token punctuation">]</span> <span class="token punctuation">[</span>default: <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+  --options  Set Neutrino options and environment variables, e.g. --options.env.NODE_ENV production  <span class="token punctuation">[</span>default: <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">]</span>
+  --quiet    Disable console output of CLI commands                                                  <span class="token punctuation">[</span>boolean<span class="token punctuation">]</span> <span class="token punctuation">[</span>default: false<span class="token punctuation">]</span>
+  --debug    Run <span class="token keyword">in</span> debug mode                                                                       <span class="token punctuation">[</span>boolean<span class="token punctuation">]</span> <span class="token punctuation">[</span>default: false<span class="token punctuation">]</span>
+  --version  Show version number                                                                     <span class="token punctuation">[</span>boolean<span class="token punctuation">]</span>
+  --help     Show <span class="token function">help</span>                                                                               <span class="token punctuation">[</span>boolean<span class="token punctuation">]</span>
 </code></pre>
 <h2 id="-version"><code>--version</code></h2>
 <p>Using <code>--version</code> will output the current version of the Neutrino CLI to the console and exit.</p>
 <pre class="language-"><code class="lang-bash">&#x276F; neutrino --version
-5.0.0
+6.0.0
 </code></pre>
 <h2 id="-use"><code>--use</code></h2>
 <p>The <code>--use</code> flag can be used in conjunction with any of the top-level commands to specify a collection of
 middleware and presets to load. These can be an npm package or a relative path to a module to load as middleware.</p>
 <pre class="language-"><code class="lang-bash">&#x276F; neutrino start --use neutrino-preset-react neutrino-preset-karma
 </code></pre>
-<p>The Neutrino CLI will still attempt to load any presets and middleware defined in the project&apos;s package.json located at
-<code>config.use</code>. Middleware passed via the CLI <code>--use</code> will take precedence over middleware defined in
-<code>config.use</code>, meaning that options set by package.json middleware can have their values overridden by
-<code>--use</code> middleware.</p>
+<p>The Neutrino CLI will still attempt to load any presets and middleware defined in the project&apos;s <code>.neutrinorc.js</code> file.
+Middleware passed via the CLI <code>--use</code> will take precedence over middleware defined in <code>.neutrinorc.js</code>, meaning that
+options set by <code>.neutrinorc.js</code> middleware can have their values overridden by <code>--use</code> middleware.</p>
 <h2 id="-inspect"><code>--inspect</code></h2>
 <p>The <code>--inspect</code> flag can be used to write out a stringified version of the Webpack configuration which has been
 accumulated by all middleware. When using the <code>--inspect</code> flag, the Neutrino CLI will still import all presets and
@@ -802,9 +795,23 @@ index 3356802..d4d82ef 100644
    },
 </code></pre>
 <h2 id="-debug">--debug</h2>
-<p>Informs interested middleware that they should be in a state of debugging. This doesn&apos;t currently make Neutrino itself
-behave any differently, rather it can be used to inform middleware to behave differently, by outputting console
+<p>Informs interested middleware that they should be in a state of debugging. This does not currently make Neutrino itself
+behave any differently; rather it can be used to inform middleware to behave differently, by outputting console
 information, inspecting processes, or changing configuration helpful for debugging.</p>
+<h2 id="-quiet">--quiet</h2>
+<p>Prevents the CLI from outputting any console output. Neutrino middleware should also respect this flag when possible,
+but is not a guarantee.</p>
+<h2 id="-options">--options</h2>
+<p>Used to override Neutrino options and environments from the command line. This would typically be used for specifying
+one-off option changes that may not be appropriate to encapsulate in <code>.neutrinorc.js</code>. The <code>--options</code> flag is
+formatted as &quot;dotted-object&quot; syntax, meaning it should be used as <code>--options.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span><span class="token punctuation">&gt;</span></span> [value]</code>. This can also be used
+to toggle Boolean options to <code>true</code> by providing no value. Some examples:</p>
+<pre class="language-"><code class="lang-bash">&#x276F; neutrino start --options.host 192.168.1.10 --options.port 3000
+
+&#x276F; neutrino build --options.env.NODE_ENV development --options.env.CUSTOM_ENV_VAR customValue
+
+&#x276F; neutrino start --options.https
+</code></pre>
 <h2 id="neutrino-start"><code>neutrino start</code></h2>
 <p>Using the command <code>neutrino start</code> builds a project in development mode, also starting a development server or source
 watcher depending on the middleware or configuration used. This command sets the <code>NODE_ENV</code> environment variable to
@@ -821,14 +828,15 @@ command sets the <code>NODE_ENV</code> environment variable to <code>test</code>
 neutrino <span class="token function">test</span> <span class="token punctuation">[</span>files<span class="token punctuation">..</span><span class="token punctuation">]</span>
 
 Options:
-  --inspect   Output a string representation of the configuration used by Neutrino and <span class="token keyword">exit</span>  <span class="token punctuation">[</span>boolean<span class="token punctuation">]</span> <span class="token punctuation">[</span>default: false<span class="token punctuation">]</span>
-  --use      A list of Neutrino presets used to configure the build                          <span class="token punctuation">[</span>array<span class="token punctuation">]</span> <span class="token punctuation">[</span>default: <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
-  --version  Show version number                                                             <span class="token punctuation">[</span>boolean<span class="token punctuation">]</span>
-  --env      The value <span class="token keyword">for</span> the environment variable, NODE_ENV                                <span class="token punctuation">[</span>string<span class="token punctuation">]</span>
-  --debug    Run <span class="token keyword">in</span> debug mode                                                               <span class="token punctuation">[</span>boolean<span class="token punctuation">]</span> <span class="token punctuation">[</span>default: false<span class="token punctuation">]</span>
-  --help     Show <span class="token function">help</span>                                                                       <span class="token punctuation">[</span>boolean<span class="token punctuation">]</span>
-  --coverage Collect <span class="token function">test</span> coverage information and generate report                           <span class="token punctuation">[</span>boolean<span class="token punctuation">]</span> <span class="token punctuation">[</span>default: false<span class="token punctuation">]</span>
-  --watch    Watch <span class="token function">source</span> files <span class="token keyword">for</span> changes and re-run tests                                 <span class="token punctuation">[</span>boolean<span class="token punctuation">]</span> <span class="token punctuation">[</span>default: false<span class="token punctuation">]</span>
+  --inspect   Output a string representation of the configuration used by Neutrino and <span class="token keyword">exit</span>           <span class="token punctuation">[</span>boolean<span class="token punctuation">]</span> <span class="token punctuation">[</span>default: false<span class="token punctuation">]</span>
+  --use       A list of Neutrino middleware used to configure the build                               <span class="token punctuation">[</span>array<span class="token punctuation">]</span> <span class="token punctuation">[</span>default: <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+  --options   Set Neutrino options and environment variables, e.g. --options.env.NODE_ENV production  <span class="token punctuation">[</span>default: <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">]</span>
+  --quiet     Disable console output of CLI commands                                                  <span class="token punctuation">[</span>boolean<span class="token punctuation">]</span> <span class="token punctuation">[</span>default: false<span class="token punctuation">]</span>
+  --debug     Run <span class="token keyword">in</span> debug mode                                                                       <span class="token punctuation">[</span>boolean<span class="token punctuation">]</span> <span class="token punctuation">[</span>default: false<span class="token punctuation">]</span>
+  --version   Show version number                                                                     <span class="token punctuation">[</span>boolean<span class="token punctuation">]</span>
+  --help      Show <span class="token function">help</span>                                                                               <span class="token punctuation">[</span>boolean<span class="token punctuation">]</span>
+  --coverage  Collect <span class="token function">test</span> coverage information and generate report                                   <span class="token punctuation">[</span>boolean<span class="token punctuation">]</span> <span class="token punctuation">[</span>default: false<span class="token punctuation">]</span>
+  --watch     Watch <span class="token function">source</span> files <span class="token keyword">for</span> changes and re-run tests                                         <span class="token punctuation">[</span>boolean<span class="token punctuation">]</span> <span class="token punctuation">[</span>default: false<span class="token punctuation">]</span>
 </code></pre>
 <p>Using the command <code>neutrino test</code> will execute every test file located in your
 <a href="../project-layout#Testing">testing directory</a>. You may also provide to this command the specific test files you wish
@@ -841,13 +849,25 @@ dashes after the last preset to denote the end of the presets and the beginning 
 <p>You can also pass a flag <code>--watch</code> to watch source files for changes and re-run tests, if your middleware supports it.</p>
 <pre class="language-"><code class="lang-bash">&#x276F; neutrino <span class="token function">test</span> --watch
 </code></pre>
-<p>As well you can pass a flag <code>--coverage</code> to collect test coverage information and generate a report, if your middleware
+<p>As well, you can pass a flag <code>--coverage</code> to collect test coverage information and generate a report, if your middleware
 supports it.</p>
 <pre class="language-"><code class="lang-bash">&#x276F; neutrino <span class="token function">test</span> --coverage
 </code></pre>
+<h2 id="custom-commands">Custom commands</h2>
+<p>Middleware has the ability to register named commands with Neutrino. These registered commands are also available to
+invoke from the CLI provided the middleware registering the command has been loaded when it is time for the CLI to
+invoke the command.</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// custom.js</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">(</span>neutrino<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  neutrino<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span><span class="token string">&apos;hello&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token string">&apos;HELLO WORLD!&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class="language-"><code class="lang-bash">&#x276F; neutrino hello --use custom.js
+HELLO WORLD<span class="token operator">!</span>
+</code></pre>
 <h2 id="exit-codes">Exit codes</h2>
-<p>When the CLI creates an instance of Neutrino, it waits for all commands to either resolve or reject their Promise.
-If the command succeeded, the CLI will exit with code <code>0</code>. If there was an error, the CLI will log the error
+<p>When the CLI creates an instance of Neutrino, it waits for all commands to either resolve or reject their registered
+command. If the command succeeded, the CLI will exit with code <code>0</code>. If there were errors, the CLI will log the errors
 to the console and exit with code <code>1</code>. This makes it easier to use Neutrino commands for status reasons, such
 as failing a pull request on continuous integration if any tests fail or if there are linter errors.</p>
 
@@ -882,7 +902,7 @@ as failing a pull request on continuous integration if any tests fail or if ther
                 </a>
                 
                 
-                <a href="../upgrading-neutrino.html" class="navigation navigation-next " aria-label="Next page: Upgrading from v4 to v5">
+                <a href="../upgrading-neutrino.html" class="navigation navigation-next " aria-label="Next page: Upgrading from v5 to v6">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -893,7 +913,7 @@ as failing a pull request on continuous integration if any tests fail or if ther
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"CLI","level":"1.12","depth":1,"next":{"title":"Upgrading from v4 to v5","level":"1.13","depth":1,"path":"upgrading-neutrino.md","ref":"./upgrading-neutrino.md","articles":[]},"previous":{"title":"API","level":"1.11","depth":1,"path":"api/README.md","ref":"./api/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"cli/README.md","mtime":"2017-06-14T01:15:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-14T01:16:06.383Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"CLI","level":"1.12","depth":1,"next":{"title":"Upgrading from v5 to v6","level":"1.13","depth":1,"path":"upgrading-neutrino.md","ref":"./upgrading-neutrino.md","articles":[]},"previous":{"title":"API","level":"1.11","depth":1,"path":"api/README.md","ref":"./api/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"cli/README.md","mtime":"2017-06-15T16:04:46.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-15T16:18:35.403Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

@@ -61,7 +61,7 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../neutrino-middleware-named-modules/" />
+    <link rel="next" href="../neutrino-middleware-pwa/" />
     
     
     <link rel="prev" href="../neutrino-middleware-loader-merge/" />
@@ -477,12 +477,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.15" data-path="../neutrino-middleware-named-modules/">
+        <li class="chapter " data-level="1.7.15" data-path="../neutrino-middleware-pwa/">
             
-                <a href="../neutrino-middleware-named-modules/">
+                <a href="../neutrino-middleware-pwa/">
             
                     
-                    named-modules
+                    pwa
             
                 </a>
             
@@ -516,6 +516,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.7.18" data-path="../community-middleware.html">
+            
+                <a href="../community-middleware.html">
+            
+                    
+                    Community middleware
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -531,38 +544,6 @@
                 </a>
             
 
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="1.8.1" data-path="../../customization/simple.html">
-            
-                <a href="../../customization/simple.html">
-            
-                    
-                    Simple
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.8.2" data-path="../../customization/advanced.html">
-            
-                <a href="../../customization/advanced.html">
-            
-                    
-                    Advanced
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
             
         </li>
     
@@ -623,7 +604,7 @@
                 <a href="../../upgrading-neutrino.html">
             
                     
-                    Upgrading from v4 to v5
+                    Upgrading from v5 to v6
             
                 </a>
             
@@ -632,6 +613,19 @@
         </li>
     
         <li class="chapter " data-level="1.14" >
+            
+                <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v5/docs">
+            
+                    
+                    v5 Documentation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" >
             
                 <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v4/docs">
             
@@ -644,7 +638,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15" data-path="../../contributing/">
+        <li class="chapter " data-level="1.16" data-path="../../contributing/">
             
                 <a href="../../contributing/">
             
@@ -658,7 +652,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.15.1" data-path="../../contributing/development.html">
+        <li class="chapter " data-level="1.16.1" data-path="../../contributing/development.html">
             
                 <a href="../../contributing/development.html">
             
@@ -671,7 +665,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15.2" data-path="../../contributing/code-of-conduct.html">
+        <li class="chapter " data-level="1.16.2" data-path="../../contributing/code-of-conduct.html">
             
                 <a href="../../contributing/code-of-conduct.html">
             
@@ -741,9 +735,9 @@
 added during production builds.</p>
 <h2 id="requirements">Requirements</h2>
 <ul>
-<li>Node.js v6.9+</li>
+<li>Node.js v6.10+</li>
 <li>Yarn or npm client</li>
-<li>Neutrino v5</li>
+<li>Neutrino v6</li>
 </ul>
 <h2 id="installation">Installation</h2>
 <p><code>neutrino-middleware-minify</code> can be installed via the Yarn or npm clients.</p>
@@ -756,7 +750,8 @@ added during production builds.</p>
 <h2 id="usage">Usage</h2>
 <p><code>neutrino-middleware-minify</code> can be consumed from the Neutrino API, middleware, or presets. Require this package
 and plug it into Neutrino:</p>
-<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> minify <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-middleware-minify&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Using function middleware format</span>
+<span class="token keyword">const</span> minify <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-middleware-minify&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token comment" spellcheck="true">// Use with default options</span>
 neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>minify<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -767,6 +762,23 @@ neutrino<span class="token punctuation">.</span><span class="token function">use
   overrides<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Using object or array middleware format</span>
+
+<span class="token comment" spellcheck="true">// Use with default options</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;neutrino-middleware-minify&apos;</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// Usage showing overriding minification options</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">[</span><span class="token string">&apos;neutrino-middleware-minify&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      babili<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+      overrides<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">]</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
 <p>The <code>babili</code> and <code>overrides</code> properties map to the options defined by
 <a href="https://www.npmjs.com/package/babili-webpack-plugin#options" target="_blank">babili-webpack-plugin</a>.</p>
 <h2 id="customization">Customization</h2>
@@ -774,12 +786,25 @@ neutrino<span class="token punctuation">.</span><span class="token function">use
 make changes.</p>
 <h3 id="plugins">Plugins</h3>
 <p>The following is a list of plugins and their identifiers which can be overridden:</p>
-<ul>
-<li><code>minify</code>: Minifies source code using <code>BabiliWebpackPlugin</code>.</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Environments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minify</code></td>
+<td>Minifies source code using <code>BabiliWebpackPlugin</code>.</td>
+<td>all</td>
+</tr>
+</tbody>
+</table>
 <h2 id="contributing">Contributing</h2>
-<p>This preset is part of the <a href="https://github.com/mozilla-neutrino/neutrino-dev" target="_blank">neutrino-dev</a> repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+<p>This middleware is part of the <a href="https://github.com/mozilla-neutrino/neutrino-dev" target="_blank">neutrino-dev</a> repository, a monorepo
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 <a href="../../contributing/">contributing guide</a> for details.</p>
 
                                 
@@ -813,7 +838,7 @@ containing all resources for developing Neutrino and its core presets. Follow th
                 </a>
                 
                 
-                <a href="../neutrino-middleware-named-modules/" class="navigation navigation-next " aria-label="Next page: named-modules">
+                <a href="../neutrino-middleware-pwa/" class="navigation navigation-next " aria-label="Next page: pwa">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -824,7 +849,7 @@ containing all resources for developing Neutrino and its core presets. Follow th
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"minify","level":"1.7.14","depth":2,"next":{"title":"named-modules","level":"1.7.15","depth":2,"path":"middleware/neutrino-middleware-named-modules/README.md","ref":"./middleware/neutrino-middleware-named-modules/README.md","articles":[]},"previous":{"title":"loader-merge","level":"1.7.13","depth":2,"path":"middleware/neutrino-middleware-loader-merge/README.md","ref":"./middleware/neutrino-middleware-loader-merge/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"middleware/neutrino-middleware-minify/README.md","mtime":"2017-06-14T01:15:52.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-14T01:16:06.383Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"minify","level":"1.7.14","depth":2,"next":{"title":"pwa","level":"1.7.15","depth":2,"path":"middleware/neutrino-middleware-pwa/README.md","ref":"./middleware/neutrino-middleware-pwa/README.md","articles":[]},"previous":{"title":"loader-merge","level":"1.7.13","depth":2,"path":"middleware/neutrino-middleware-loader-merge/README.md","ref":"./middleware/neutrino-middleware-loader-merge/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"middleware/neutrino-middleware-minify/README.md","mtime":"2017-06-15T16:04:46.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-15T16:18:35.403Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

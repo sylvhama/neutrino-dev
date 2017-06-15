@@ -477,12 +477,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.15" data-path="../../middleware/neutrino-middleware-named-modules/">
+        <li class="chapter " data-level="1.7.15" data-path="../../middleware/neutrino-middleware-pwa/">
             
-                <a href="../../middleware/neutrino-middleware-named-modules/">
+                <a href="../../middleware/neutrino-middleware-pwa/">
             
                     
-                    named-modules
+                    pwa
             
                 </a>
             
@@ -516,6 +516,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.7.18" data-path="../../middleware/community-middleware.html">
+            
+                <a href="../../middleware/community-middleware.html">
+            
+                    
+                    Community middleware
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -531,38 +544,6 @@
                 </a>
             
 
-            
-            <ul class="articles">
-                
-    
-        <li class="chapter " data-level="1.8.1" data-path="../../customization/simple.html">
-            
-                <a href="../../customization/simple.html">
-            
-                    
-                    Simple
-            
-                </a>
-            
-
-            
-        </li>
-    
-        <li class="chapter " data-level="1.8.2" data-path="../../customization/advanced.html">
-            
-                <a href="../../customization/advanced.html">
-            
-                    
-                    Advanced
-            
-                </a>
-            
-
-            
-        </li>
-    
-
-            </ul>
             
         </li>
     
@@ -623,7 +604,7 @@
                 <a href="../../upgrading-neutrino.html">
             
                     
-                    Upgrading from v4 to v5
+                    Upgrading from v5 to v6
             
                 </a>
             
@@ -632,6 +613,19 @@
         </li>
     
         <li class="chapter " data-level="1.14" >
+            
+                <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v5/docs">
+            
+                    
+                    v5 Documentation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" >
             
                 <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v4/docs">
             
@@ -644,7 +638,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15" data-path="../../contributing/">
+        <li class="chapter " data-level="1.16" data-path="../../contributing/">
             
                 <a href="../../contributing/">
             
@@ -658,7 +652,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.15.1" data-path="../../contributing/development.html">
+        <li class="chapter " data-level="1.16.1" data-path="../../contributing/development.html">
             
                 <a href="../../contributing/development.html">
             
@@ -671,7 +665,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.15.2" data-path="../../contributing/code-of-conduct.html">
+        <li class="chapter " data-level="1.16.2" data-path="../../contributing/code-of-conduct.html">
             
                 <a href="../../contributing/code-of-conduct.html">
             
@@ -740,7 +734,7 @@
 <h2 id="features">Features</h2>
 <ul>
 <li>Zero upfront configuration necessary to start developing and building a Node.js project</li>
-<li>Modern Babel compilation supporting ES modules, Node.js 6.9+, async functions, and dynamic imports</li>
+<li>Modern Babel compilation supporting ES modules, Node.js 6.10+, async functions, and dynamic imports</li>
 <li>Supports automatically-wired sourcemaps</li>
 <li>Tree-shaking to create smaller bundles</li>
 <li>Hot Module Replacement with source-watching during development</li>
@@ -749,9 +743,9 @@
 </ul>
 <h2 id="requirements">Requirements</h2>
 <ul>
-<li>Node.js v6.9+</li>
+<li>Node.js v6.10+</li>
 <li>Yarn or npm client</li>
-<li>Neutrino v5</li>
+<li>Neutrino v6</li>
 </ul>
 <h2 id="installation">Installation</h2>
 <p><code>neutrino-preset-node</code> can be installed via the Yarn or npm clients. Inside your project, make sure
@@ -799,6 +793,11 @@ a single JS file named <code>index.js</code> in it.</p>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
+<p>If you are using <code>.neutrinorc.js</code>, add this preset to your use array instead of <code>--use</code> flags:</p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-node&apos;</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
 <p>Start the app, then either open a browser to <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> or use curl from another terminal window:</p>
 <h4 id="yarn">Yarn</h4>
 <pre class="language-"><code class="lang-bash">&#x276F; yarn start
@@ -822,7 +821,7 @@ clean-webpack-plugin: /node/build has been removed.
 Build completed <span class="token keyword">in</span> 0.419s
 
 Hash: 89e4fb250fc535920ba4
-Version: webpack 2.2.1
+Version: webpack 2.6.1
 Time: 424ms
        Asset     Size  Chunks             Chunk Names
     index.js  4.29 kB       0  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  index
@@ -876,12 +875,62 @@ modification during development.</p>
 <h2 id="debugging">Debugging</h2>
 <p>You can start the Node.js server in <code>inspect</code> mode to debug the process by setting <code>neutrino.options.debug</code> to <code>true</code>.
 This can be done from the <a href="../../api#optionsdebug">API</a> or the <a href="../../cli#-debug">CLI using <code>--debug</code></a>.</p>
+<h2 id="preset-options">Preset options</h2>
+<p>You can provide custom options and have them merged with this preset&apos;s default options to easily affect how this
+preset builds. You can modify Node.js preset settings from <code>.neutrinorc.js</code> by overriding with an options object. Use
+an array pair instead of a string to supply these options in <code>.neutrinorc.js</code>.</p>
+<p>The following shows how you can pass an options object to the Node.js preset and override its options, showing the
+defaults:</p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-node&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// Enables Hot Module Replacement. Set to false to disable</span>
+      hot<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+
+      polyfills<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// Enables fast-async polyfill. Set to false to disable</span>
+        <span class="token keyword">async</span><span class="token punctuation">:</span> <span class="token boolean">true</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+      <span class="token comment" spellcheck="true">// Add additional Babel plugins, presets, or env options</span>
+      babel<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// Override options for babel-preset-env, showing defaults:</span>
+        presetEnv<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+          targets<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            node<span class="token punctuation">:</span> <span class="token string">&apos;6.10&apos;</span><span class="token punctuation">,</span>
+            modules<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+            useBuiltIns<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+            <span class="token comment" spellcheck="true">// These are excluded when using polyfills.async. Disabling the async polyfill</span>
+            <span class="token comment" spellcheck="true">// will remove these from the exclusion list</span>
+            exclude<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;transform-regenerator&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;transform-async-to-generator&apos;</span><span class="token punctuation">]</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">]</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p><em>Example: Override the Node.js Babel compilation target to Node.js v8:</em></p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-node&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      babel<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        presetEnv<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+          targets<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            node<span class="token punctuation">:</span> <span class="token string">&apos;6.10&apos;</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">]</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
 <h2 id="customizing">Customizing</h2>
 <p>To override the build configuration, start with the documentation on <a href="../../customization/">customization</a>.
 <code>neutrino-preset-node</code> creates some conventions to make overriding the configuration easier once you are ready to make
 changes.</p>
 <p>By default the Node.js preset creates a single <strong>main</strong> <code>index</code> entry point to your application, and this maps to the
-<code>index.js</code> file in the <code>src</code> directory. This means that the Node.js preset is optimized toward a main entry to your app.
+<code>index.*</code> file in the <code>src</code> directory. This means that the Node.js preset is optimized toward a main entry to your app.
 Code not imported in the hierarchy of the <code>index</code> entry will not be output to the bundle. To overcome this you
 must either define more entry points, or import the code path somewhere along the <code>index</code> hierarchy.</p>
 <h3 id="vendoring">Vendoring</h3>
@@ -889,9 +938,22 @@ must either define more entry points, or import the code path somewhere along th
 package.json. No extra work is required to make this work.</p>
 <h3 id="rules">Rules</h3>
 <p>The following is a list of rules and their identifiers which can be overridden:</p>
-<ul>
-<li><code>compile</code>: Compiles JS files from the <code>src</code> directory using Babel. Contains a single loader named <code>babel</code>.</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Environments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>compile</code></td>
+<td>Compiles JS files from the <code>src</code> directory using Babel. Contains a single loader named <code>babel</code></td>
+<td>all</td>
+</tr>
+</tbody>
+</table>
 <h3 id="plugins">Plugins</h3>
 <p>The following is a list of plugins and their identifiers which can be overridden:</p>
 <p><em>Note: Some plugins are only available in certain environments. To override them, they should be modified conditionally.</em></p>
@@ -907,131 +969,45 @@ package.json. No extra work is required to make this work.</p>
 <tr>
 <td><code>banner</code></td>
 <td>Injects source-map-support into the entry point of your application if detected in <code>dependencies</code> or <code>devDependencies</code> of your package.json.</td>
-<td>all</td>
+<td>Only when <code>source-map-support</code> is installed</td>
 </tr>
 <tr>
 <td><code>copy</code></td>
-<td>Copies non-JS files from <code>src</code> to <code>build</code> when using <code>neutrino build</code>.</td>
-<td><code>production</code>, <code>test</code></td>
+<td>Copies all files from <code>src/static</code> to <code>build</code> when using <code>neutrino build</code>.</td>
+<td>all but <code>development</code></td>
 </tr>
 <tr>
 <td><code>clean</code></td>
 <td>Clears the contents of <code>build</code> prior to creating a production bundle.</td>
-<td><code>production</code>, <code>test</code></td>
+<td>all but <code>development</code></td>
+</tr>
+<tr>
+<td><code>start-server</code></td>
+<td>Start a Node.js for a configured entry point or specified file.</td>
+<td><code>development</code></td>
 </tr>
 <tr>
 <td><code>hot</code></td>
-<td>Enables Hot Module Replacement.</td>
+<td>Enables hot module replacement.</td>
 <td><code>development</code></td>
 </tr>
 </tbody>
 </table>
-<h3 id="simple-customization">Simple customization</h3>
-<p>By following the <a href="../../customization/simple.html">customization guide</a> and knowing the rule, loader, and plugin IDs above,
-you can override and augment the build directly from package.json.</p>
-<h4 id="compile-targets">Compile targets</h4>
-<p>This preset uses babel-preset-env to compile code targeting the Node.js v6.9+. To change
-the Node.js target from package.json, specify an object at <code>neutrino.options.compile.targets</code> which contains a
-<a href="https://github.com/babel/babel-preset-env#targetsnode" target="_blank">babel-preset-env-compatible</a> Node.js target.</p>
-<p><em>Example: Replace the preset Node.js target with support for Node.js 4.2:</em></p>
-<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
-  <span class="token property">&quot;neutrino&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">&quot;options&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">&quot;compile&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">&quot;targets&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-          <span class="token property">&quot;node&quot;</span><span class="token operator">:</span> <span class="token number">4.2</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p><em>Example: Change support to current Node.js version:</em></p>
-<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
-  <span class="token property">&quot;neutrino&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">&quot;options&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">&quot;compile&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">&quot;targets&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-          <span class="token property">&quot;node&quot;</span><span class="token operator">:</span> <span class="token string">&quot;current&quot;</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<h4 id="other-customization-examples">Other customization examples</h4>
-<p><em>Example: Allow importing modules with an <code>.mjs</code> extension.</em></p>
-<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
-  <span class="token property">&quot;neutrino&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">&quot;config&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">&quot;resolve&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">&quot;extensions&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-          <span class="token string">&quot;.mjs&quot;</span>
-        <span class="token punctuation">]</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<h3 id="advanced-configuration">Advanced configuration</h3>
-<p>By following the <a href="../../customization/advanced.html">customization guide</a> and knowing the rule, loader, and plugin IDs above,
-you can override and augment the build by creating a JS module which overrides the config.</p>
-<h4 id="compile-targets">Compile targets</h4>
-<p>This preset uses babel-preset-env to compile code targeting the Node.js v6.9+. To change
-the Node.js target from package.json, specify an object at <code>neutrino.options.compile.targets</code> which contains a
-<a href="https://github.com/babel/babel-preset-env#targetsnode" target="_blank">babel-preset-env-compatible</a> Node.js target.</p>
-<p><strong>Note: Setting these options via <code>neutrino.options.compile</code> must be done prior to loading the Node.js preset or they
-will not be picked up by the compile middleware. These examples show changing compile targets with options before
-loading the preset and overriding them if loaded afterwards.</strong></p>
-<p><em>Example: Replace the preset Node.js target with support for Node.js 4.2:</em></p>
-<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> neutrino <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
-  <span class="token comment" spellcheck="true">// Using neutrino.options prior to loading Node.js preset</span>
-  neutrino<span class="token punctuation">.</span>options<span class="token punctuation">.</span>compile <span class="token operator">=</span> <span class="token punctuation">{</span>
-    targets<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      node<span class="token punctuation">:</span> <span class="token number">4.2</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span><span class="token punctuation">;</span>
-
-  <span class="token comment" spellcheck="true">// Using compile options override following loading Node.js preset</span>
-  neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>module
-    <span class="token punctuation">.</span><span class="token function">rule</span><span class="token punctuation">(</span><span class="token string">&apos;compile&apos;</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">&apos;babel&apos;</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">tap</span><span class="token punctuation">(</span>options <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
-      options<span class="token punctuation">.</span>presets<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>targets<span class="token punctuation">.</span>node <span class="token operator">=</span> <span class="token number">4.2</span><span class="token punctuation">;</span>
-
-      <span class="token keyword">return</span> options<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre>
-<p><em>Example: Change support to current Node.js version:</em></p>
-<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> neutrino <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
-  <span class="token comment" spellcheck="true">// Using neutrino.options prior to loading Node.js preset</span>
-  neutrino<span class="token punctuation">.</span>options<span class="token punctuation">.</span>compile <span class="token operator">=</span> <span class="token punctuation">{</span>
-    targets<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-      node<span class="token punctuation">:</span> <span class="token number">4.2</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span><span class="token punctuation">;</span>
-
-  <span class="token comment" spellcheck="true">// Using compile options override following loading Node.js preset</span>
-  neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>module
-    <span class="token punctuation">.</span><span class="token function">rule</span><span class="token punctuation">(</span><span class="token string">&apos;compile&apos;</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">&apos;babel&apos;</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">tap</span><span class="token punctuation">(</span>options <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
-      options<span class="token punctuation">.</span>presets<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>targets<span class="token punctuation">.</span>node <span class="token operator">=</span> <span class="token string">&apos;current&apos;</span><span class="token punctuation">;</span>
-
-      <span class="token keyword">return</span> options<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre>
-<h4 id="other-customization-examples">Other customization examples</h4>
-<p><em>Example: Allow importing modules with an <code>.mjs</code> extension.</em></p>
-<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> neutrino <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
-  neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>resolve<span class="token punctuation">.</span>extensions<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">&apos;.mjs&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<h3 id="override-configuration">Override configuration</h3>
+<p>By following the <a href="../../customization">customization guide</a> and knowing the rule, loader, and plugin IDs above,
+you can override and augment the build by by providing a function to your <code>.neutrinorc.js</code> use array. You can also
+make these changes from the Neutrino API in custom middleware.</p>
+<p><em>Example: Allow importing modules with a <code>.mjs</code> extension.</em></p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token string">&apos;neutrino-preset-node&apos;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">(</span>neutrino<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>resolve<span class="token punctuation">.</span>extensions<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">&apos;.mjs&apos;</span><span class="token punctuation">)</span>
+  <span class="token punctuation">]</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="contributing">Contributing</h2>
 <p>This preset is part of the <a href="https://github.com/mozilla-neutrino/neutrino-dev" target="_blank">neutrino-dev</a> repository, a monorepo
-containing all resources for developing Neutrino and its core presets. Follow the
+containing all resources for developing Neutrino and its core presets and middleware. Follow the
 <a href="../../contributing/">contributing guide</a> for details.</p>
 
                                 
@@ -1076,7 +1052,7 @@ containing all resources for developing Neutrino and its core presets. Follow th
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Node.js","level":"1.6.3","depth":2,"next":{"title":"Airbnb","level":"1.6.4","depth":2,"path":"presets/neutrino-preset-airbnb-base/README.md","ref":"./presets/neutrino-preset-airbnb-base/README.md","articles":[]},"previous":{"title":"React","level":"1.6.2","depth":2,"path":"presets/neutrino-preset-react/README.md","ref":"./presets/neutrino-preset-react/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"presets/neutrino-preset-node/README.md","mtime":"2017-06-14T01:16:00.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-14T01:16:06.383Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Node.js","level":"1.6.3","depth":2,"next":{"title":"Airbnb","level":"1.6.4","depth":2,"path":"presets/neutrino-preset-airbnb-base/README.md","ref":"./presets/neutrino-preset-airbnb-base/README.md","articles":[]},"previous":{"title":"React","level":"1.6.2","depth":2,"path":"presets/neutrino-preset-react/README.md","ref":"./presets/neutrino-preset-react/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"presets/neutrino-preset-node/README.md","mtime":"2017-06-15T16:04:46.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-06-15T16:18:35.403Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
