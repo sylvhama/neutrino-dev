@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>minify · Neutrino</title>
+        <title>start-server · Neutrino</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -61,10 +61,10 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../neutrino-middleware-pwa/" />
+    <link rel="next" href="../neutrino-middleware-style-loader/" />
     
     
-    <link rel="prev" href="../neutrino-middleware-loader-merge/" />
+    <link rel="prev" href="../neutrino-middleware-pwa/" />
     
 
     </head>
@@ -464,9 +464,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.7.14" data-path="./">
+        <li class="chapter " data-level="1.7.14" data-path="../neutrino-middleware-minify/">
             
-                <a href="./">
+                <a href="../neutrino-middleware-minify/">
             
                     
                     minify
@@ -490,9 +490,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.16" data-path="../neutrino-middleware-start-server/">
+        <li class="chapter active" data-level="1.7.16" data-path="./">
             
-                <a href="../neutrino-middleware-start-server/">
+                <a href="./">
             
                     
                     start-server
@@ -713,7 +713,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../.." >minify</a>
+        <a href="../.." >start-server</a>
     </h1>
 </div>
 
@@ -728,11 +728,10 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="neutrino-minify-middleware">Neutrino Minify Middleware</h1>
-<p><a href="https://npmjs.org/package/neutrino-middleware-minify" target="_blank"><img src="https://img.shields.io/npm/v/neutrino-middleware-minify.svg" alt="NPM version"></a> <a href="https://npmjs.org/package/neutrino-middleware-minify" target="_blank"><img src="https://img.shields.io/npm/dt/neutrino-middleware-minify.svg" alt="NPM downloads"></a> <a href="https://neutrino-slack.herokuapp.com/" target="_blank"><img src="https://neutrino-slack.herokuapp.com/badge.svg" alt="Join Slack"></a></p>
-<p><code>neutrino-middleware-minify</code> is Neutrino middleware for minifying source code using
-<a href="https://www.npmjs.com/package/babili-webpack-plugin" target="_blank"><code>BabiliWebpackPlugin</code></a>. This middleware is usually only
-added during production builds.</p>
+                                <h1 id="neutrino-start-server-middleware">Neutrino Start Server Middleware</h1>
+<p><a href="https://npmjs.org/package/neutrino-middleware-start-server" target="_blank"><img src="https://img.shields.io/npm/v/neutrino-middleware-start-server.svg" alt="NPM version"></a> <a href="https://npmjs.org/package/neutrino-middleware-start-server" target="_blank"><img src="https://img.shields.io/npm/dt/neutrino-middleware-start-server.svg" alt="NPM downloads"></a> <a href="https://neutrino-slack.herokuapp.com/" target="_blank"><img src="https://neutrino-slack.herokuapp.com/badge.svg" alt="Join Slack"></a></p>
+<p><code>neutrino-middleware-start-server</code> is Neutrino middleware for starting a Node.js server for a file upon
+completion of a build.</p>
 <h2 id="requirements">Requirements</h2>
 <ul>
 <li>Node.js v6.10+</li>
@@ -740,50 +739,48 @@ added during production builds.</p>
 <li>Neutrino v6</li>
 </ul>
 <h2 id="installation">Installation</h2>
-<p><code>neutrino-middleware-minify</code> can be installed via the Yarn or npm clients.</p>
+<p><code>neutrino-middleware-start-server</code> can be installed via the Yarn or npm clients.</p>
 <h4 id="yarn">Yarn</h4>
-<pre class="language-"><code class="lang-bash">&#x276F; yarn add neutrino-middleware-minify
+<pre class="language-"><code class="lang-bash">&#x276F; yarn add neutrino-middleware-start-server
 </code></pre>
 <h4 id="npm">npm</h4>
-<pre class="language-"><code class="lang-bash">&#x276F; <span class="token function">npm</span> <span class="token function">install</span> --save neutrino-middleware-minify
+<pre class="language-"><code class="lang-bash">&#x276F; <span class="token function">npm</span> <span class="token function">install</span> --save neutrino-middleware-start-server
 </code></pre>
 <h2 id="usage">Usage</h2>
-<p><code>neutrino-middleware-minify</code> can be consumed from the Neutrino API, middleware, or presets. Require this package
+<p><code>neutrino-middleware-start-server</code> can be consumed from the Neutrino API, middleware, or presets. Require this package
 and plug it into Neutrino:</p>
 <pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Using function middleware format</span>
-<span class="token keyword">const</span> minify <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-middleware-minify&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> server <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-middleware-start-server&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token comment" spellcheck="true">// Use with default options</span>
-neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>minify<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// Use with default options, starting the server</span>
+<span class="token comment" spellcheck="true">// for the main entry point, neutrino.options.entry</span>
+neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>server<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token comment" spellcheck="true">// Usage showing overriding minification options</span>
-neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>minify<span class="token punctuation">,</span> <span class="token punctuation">{</span>
-  babili<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-  overrides<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// Usage with custom server file to start</span>
+neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>server<span class="token punctuation">,</span> <span class="token punctuation">{</span> name<span class="token punctuation">:</span> <span class="token string">&apos;custom.js&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Using object or array middleware format</span>
 
-<span class="token comment" spellcheck="true">// Use with default options</span>
+<span class="token comment" spellcheck="true">// Use with default options, starting the server</span>
+<span class="token comment" spellcheck="true">// for the main entry point, neutrino.options.entry</span>
 module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
-  use<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;neutrino-middleware-minify&apos;</span><span class="token punctuation">]</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;neutrino-middleware-start-server&apos;</span><span class="token punctuation">]</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-<span class="token comment" spellcheck="true">// Usage showing overriding minification options</span>
+<span class="token comment" spellcheck="true">// Usage with custom server file to start</span>
 module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
   use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">[</span><span class="token string">&apos;neutrino-middleware-minify&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
-      babili<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-      overrides<span class="token punctuation">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token punctuation">[</span><span class="token string">&apos;neutrino-middleware-start-server&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      name<span class="token punctuation">:</span> <span class="token string">&apos;custom.js&apos;</span>
     <span class="token punctuation">}</span><span class="token punctuation">]</span>
   <span class="token punctuation">]</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
-<p>The <code>babili</code> and <code>overrides</code> properties map to the options defined by
-<a href="https://www.npmjs.com/package/babili-webpack-plugin#options" target="_blank">babili-webpack-plugin</a>.</p>
+<p>By default this middleware will start a server with the single entry point configured in Neutrino.
+This middleware optionally accepts an object with a <code>name</code> property for a path to a module which to start the server.</p>
 <h2 id="customization">Customization</h2>
-<p><code>neutrino-middleware-minify</code> creates some conventions to make overriding the configuration easier once you are ready to
-make changes.</p>
+<p><code>neutrino-middleware-start-server</code> creates some conventions to make overriding the configuration easier once you are
+ready to make changes.</p>
 <h3 id="plugins">Plugins</h3>
 <p>The following is a list of plugins and their identifiers which can be overridden:</p>
 <table>
@@ -796,12 +793,15 @@ make changes.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>minify</code></td>
-<td>Minifies source code using <code>BabiliWebpackPlugin</code>.</td>
+<td><code>start-server</code></td>
+<td>Start a Node.js for a configured entry point or specified file.</td>
 <td>all</td>
 </tr>
 </tbody>
 </table>
+<h3 id="debugging">Debugging</h3>
+<p>You can start the Node.js server in <code>inspect</code> mode to debug the process by setting <code>neutrino.options.debug</code> to <code>true</code>.
+This can be done from the <a href="../../api#optionsdebug">API</a> or the <a href="../../cli#-debug">CLI using <code>--debug</code></a>.</p>
 <h2 id="contributing">Contributing</h2>
 <p>This middleware is part of the <a href="https://github.com/mozilla-neutrino/neutrino-dev" target="_blank">neutrino-dev</a> repository, a monorepo
 containing all resources for developing Neutrino and its core presets and middleware. Follow the
@@ -833,12 +833,12 @@ containing all resources for developing Neutrino and its core presets and middle
 
             
                 
-                <a href="../neutrino-middleware-loader-merge/" class="navigation navigation-prev " aria-label="Previous page: loader-merge">
+                <a href="../neutrino-middleware-pwa/" class="navigation navigation-prev " aria-label="Previous page: pwa">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="../neutrino-middleware-pwa/" class="navigation navigation-next " aria-label="Next page: pwa">
+                <a href="../neutrino-middleware-style-loader/" class="navigation navigation-next " aria-label="Next page: style-loader">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -849,7 +849,7 @@ containing all resources for developing Neutrino and its core presets and middle
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"minify","level":"1.7.14","depth":2,"next":{"title":"pwa","level":"1.7.15","depth":2,"path":"middleware/neutrino-middleware-pwa/README.md","ref":"./middleware/neutrino-middleware-pwa/README.md","articles":[]},"previous":{"title":"loader-merge","level":"1.7.13","depth":2,"path":"middleware/neutrino-middleware-loader-merge/README.md","ref":"./middleware/neutrino-middleware-loader-merge/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"middleware/neutrino-middleware-minify/README.md","mtime":"2017-06-19T18:33:43.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-07-03T20:35:32.403Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"start-server","level":"1.7.16","depth":2,"next":{"title":"style-loader","level":"1.7.17","depth":2,"path":"middleware/neutrino-middleware-style-loader/README.md","ref":"./middleware/neutrino-middleware-style-loader/README.md","articles":[]},"previous":{"title":"pwa","level":"1.7.15","depth":2,"path":"middleware/neutrino-middleware-pwa/README.md","ref":"./middleware/neutrino-middleware-pwa/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"middleware/neutrino-middleware-start-server/README.md","mtime":"2017-06-19T18:33:43.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-07-03T20:35:32.403Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
