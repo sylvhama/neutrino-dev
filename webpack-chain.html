@@ -754,10 +754,10 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="webpack-chain">webpack-chain</h1>
+                                <h1 id="webpack-chain-neutrino-configuration-api">webpack-chain: Neutrino configuration API</h1>
 <p>Use a chaining API to generate and simplify the modification of
 Webpack 2 and 3 configurations.</p>
-<p>This documentation corresponds to v4 of webpack-chain.</p>
+<p>This documentation corresponds to v4 of webpack-chain, which Neutrino utilizes.</p>
 <p><em>Note: while webpack-chain is utilized extensively in Neutrino, the package is completely
 standalone and can be used by any project. See the webpack-chain repo for standalone documentation.</em></p>
 <h2 id="introduction">Introduction</h2>
@@ -847,7 +847,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="chainedmap">ChainedMap</h2>
-<p>One of the core API interfaces in webpack-chain is a <code>ChainedMap</code>. A <code>ChainedMap</code> operates
+<p>One of the core API interfaces in Neutrino configuration is a <code>ChainedMap</code>. A <code>ChainedMap</code> operates
 similar to a JavaScript Map, with some conveniences for chaining and generating configuration.
 If a property is marked as being a <code>ChainedMap</code>, it will have an API and methods as described below:</p>
 <p><strong>Unless stated otherwise, these methods will return the <code>ChainedMap</code>, allowing you to chain these methods.</strong></p>
@@ -899,7 +899,7 @@ If a property is marked as being a <code>ChainedMap</code>, it will have an API 
 <span class="token function">when</span><span class="token punctuation">(</span>condition<span class="token punctuation">,</span> truthyHandler<span class="token punctuation">,</span> falsyHandler<span class="token punctuation">)</span>
 </code></pre>
 <h2 id="chainedset">ChainedSet</h2>
-<p>Another of the core API interfaces in webpack-chain is a <code>ChainedSet</code>. A <code>ChainedSet</code> operates
+<p>Another of the core API interfaces in Neutrino configuration is a <code>ChainedSet</code>. A <code>ChainedSet</code> operates
 similar to a JavaScript Set, with some conveniences for chaining and generating configuration.
 If a property is marked as being a <code>ChainedSet</code>, it will have an API and methods as described below:</p>
 <p><strong>Unless stated otherwise, these methods will return the <code>ChainedSet</code>, allowing you to chain these methods.</strong></p>
@@ -945,10 +945,10 @@ If a property is marked as being a <code>ChainedSet</code>, it will have an API 
 with the same key as the shorthand method name.
 For example, <code>devServer.hot</code> is a shorthand method, so it can be used as:</p>
 <pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// A shorthand method for setting a value on a ChainedMap</span>
-devServer<span class="token punctuation">.</span><span class="token function">hot</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>devServer<span class="token punctuation">.</span><span class="token function">hot</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token comment" spellcheck="true">// This would be equivalent to:</span>
-devServer<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">&apos;hot&apos;</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>devServer<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">&apos;hot&apos;</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>A shorthand method is chainable, so calling it will return the original instance,
 allowing you to continue to chain.</p>
@@ -1185,7 +1185,7 @@ neutrino<span class="token punctuation">.</span>config
   <span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">(</span>Plugin<span class="token punctuation">,</span> args<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token keyword">new</span> <span class="token class-name">Plugin</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h4 id="config-plugins-removing">Config plugins: removing</h4>
-<pre class="language-"><code class="lang-js">config<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span><span class="token keyword">delete</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+<pre class="language-"><code class="lang-js">neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span><span class="token keyword">delete</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
 </code></pre>
 <h4 id="config-resolve-plugins">Config resolve plugins</h4>
 <pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Backed at config.resolve.plugins</span>
@@ -1208,12 +1208,12 @@ neutrino<span class="token punctuation">.</span>config<span class="token punctua
   <span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">(</span>Plugin<span class="token punctuation">,</span> args<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token keyword">new</span> <span class="token class-name">Plugin</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">)</span>
 </code></pre>
 <h4 id="config-resolve-plugins-removing">Config resolve plugins: removing</h4>
-<pre class="language-"><code class="lang-js">config<span class="token punctuation">.</span>resolve<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span><span class="token keyword">delete</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+<pre class="language-"><code class="lang-js">neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>resolve<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span><span class="token keyword">delete</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
 </code></pre>
 <h4 id="config-node">Config node</h4>
 <pre class="language-"><code class="lang-js">neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>node <span class="token punctuation">:</span> ChainedMap
 
-config<span class="token punctuation">.</span>node
+neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>node
   <span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">&apos;__dirname&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;mock&apos;</span><span class="token punctuation">)</span>
   <span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">&apos;__filename&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;mock&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
@@ -1340,15 +1340,19 @@ neutrino<span class="token punctuation">.</span>config<span class="token punctua
 </code></pre>
 <hr>
 <h3 id="merging-config">Merging Config</h3>
-<p>webpack-chain supports merging in an object to the configuration instance which matches a layout
-similar to how the webpack-chain schema is laid out. Note that this is not a Webpack configuration
-object, but you may transform a Webpack configuration object before providing it to webpack-chain
+<p>Neutrino config supports merging in an object to the configuration instance which matches a layout
+similar to how the configuration schema is laid out. Note that this is not a Webpack configuration
+object, but you may transform a Webpack configuration object before providing it to Neutrino configuration
 to match its layout.</p>
 <pre class="language-"><code class="lang-js">neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token function">merge</span><span class="token punctuation">(</span><span class="token punctuation">{</span> devtool<span class="token punctuation">:</span> <span class="token string">&apos;source-map&apos;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">&apos;devtool&apos;</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// &quot;source-map&quot;</span>
 </code></pre>
-<pre class="language-"><code class="lang-js">neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token function">merge</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Neutrino configuration &quot;schematic&quot;</span>
+<span class="token comment" spellcheck="true">// Merging an object into Neutrino configuration</span>
+<span class="token comment" spellcheck="true">// should have any properties you set follow this</span>
+<span class="token comment" spellcheck="true">// &quot;schematic&quot; format.</span>
+neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token function">merge</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
   <span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">:</span> value<span class="token punctuation">,</span>
 
   amd<span class="token punctuation">,</span>
@@ -1542,7 +1546,7 @@ neutrino<span class="token punctuation">.</span>config
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Configuration API - webpack-chain","level":"1.9","depth":1,"next":{"title":"Customization","level":"1.10","depth":1,"path":"customization/README.md","ref":"./customization/README.md","articles":[]},"previous":{"title":"API","level":"1.8","depth":1,"path":"api/README.md","ref":"./api/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"webpack-chain.md","mtime":"2017-09-28T16:04:55.960Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-09-28T16:15:34.055Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Configuration API - webpack-chain","level":"1.9","depth":1,"next":{"title":"Customization","level":"1.10","depth":1,"path":"customization/README.md","ref":"./customization/README.md","articles":[]},"previous":{"title":"API","level":"1.8","depth":1,"path":"api/README.md","ref":"./api/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"webpack-chain.md","mtime":"2017-09-28T19:26:21.606Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-09-28T19:27:15.157Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
