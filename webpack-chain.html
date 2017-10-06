@@ -881,22 +881,27 @@ If a property is marked as being a <code>ChainedMap</code>, it will have an API 
 <span class="token comment" spellcheck="true">// where the key is the object property, and the value</span>
 <span class="token comment" spellcheck="true">// corresponding to the key. Will return `undefined` if the backing</span>
 <span class="token comment" spellcheck="true">// Map is empty.</span>
+<span class="token comment" spellcheck="true">// This will order properties by their name if the value is</span>
+<span class="token comment" spellcheck="true">// a ChainedMap that used .before() or .after().</span>
 <span class="token comment" spellcheck="true">// returns: Object, undefined if empty</span>
 <span class="token function">entries</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 `
 </code></pre>
 <pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Provide an object which maps its properties and values</span>
 <span class="token comment" spellcheck="true">// into the backing Map as keys and values.</span>
+<span class="token comment" spellcheck="true">// You can also provide an array as the second argument</span>
+<span class="token comment" spellcheck="true">// for property names to omit from being merged.</span>
 <span class="token comment" spellcheck="true">// obj: Object</span>
-<span class="token function">merge</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// omit: Optional Array</span>
+<span class="token function">merge</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> omit<span class="token punctuation">)</span>
 </code></pre>
 <pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Conditionally execute a function to continue configuration</span>
 <span class="token comment" spellcheck="true">// condition: Boolean</span>
-<span class="token comment" spellcheck="true">// truthyHandler: Function -&gt; ChainedMap</span>
+<span class="token comment" spellcheck="true">// whenTruthy: Function -&gt; ChainedMap</span>
   <span class="token comment" spellcheck="true">// invoked when condition is truthy, given a single argument of the ChainedMap instance</span>
-<span class="token comment" spellcheck="true">// falsyHandler: Function -&gt; ChainedMap</span>
+<span class="token comment" spellcheck="true">// whenFalsy: Optional Function -&gt; ChainedMap</span>
   <span class="token comment" spellcheck="true">// invoked when condition is falsy, given a single argument of the ChainedMap instance</span>
-<span class="token function">when</span><span class="token punctuation">(</span>condition<span class="token punctuation">,</span> truthyHandler<span class="token punctuation">,</span> falsyHandler<span class="token punctuation">)</span>
+<span class="token function">when</span><span class="token punctuation">(</span>condition<span class="token punctuation">,</span> whenTruthy<span class="token punctuation">,</span> whenFalsy<span class="token punctuation">)</span>
 </code></pre>
 <h2 id="chainedset">ChainedSet</h2>
 <p>Another of the core API interfaces in Neutrino configuration is a <code>ChainedSet</code>. A <code>ChainedSet</code> operates
@@ -934,11 +939,11 @@ If a property is marked as being a <code>ChainedSet</code>, it will have an API 
 </code></pre>
 <pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Conditionally execute a function to continue configuration</span>
 <span class="token comment" spellcheck="true">// condition: Boolean</span>
-<span class="token comment" spellcheck="true">// truthyHandler: Function -&gt; ChainedSet</span>
+<span class="token comment" spellcheck="true">// whenTruthy: Function -&gt; ChainedSet</span>
   <span class="token comment" spellcheck="true">// invoked when condition is truthy, given a single argument of the ChainedSet instance</span>
-<span class="token comment" spellcheck="true">// falsyHandler: Function -&gt; ChainedSet</span>
+<span class="token comment" spellcheck="true">// whenFalsy: Optional Function -&gt; ChainedSet</span>
   <span class="token comment" spellcheck="true">// invoked when condition is falsy, given a single argument of the ChainedSet instance</span>
-<span class="token function">when</span><span class="token punctuation">(</span>condition<span class="token punctuation">,</span> truthyHandler<span class="token punctuation">,</span> falsyHandler<span class="token punctuation">)</span>
+<span class="token function">when</span><span class="token punctuation">(</span>condition<span class="token punctuation">,</span> whenTruthy<span class="token punctuation">,</span> whenFalsy<span class="token punctuation">)</span>
 </code></pre>
 <h2 id="shorthand-methods">Shorthand methods</h2>
 <p>A number of shorthand methods exist for setting a value on a <code>ChainedMap</code>
@@ -994,7 +999,7 @@ neutrino<span class="token punctuation">.</span>config
 
 neutrino<span class="token punctuation">.</span>config
   <span class="token punctuation">.</span><span class="token function">entry</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 
 <span class="token comment" spellcheck="true">// Using low-level config.entryPoints:</span>
 
@@ -1158,34 +1163,68 @@ neutrino<span class="token punctuation">.</span>config<span class="token punctua
 <p><em>NOTE: Do not use <code>new</code> to create the plugin, as this will be done for you.</em></p>
 <pre class="language-"><code class="lang-js">neutrino<span class="token punctuation">.</span>config
   <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>WebpackPlugin<span class="token punctuation">,</span> args<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>WebpackPlugin<span class="token punctuation">,</span> args<span class="token punctuation">)</span>
 
 <span class="token comment" spellcheck="true">// Examples</span>
 neutrino<span class="token punctuation">.</span>config
   <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">&apos;hot&apos;</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>webpack<span class="token punctuation">.</span>HotModuleReplacementPlugin<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>webpack<span class="token punctuation">.</span>HotModuleReplacementPlugin<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 neutrino<span class="token punctuation">.</span>config
   <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">&apos;env&apos;</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>webpack<span class="token punctuation">.</span>EnvironmentPlugin<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;NODE_ENV&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>webpack<span class="token punctuation">.</span>EnvironmentPlugin<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;NODE_ENV&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h4 id="config-plugins-modify-arguments">Config plugins: modify arguments</h4>
 <pre class="language-"><code class="lang-js">neutrino<span class="token punctuation">.</span>config
   <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">tap</span><span class="token punctuation">(</span>args <span class="token operator">=</span><span class="token operator">&gt;</span> newArgs<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">tap</span><span class="token punctuation">(</span>args <span class="token operator">=</span><span class="token operator">&gt;</span> newArgs<span class="token punctuation">)</span>
 
 <span class="token comment" spellcheck="true">// Example</span>
 neutrino<span class="token punctuation">.</span>config
   <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">&apos;env&apos;</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">tap</span><span class="token punctuation">(</span>args <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span><span class="token operator">...</span>args<span class="token punctuation">,</span> <span class="token string">&apos;SECRET_KEY&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">.</span><span class="token function">tap</span><span class="token punctuation">(</span>args <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span><span class="token operator">...</span>args<span class="token punctuation">,</span> <span class="token string">&apos;SECRET_KEY&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h4 id="config-plugins-modify-instantiation">Config plugins: modify instantiation</h4>
 <pre class="language-"><code class="lang-js">neutrino<span class="token punctuation">.</span>config
   <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">(</span>Plugin<span class="token punctuation">,</span> args<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token keyword">new</span> <span class="token class-name">Plugin</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">(</span>Plugin<span class="token punctuation">,</span> args<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token keyword">new</span> <span class="token class-name">Plugin</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h4 id="config-plugins-removing">Config plugins: removing</h4>
 <pre class="language-"><code class="lang-js">neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span><span class="token keyword">delete</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+</code></pre>
+<h4 id="config-plugins-ordering-before">Config plugins: ordering before</h4>
+<p>Specify that the current <code>plugin</code> context should operate before another named <code>plugin</code>.
+You cannot use both <code>.before()</code> and <code>.after()</code> on the same plugin.</p>
+<pre class="language-"><code class="lang-js">neutrino<span class="token punctuation">.</span>config
+  <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">before</span><span class="token punctuation">(</span>otherName<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// Example</span>
+
+neutrino<span class="token punctuation">.</span>config
+  <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">&apos;html-template&apos;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>HtmlWebpackTemplate<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">&apos;script-ext&apos;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>ScriptExtWebpackPlugin<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">before</span><span class="token punctuation">(</span><span class="token string">&apos;html-template&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="config-plugins-ordering-after">Config plugins: ordering after</h4>
+<p>Specify that the current <code>plugin</code> context should operate after another named <code>plugin</code>.
+You cannot use both <code>.before()</code> and <code>.after()</code> on the same plugin.</p>
+<pre class="language-"><code class="lang-js">neutrino<span class="token punctuation">.</span>config
+  <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">after</span><span class="token punctuation">(</span>otherName<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// Example</span>
+
+neutrino<span class="token punctuation">.</span>config
+  <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">&apos;html-template&apos;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">after</span><span class="token punctuation">(</span><span class="token string">&apos;script-ext&apos;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>HtmlWebpackTemplate<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">&apos;script-ext&apos;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>ScriptExtWebpackPlugin<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h4 id="config-resolve-plugins">Config resolve plugins</h4>
 <pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Backed at config.resolve.plugins</span>
@@ -1195,20 +1234,54 @@ neutrino<span class="token punctuation">.</span>config<span class="token punctua
 <p><em>NOTE: Do not use <code>new</code> to create the plugin, as this will be done for you.</em></p>
 <pre class="language-"><code class="lang-js">neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>resolve
   <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>WebpackPlugin<span class="token punctuation">,</span> args<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>WebpackPlugin<span class="token punctuation">,</span> args<span class="token punctuation">)</span>
 </code></pre>
 <h4 id="config-resolve-plugins-modify-arguments">Config resolve plugins: modify arguments</h4>
 <pre class="language-"><code class="lang-js">neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>resolve
   <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">tap</span><span class="token punctuation">(</span>args <span class="token operator">=</span><span class="token operator">&gt;</span> newArgs<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">tap</span><span class="token punctuation">(</span>args <span class="token operator">=</span><span class="token operator">&gt;</span> newArgs<span class="token punctuation">)</span>
 </code></pre>
 <h4 id="config-resolve-plugins-modify-instantiation">Config resolve plugins: modify instantiation</h4>
 <pre class="language-"><code class="lang-js">neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>resolve
   <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">(</span>Plugin<span class="token punctuation">,</span> args<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token keyword">new</span> <span class="token class-name">Plugin</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">(</span>Plugin<span class="token punctuation">,</span> args<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token keyword">new</span> <span class="token class-name">Plugin</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">)</span>
 </code></pre>
 <h4 id="config-resolve-plugins-removing">Config resolve plugins: removing</h4>
 <pre class="language-"><code class="lang-js">neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>resolve<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span><span class="token keyword">delete</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+</code></pre>
+<h4 id="config-resolve-plugins-ordering-before">Config resolve plugins: ordering before</h4>
+<p>Specify that the current <code>plugin</code> context should operate before another named <code>plugin</code>.
+You cannot use both <code>.before()</code> and <code>.after()</code> on the same resolve plugin.</p>
+<pre class="language-"><code class="lang-js">neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>resolve
+  <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">before</span><span class="token punctuation">(</span>otherName<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// Example</span>
+
+neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>resolve
+  <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">&apos;beta&apos;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>BetaWebpackPlugin<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">&apos;alpha&apos;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>AlphaWebpackPlugin<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">before</span><span class="token punctuation">(</span><span class="token string">&apos;beta&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="config-resolve-plugins-ordering-after">Config resolve plugins: ordering after</h4>
+<p>Specify that the current <code>plugin</code> context should operate after another named <code>plugin</code>.
+You cannot use both <code>.before()</code> and <code>.after()</code> on the same resolve plugin.</p>
+<pre class="language-"><code class="lang-js">neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>resolve
+  <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">after</span><span class="token punctuation">(</span>otherName<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// Example</span>
+
+neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>resolve
+  <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">&apos;beta&apos;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">after</span><span class="token punctuation">(</span><span class="token string">&apos;alpha&apos;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>BetaWebpackTemplate<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">&apos;alpha&apos;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>AlphaWebpackPlugin<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h4 id="config-node">Config node</h4>
 <pre class="language-"><code class="lang-js">neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>node <span class="token punctuation">:</span> ChainedMap
@@ -1378,7 +1451,9 @@ neutrino<span class="token punctuation">.</span>config<span class="token punctua
   plugin<span class="token punctuation">:</span> <span class="token punctuation">{</span>
     <span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
       plugin<span class="token punctuation">:</span> WebpackPlugin<span class="token punctuation">,</span>
-      args<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token operator">...</span>args<span class="token punctuation">]</span>
+      args<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token operator">...</span>args<span class="token punctuation">]</span><span class="token punctuation">,</span>
+      before<span class="token punctuation">,</span>
+      after
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
 
@@ -1436,7 +1511,9 @@ neutrino<span class="token punctuation">.</span>config<span class="token punctua
     plugin<span class="token punctuation">:</span> <span class="token punctuation">{</span>
       <span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
         plugin<span class="token punctuation">:</span> WebpackPlugin<span class="token punctuation">,</span>
-        args<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token operator">...</span>args<span class="token punctuation">]</span>
+        args<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token operator">...</span>args<span class="token punctuation">]</span><span class="token punctuation">,</span>
+        before<span class="token punctuation">,</span>
+        after
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
@@ -1474,7 +1551,9 @@ neutrino<span class="token punctuation">.</span>config<span class="token punctua
         use<span class="token punctuation">:</span> <span class="token punctuation">{</span>
           <span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
             loader<span class="token punctuation">:</span> LoaderString<span class="token punctuation">,</span>
-            options<span class="token punctuation">:</span> LoaderOptions
+            options<span class="token punctuation">:</span> LoaderOptions<span class="token punctuation">,</span>
+            before<span class="token punctuation">,</span>
+            after
           <span class="token punctuation">}</span>
         <span class="token punctuation">}</span>
       <span class="token punctuation">}</span>
@@ -1546,7 +1625,7 @@ neutrino<span class="token punctuation">.</span>config
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Configuration API - webpack-chain","level":"1.9","depth":1,"next":{"title":"Customization","level":"1.10","depth":1,"path":"customization/README.md","ref":"./customization/README.md","articles":[]},"previous":{"title":"API","level":"1.8","depth":1,"path":"api/README.md","ref":"./api/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"webpack-chain.md","mtime":"2017-09-30T14:58:59.527Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-09-30T14:59:04.211Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Configuration API - webpack-chain","level":"1.9","depth":1,"next":{"title":"Customization","level":"1.10","depth":1,"path":"customization/README.md","ref":"./customization/README.md","articles":[]},"previous":{"title":"API","level":"1.8","depth":1,"path":"api/README.md","ref":"./api/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"webpack-chain.md","mtime":"2017-10-06T18:25:31.856Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-10-06T18:29:53.412Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
