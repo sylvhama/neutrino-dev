@@ -755,8 +755,10 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="neutrino-jest-preset">Neutrino Jest Preset</h1>
-<p><a href="https://npmjs.org/package/neutrino-preset-jest" target="_blank"><img src="https://img.shields.io/npm/v/neutrino-preset-jest.svg" alt="NPM version"></a> <a href="https://npmjs.org/package/neutrino-preset-jest" target="_blank"><img src="https://img.shields.io/npm/dt/neutrino-preset-jest.svg" alt="NPM downloads"></a> <a href="https://neutrino-slack.herokuapp.com/" target="_blank"><img src="https://neutrino-slack.herokuapp.com/badge.svg" alt="Join Slack"></a></p>
 <p><code>neutrino-preset-jest</code> is a Neutrino preset that supports testing JavaScript projects with the Jest test runner.</p>
+<p><a href="https://npmjs.org/package/neutrino-preset-jest" target="_blank"><img src="https://img.shields.io/npm/v/neutrino-preset-jest.svg" alt="NPM version"></a>
+<a href="https://npmjs.org/package/neutrino-preset-jest" target="_blank"><img src="https://img.shields.io/npm/dt/neutrino-preset-jest.svg" alt="NPM downloads"></a>
+<a href="https://spectrum.chat/neutrino" target="_blank"><img src="https://withspectrum.github.io/badge/badge.svg" alt="Join the Neutrino community on Spectrum"></a></p>
 <h2 id="features">Features</h2>
 <ul>
 <li>Zero upfront configuration necessary to start testing</li>
@@ -909,6 +911,45 @@ to supply these options.</p>
   <span class="token punctuation">]</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
+<p>You might need to instruct Jest to load some setup scripts (e.g. when you use Enzyme). </p>
+<p><em>Example: Jest setup scripts</em></p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-jest&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// setup script for the framework</span>
+      setupTestFrameworkScriptFile<span class="token punctuation">:</span> <span class="token string">&apos;&lt;rootDir&gt;/test-setup.js&apos;</span><span class="token punctuation">,</span>
+      <span class="token comment" spellcheck="true">// and / or shims</span>
+      setupFiles<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token string">&apos;&lt;rootDir&gt;/shim.js&apos;</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">]</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<details>
+  <summary>test-setup.js and shim.js</summary>
+
+_test-setup.js for the example above_
+
+```js
+const Enzyme = require(&apos;enzyme&apos;);
+const EnzymeAdapter = require(&apos;enzyme-adapter-react-16&apos;);
+
+// Setup enzyme&apos;s react adapter
+Enzyme.configure({ adapter: new EnzymeAdapter() });
+```
+
+_shim.js for the example above_
+
+```js
+global.requestAnimationFrame = (callback) =&gt; {
+  setTimeout(callback, 0);
+};
+```
+
+</details>
+
+
 <h2 id="customizing">Customizing</h2>
 <p>To override the test configuration, start with the documentation on <a href="../../customization/">customization</a>.
 <code>neutrino-preset-jest</code> creates some conventions to make overriding the configuration easier once you are ready to make
@@ -1007,7 +1048,7 @@ containing all resources for developing Neutrino and its core presets and middle
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Jest","level":"1.13.7","depth":2,"next":{"title":"Community presets","level":"1.13.8","depth":2,"path":"presets/community-presets.md","ref":"./presets/community-presets.md","articles":[]},"previous":{"title":"Mocha","level":"1.13.6","depth":2,"path":"presets/neutrino-preset-mocha/README.md","ref":"./presets/neutrino-preset-mocha/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"presets/neutrino-preset-jest/README.md","mtime":"2017-09-30T14:58:59.524Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-10-10T14:45:12.117Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Jest","level":"1.13.7","depth":2,"next":{"title":"Community presets","level":"1.13.8","depth":2,"path":"presets/community-presets.md","ref":"./presets/community-presets.md","articles":[]},"previous":{"title":"Mocha","level":"1.13.6","depth":2,"path":"presets/neutrino-preset-mocha/README.md","ref":"./presets/neutrino-preset-mocha/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"presets/neutrino-preset-jest/README.md","mtime":"2017-10-31T16:18:41.913Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-10-31T22:02:15.884Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

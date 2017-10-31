@@ -755,8 +755,10 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="neutrino-nodejs-preset">Neutrino Node.js Preset</h1>
-<p><a href="https://npmjs.org/package/neutrino-preset-node" target="_blank"><img src="https://img.shields.io/npm/v/neutrino-preset-node.svg" alt="NPM version"></a> <a href="https://npmjs.org/package/neutrino-preset-node" target="_blank"><img src="https://img.shields.io/npm/dt/neutrino-preset-node.svg" alt="NPM downloads"></a> <a href="https://neutrino-slack.herokuapp.com/" target="_blank"><img src="https://neutrino-slack.herokuapp.com/badge.svg" alt="Join Slack"></a></p>
 <p><code>neutrino-preset-node</code> is a Neutrino preset that supports building Node.js applications.</p>
+<p><a href="https://npmjs.org/package/neutrino-preset-node" target="_blank"><img src="https://img.shields.io/npm/v/neutrino-preset-node.svg" alt="NPM version"></a>
+<a href="https://npmjs.org/package/neutrino-preset-node" target="_blank"><img src="https://img.shields.io/npm/dt/neutrino-preset-node.svg" alt="NPM downloads"></a>
+<a href="https://spectrum.chat/neutrino" target="_blank"><img src="https://withspectrum.github.io/badge/badge.svg" alt="Join the Neutrino community on Spectrum"></a></p>
 <h2 id="features">Features</h2>
 <ul>
 <li>Zero upfront configuration necessary to start developing and building a Node.js project</li>
@@ -1025,6 +1027,11 @@ package.json. No extra work is required to make this work.</p>
 <td><code>start</code> command</td>
 </tr>
 <tr>
+<td><code>named-modules</code></td>
+<td>Enables named modules for improved debugging and console output. From <code>neutrino-middleware-hot</code>.</td>
+<td><code>start</code> command</td>
+</tr>
+<tr>
 <td><code>module-concat</code></td>
 <td>Concatenate the scope of all your modules into one closure and allow for your code to have a faster execution time in the browser.</td>
 <td><code>NODE_ENV production</code></td>
@@ -1090,7 +1097,7 @@ containing all resources for developing Neutrino and its core presets and middle
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Node.js","level":"1.13.3","depth":2,"next":{"title":"Airbnb","level":"1.13.4","depth":2,"path":"presets/neutrino-preset-airbnb-base/README.md","ref":"./presets/neutrino-preset-airbnb-base/README.md","articles":[]},"previous":{"title":"React","level":"1.13.2","depth":2,"path":"presets/neutrino-preset-react/README.md","ref":"./presets/neutrino-preset-react/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"presets/neutrino-preset-node/README.md","mtime":"2017-09-30T14:58:59.525Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-10-10T14:45:12.117Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Node.js","level":"1.13.3","depth":2,"next":{"title":"Airbnb","level":"1.13.4","depth":2,"path":"presets/neutrino-preset-airbnb-base/README.md","ref":"./presets/neutrino-preset-airbnb-base/README.md","articles":[]},"previous":{"title":"React","level":"1.13.2","depth":2,"path":"presets/neutrino-preset-react/README.md","ref":"./presets/neutrino-preset-react/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"presets/neutrino-preset-node/README.md","mtime":"2017-10-31T16:18:41.915Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-10-31T22:02:15.884Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
