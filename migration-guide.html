@@ -1,0 +1,1622 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Migration Guide · Neutrino</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-npmsearchlist/styles.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="presets/" />
+    
+    
+    <link rel="prev" href="creating-presets.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="installation.html">
+            
+                <a href="installation.html">
+            
+                    
+                    Installation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="usage.html">
+            
+                <a href="usage.html">
+            
+                    
+                    Usage
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="project-layout.html">
+            
+                <a href="project-layout.html">
+            
+                    
+                    Project Layout
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="FAQ.html">
+            
+                <a href="FAQ.html">
+            
+                    
+                    FAQ
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="learning-resources.html">
+            
+                <a href="learning-resources.html">
+            
+                    
+                    Learning Resources
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="create-new-project/">
+            
+                <a href="create-new-project/">
+            
+                    
+                    Create new project
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="cli/">
+            
+                <a href="cli/">
+            
+                    
+                    CLI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="api/">
+            
+                <a href="api/">
+            
+                    
+                    API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="webpack-chain.html">
+            
+                <a href="webpack-chain.html">
+            
+                    
+                    Configuration API - webpack-chain
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="customization/">
+            
+                <a href="customization/">
+            
+                    
+                    Customization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="creating-presets.html">
+            
+                <a href="creating-presets.html">
+            
+                    
+                    Creating presets
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.13" data-path="migration-guide.html">
+            
+                <a href="migration-guide.html">
+            
+                    
+                    Migration Guide
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="presets/">
+            
+                <a href="presets/">
+            
+                    
+                    Presets
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.14.1" data-path="packages/community-presets.md">
+            
+                <span>
+            
+                    
+                    Community presets
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="middleware/">
+            
+                <a href="middleware/">
+            
+                    
+                    Middleware
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.15.1" data-path="middleware/community-middleware.html">
+            
+                <a href="middleware/community-middleware.html">
+            
+                    
+                    Community middleware
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="packages/README.md">
+            
+                <span>
+            
+                    
+                    Packages
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.16.1" data-path="packages/web/">
+            
+                <a href="packages/web/">
+            
+                    
+                    Web
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.2" data-path="packages/react/">
+            
+                <a href="packages/react/">
+            
+                    
+                    React
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.3" data-path="packages/react/">
+            
+                <a href="packages/react/">
+            
+                    
+                    Preact
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.4" data-path="packages/vue/">
+            
+                <a href="packages/vue/">
+            
+                    
+                    Vue
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.5" data-path="packages/node/">
+            
+                <a href="packages/node/">
+            
+                    
+                    Node.js
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.6" data-path="packages/library/">
+            
+                <a href="packages/library/">
+            
+                    
+                    Library
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.7" data-path="packages/react-components/">
+            
+                <a href="packages/react-components/">
+            
+                    
+                    React Components
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.8" data-path="packages/airbnb/">
+            
+                <a href="packages/airbnb/">
+            
+                    
+                    Airbnb
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.9" data-path="packages/airbnb-base/">
+            
+                <a href="packages/airbnb-base/">
+            
+                    
+                    Airbnb Base
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.10" data-path="packages/standardjs/">
+            
+                <a href="packages/standardjs/">
+            
+                    
+                    StandardJS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.11" data-path="packages/karma/">
+            
+                <a href="packages/karma/">
+            
+                    
+                    Karma
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.12" data-path="packages/mocha/">
+            
+                <a href="packages/mocha/">
+            
+                    
+                    Mocha
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.13" data-path="packages/jest/">
+            
+                <a href="packages/jest/">
+            
+                    
+                    Jest
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.14" data-path="packages/babel-minify/">
+            
+                <a href="packages/babel-minify/">
+            
+                    
+                    babel-minify
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.15" data-path="packages/banner/">
+            
+                <a href="packages/banner/">
+            
+                    
+                    banner
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.16" data-path="packages/chunk/">
+            
+                <a href="packages/chunk/">
+            
+                    
+                    chunk
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.17" data-path="packages/clean/">
+            
+                <a href="packages/clean/">
+            
+                    
+                    clean
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.18" data-path="packages/compile-loader/">
+            
+                <a href="packages/compile-loader/">
+            
+                    
+                    compile-loader
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.19" data-path="packages/copy/">
+            
+                <a href="packages/copy/">
+            
+                    
+                    copy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.20" data-path="packages/dev-server/">
+            
+                <a href="packages/dev-server/">
+            
+                    
+                    dev-server
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.21" data-path="packages/env/">
+            
+                <a href="packages/env/">
+            
+                    
+                    env
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.22" data-path="packages/eslint/">
+            
+                <a href="packages/eslint/">
+            
+                    
+                    eslint
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.23" data-path="packages/font-loader/">
+            
+                <a href="packages/font-loader/">
+            
+                    
+                    font-loader
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.24" data-path="packages/fork/">
+            
+                <a href="packages/fork/">
+            
+                    
+                    fork
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.25" data-path="packages/hot/">
+            
+                <a href="packages/hot/">
+            
+                    
+                    hot
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.26" data-path="packages/html-loader/">
+            
+                <a href="packages/html-loader/">
+            
+                    
+                    html-loader
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.27" data-path="packages/html-template/">
+            
+                <a href="packages/html-template/">
+            
+                    
+                    html-template
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.28" data-path="packages/image-loader/">
+            
+                <a href="packages/image-loader/">
+            
+                    
+                    image-loader
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.29" data-path="packages/image-minify/">
+            
+                <a href="packages/image-minify/">
+            
+                    
+                    image-minify
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.30" data-path="packages/loader-merge/">
+            
+                <a href="packages/loader-merge/">
+            
+                    
+                    loader-merge
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.31" data-path="packages/minify/">
+            
+                <a href="packages/minify/">
+            
+                    
+                    minify
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.32" data-path="packages/pwa/">
+            
+                <a href="packages/pwa/">
+            
+                    
+                    pwa
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.33" data-path="packages/start-server/">
+            
+                <a href="packages/start-server/">
+            
+                    
+                    start-server
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.34" data-path="packages/style-loader/">
+            
+                <a href="packages/style-loader/">
+            
+                    
+                    style-loader
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16.35" data-path="packages/style-minify/">
+            
+                <a href="packages/style-minify/">
+            
+                    
+                    style-minify
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" >
+            
+                <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v6/docs">
+            
+                    
+                    v6 Documentation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" >
+            
+                <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v5/docs">
+            
+                    
+                    v5 Documentation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" >
+            
+                <a target="_blank" href="https://github.com/mozilla-neutrino/neutrino-dev/tree/docs-v4/docs">
+            
+                    
+                    v4 Documentation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20" data-path="contributing/">
+            
+                <a href="contributing/">
+            
+                    
+                    Contributing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.20.1" data-path="contributing/development.html">
+            
+                <a href="contributing/development.html">
+            
+                    
+                    Development Process
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.20.2" data-path="contributing/code-of-conduct.html">
+            
+                <a href="contributing/code-of-conduct.html">
+            
+                    
+                    Code of Conduct
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Migration Guide</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="migration-guide">Migration Guide</h1>
+<h2 id="contents">Contents</h2>
+<ul>
+<li><a href="#neutrino-v7-to-v8">Neutrino v7 to v8</a></li>
+<li><a href="#neutrino-v6-to-v7">Neutrino v6 to v7</a></li>
+<li><a href="#neutrino-v5-to-v6">Neutrino v5 to v6</a></li>
+<li><a href="#neutrino-v4-to-v5">Neutrino v4 to v5</a></li>
+</ul>
+<h2 id="neutrino-v7-to-v8">Neutrino v7 to v8</h2>
+<p>Neutrino v8 introduces a number of changes, with some of them being breaking changes. To upgrade from Neutrino v7
+to v8, be sure to check this list for tasks you may need to perform to use this latest version:</p>
+<ul>
+<li><strong>BREAKING CHANGE</strong> Middleware and preset packages have been migrated and scoped under the new
+<a href="https://www.npmjs.com/org/neutrinojs" target="_blank">@neutrinojs</a> organization. See <a href="#migrated-packages">Migrated Packages</a>
+for the full list of deprecated packages and the new scoped packages to migrate to. The core <code>neutrino</code> package
+remains available as is.</li>
+<li><strong>BREAKING CHANGE</strong> Removed <code>entry</code> option in order to support multiple main entry points via new <code>mains</code> options.
+See <a href="https://neutrino.js.org/customization/#optionsmains" target="_blank">Customization</a> for usage of <code>mains</code> in
+<code>.neutrinorc.js</code>. See <a href="https://neutrino.js.org/api/#optionsmains" target="_blank">API</a> for usage of <code>mains</code> from the API.
+(<a href="https://github.com/mozilla-neutrino/neutrino-dev/pull/487" target="_blank">#487</a>)</li>
+<li><strong>BREAKING CHANGE</strong> <code>*.css</code> files in mains chunks are no longer inlined into the JS bundle by default.
+They are moved into a separate CSS file. To disable CSS extraction, pass <code>options.extract = false</code> to
+the style-loader middleware, or <code>options.style.extract = false</code> to the web preset.
+(<a href="https://github.com/mozilla-neutrino/neutrino-dev/pull/443" target="_blank">#443</a>)</li>
+<li><strong>BREAKING CHANGE</strong> There is no longer a plugin named <code>minify</code> when using the <code>minify</code> middleware. This is due
+to the <code>minify</code> middleware now being a composition of three different middleware. The associated plugins are
+<code>babel-minify</code>, <code>style-minify</code>, and <code>image-minify</code>, from their associated individual middleware, which can also be
+used separately.</li>
+<li><strong>BREAKING CHANGE</strong> The Karma preset now uses Headless Chrome by default to run tests. To that end,
+you will need Chrome 60+ installed. (<a href="https://github.com/mozilla-neutrino/neutrino-dev/pull/283" target="_blank">#283</a>)</li>
+<li><strong>BREAKING CHANGE</strong> The API methods <code>.call()</code> and <code>.run()</code> no longer accept additional middleware to load
+prior to running their registered handler. If you wish to load middleware prior, use the <code>.use()</code> method first.
+Also, these methods no longer automatically load <code>.neutrinorc.js</code> either, you must load this using <code>.use()</code> as well.
+(<a href="https://github.com/mozilla-neutrino/neutrino-dev/pull/425" target="_blank">#425</a>)
+(<a href="https://github.com/mozilla-neutrino/neutrino-dev/pull/424" target="_blank">#424</a>)
+For a concrete example, <code>.eslintrc.js</code>, which utilizes these changes, would migrate to the following:</li>
+</ul>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">&apos;.neutrinorc.js&apos;</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token string">&apos;eslintrc&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<ul>
+<li><strong>BREAKING CHANGE</strong> When building, <code>file-loader</code> and <code>url-loader</code> will generate file names with pattern
+<code>[name].[hash].[ext]</code> instead of <code>[hash].[ext]</code>. (<a href="https://github.com/mozilla-neutrino/neutrino-dev/pull/435" target="_blank">#435</a>)</li>
+<li><strong>BREAKING CHANGE</strong> The web preset no longer uses the <code>script-ext</code> plugin. It was never functional and did not
+serve a purpose at this time. (<a href="https://github.com/mozilla-neutrino/neutrino-dev/pull/500" target="_blank">#500</a>)</li>
+</ul>
+<h3 id="migrated-packages">Migrated Packages</h3>
+<table>
+<thead>
+<tr>
+<th>Deprecated Preset/Middleware</th>
+<th>New Scoped Package</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>neutrino-middleware-banner</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/banner" target="_blank"><code>@neutrinojs/banner</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-middleware-chunk</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/chunk" target="_blank"><code>@neutrinojs/chunk</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-middleware-clean</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/clean" target="_blank"><code>@neutrinojs/clean</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-middleware-compile-loader</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/compile-loader" target="_blank"><code>@neutrinojs/compile-loader</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-middleware-copy</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/copy" target="_blank"><code>@neutrinojs/copy</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-middleware-dev-server</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/dev-server" target="_blank"><code>@neutrinojs/dev-server</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-middleware-env</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/env" target="_blank"><code>@neutrinojs/env</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-middleware-eslint</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/eslint" target="_blank"><code>@neutrinojs/eslint</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-middleware-font-loader</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/font-loader" target="_blank"><code>@neutrinojs/font-loader</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-middleware-hot</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/hot" target="_blank"><code>@neutrinojs/hot</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-middleware-html-loader</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/html-loader" target="_blank"><code>@neutrinojs/html-loader</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-middleware-html-template</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/html-template" target="_blank"><code>@neutrinojs/html-template</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-middleware-image-loader</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/image-loader" target="_blank"><code>@neutrinojs/image-loader</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-middleware-loader-merge</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/loader-merge" target="_blank"><code>@neutrinojs/loader-merge</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-middleware-minify</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/minify" target="_blank"><code>@neutrinojs/minify</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-middleware-pwa</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/pwa" target="_blank"><code>@neutrinojs/pwa</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-middleware-start-server</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/start-server" target="_blank"><code>@neutrinojs/start-server</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-middleware-style-loader</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/style-loader" target="_blank"><code>@neutrinojs/style-loader</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-preset-airbnb-base</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/airbnb-base" target="_blank"><code>@neutrinojs/airbnb-base</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-preset-jest</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/jest" target="_blank"><code>@neutrinojs/jest</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-preset-karma</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/karma" target="_blank"><code>@neutrinojs/karma</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-preset-mocha</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/mocha" target="_blank"><code>@neutrinojs/mocha</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-preset-node</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/node" target="_blank"><code>@neutrinojs/node</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-preset-react</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/react" target="_blank"><code>@neutrinojs/react</code></a></td>
+</tr>
+<tr>
+<td><code>neutrino-preset-web</code></td>
+<td><a href="https://www.npmjs.com/package/@neutrinojs/web" target="_blank"><code>@neutrinojs/web</code></a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="neutrino-v6-to-v7">Neutrino v6 to v7</h2>
+<p>Neutrino v7 introduces some changes, most of which are from major version bumps of dependent packages.
+To upgrade from Neutrino v6 to v7, be sure to check this list for tasks you may need to perform to use
+this latest version:</p>
+<ul>
+<li><strong>BREAKING CHANGE</strong> webpack-chain upgraded to v4. The breakage from this upgrade is the <code>.noParse</code> method
+which is now a plain shortcut method, allowing you to set any value.</li>
+<li><strong>BREAKING CHANGE</strong> webpack upgraded to v3. While most users should need no changes for this upgrade, be
+aware that it may still be possible for something to change during this upgrade.</li>
+<li><strong>BREAKING CHANGE</strong> The Web and React presets no longer include babel-polyfill by default, and have removed
+the <code>polyfill.babel</code> option. If you need babel-polyfill in your app, please import it.</li>
+<li><strong>BREAKING CHANGE</strong> ESLint has been upgraded to v4, which may bring linting configuration
+changes.</li>
+<li><strong>BREAKING CHANGE</strong> The Neutrino <code>static</code> option has been removed. The Web, React, and Node.js presets will
+still copy files from a <code>src/static</code> directory if it exists, but you can override your own
+copying directives using the <code>neutrino-middleware-copy</code> middleware.</li>
+<li><strong>BREAKING CHANGE</strong> Certain processes like minification or starting the dev server used to happen during many
+different values for the <code>NODE_ENV</code> environment variable. These are now controlled to run during
+certain <code>NODE_ENV</code> values like <code>production</code> or <code>development</code>, or when using certain commands like
+<code>start</code> or <code>build</code>. Look at the documentation for your specific presets to determine what environments or
+commands are used for certain configuration changes.</li>
+<li><strong>BREAKING CHANGE</strong> The minify plugin has switched to using the BabelMinifyWebpackPlugin, so the middleware
+options have been renamed from <code>babili</code> to <code>minify</code> and from <code>overrides</code> to <code>plugin</code>,
+e.g. <code>neutrino.use(minify, { minify: {}, plugin: {} })</code> or <code>[&apos;neutrino-middleware-minify&apos;, { minify: {}, plugin: {} }]</code>.</li>
+</ul>
+<h2 id="neutrino-v5-to-v6">Neutrino v5 to v6</h2>
+<p>Neutrino v6 introduces a number of changes, with some of them being breaking changes. To upgrade from Neutrino v5
+to v6, be sure to check this list for tasks you may need to perform to use this latest version:</p>
+<ul>
+<li><strong>BREAKING CHANGE</strong> Neutrino overrides and configuration is no longer done from package.json, but can automatically
+be picked up in a <code>.neutrinorc.js</code> file. If you want to leave your configuration in package.json until
+you migrate completely to the RC file, put the following contents in your <code>.neutrinorc.js</code> file:</li>
+</ul>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> pkg <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;./package.json&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  options<span class="token punctuation">:</span> pkg<span class="token punctuation">.</span>neutrino<span class="token punctuation">.</span>options <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token operator">...</span><span class="token punctuation">(</span>pkg<span class="token punctuation">.</span>neutrino<span class="token punctuation">.</span>use <span class="token operator">||</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    neutrino <span class="token operator">=</span><span class="token operator">&gt;</span> neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token function">merge</span><span class="token punctuation">(</span>pkg<span class="token punctuation">.</span>neutrino<span class="token punctuation">.</span>config <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>See the documentation on <code>.neutrinorc.js</code> for more details on overriding configuration.</p>
+<ul>
+<li><strong>BREAKING CHANGE</strong> The Web and React presets no longer include a polyfill for <code>Buffer</code>. This saves approximately 60KB
+of polyfills from being loaded, at the expense of using the <code>Buffer</code> constructor. If you need the <code>Buffer</code>
+constructor or a dependency relies on it, you can override the configuration in <code>.neutrinorc.js</code>:</li>
+</ul>
+<pre class="language-"><code class="lang-js">neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>node<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">&apos;Buffer&apos;</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+</code></pre>
+<ul>
+<li><strong>BREAKING CHANGE</strong> Neutrino no longer relies on <code>HOST</code>, <code>PORT</code>, and <code>HTTPS</code> environment variables for overriding
+the webpack-dev-server settings, respectively. You can choose to either override these from <code>.neutrinorc.js</code> or
+a one-off basis using CLI options:</li>
+</ul>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Override a preset/middleware:</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      devServer<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        host<span class="token punctuation">:</span> <span class="token string">&apos;192.168.1.10&apos;</span><span class="token punctuation">,</span>
+        port<span class="token punctuation">:</span> <span class="token number">3000</span><span class="token punctuation">,</span>
+        https<span class="token punctuation">:</span> <span class="token boolean">true</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">]</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Override all presets:</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  options<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    host<span class="token punctuation">:</span> <span class="token string">&apos;192.168.1.10&apos;</span><span class="token punctuation">,</span>
+    port<span class="token punctuation">:</span> <span class="token number">3000</span><span class="token punctuation">,</span>
+    https<span class="token punctuation">:</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class="language-"><code class="lang-bash"><span class="token comment" spellcheck="true"># Override from CLI</span>
+neutrino start --options.host 192.168.1.10 --options.port 3000 --options.https
+</code></pre>
+<ul>
+<li><strong>BREAKING CHANGE</strong> Setting <code>host</code> of <code>0.0.0.0</code> for webpack-dev-server is insecure and will not work properly. This
+is from <a href="https://github.com/webpack/webpack-dev-server/issues/887" target="_blank">https://github.com/webpack/webpack-dev-server/issues/887</a> causing a potential security issue into webpack
+users&apos; machines. When using <code>host</code>, specify your actual local IP address, and Neutrino will bind it to the <code>public</code>
+property of webpack-dev-server and set the host to <code>0.0.0.0</code> for you. Attempting to access the site from a host other
+than specified will result in an invalid host header error.</li>
+</ul>
+<p>Should you absolutely need to access the site from any potential host, for example if behind a proxy or firewall,
+override from <code>.neutrinorc.js</code>:</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Override a preset/middleware</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      devServer<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        disableHostCheck<span class="token punctuation">:</span> <span class="token boolean">true</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">]</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// Override configuration</span>
+neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>devServer<span class="token punctuation">.</span><span class="token function">disableHostCheck</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
+</code></pre>
+<ul>
+<li><p><strong>BREAKING CHANGE</strong> The chunk middleware no longer includes a plugin named <code>&quot;chunk&quot;</code>, and instead exposes several
+plugins which handle different chunking mechanisms: <code>named-modules</code>, <code>named-chunks</code>, <code>vendor-chunk</code>, <code>runtime-chunk</code>,
+and <code>name-all</code>.</p>
+</li>
+<li><p><strong>BREAKING CHANGE</strong> With the changes in chunk middleware, there is no longer a named-modules middleware for v6 since
+this now comes with the chunk middleware.</p>
+</li>
+<li><p><strong>BREAKING CHANGE</strong> All non-JS assets within your source directory are not automatically copied to the output
+directory. A new Neutrino option for <code>static</code> now specifies a directory for all non-compiled/included assets, and this
+defaults to <code>src/static</code>. For example, if you wanted to include some images into the build that are not <code>import</code>ed into
+your project, you can place them in <code>src/static</code> and they will be automatically copied to <code>build/static</code>.</p>
+</li>
+<li><p><strong>BREAKING CHANGE</strong> The <code>run</code> function from Neutrino&apos;s exports has been removed in favor of a <code>run</code> method on the API.</p>
+</li>
+<li><p><strong>BREAKING CHANGE</strong> The <code>build</code>, <code>start</code>, <code>test</code>, and <code>inspect</code> functions from Neutrino&apos;s exports no longer
+instantiate the Neutrino API, but are now functions that are passed to the Neutrino API&apos;s <code>run</code> method. For example, to
+run the <code>build</code> function, you can pass it via:</p>
+</li>
+</ul>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino<span class="token punctuation">,</span> build <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token string">&apos;build&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span>middleware<span class="token punctuation">]</span><span class="token punctuation">,</span> build<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">fork</span><span class="token punctuation">(</span>errorHandler<span class="token punctuation">,</span> successHandler<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>See the <a href="api">Neutrino API</a> for details on the updated API.</p>
+<ul>
+<li><strong>BREAKING CHANGE</strong> Since the Neutrino API has changed, creating a <code>.eslintrc.js</code> file has also changed. If you have
+your middleware defined in <code>.neutrinorc.js</code>, your <code>.eslintrc.js</code> file can be as simple as:</li>
+</ul>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino/src/api&apos;</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token string">&apos;eslintrc&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>For a more verbose example version without <code>.neutrinorc.js</code>:</p>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> api<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token string">&apos;eslintrc&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-airbnb-base&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;neutrino-preset-react&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p><strong>BREAKING CHANGE</strong> An empty object is no longer passed as options to middleware if no options have been specified.</p>
+<p><strong>Dependency potential BREAKING CHANGES:</strong></p>
+<ul>
+<li><code>babel-core</code> upgraded to v7.0.0</li>
+<li><code>file-loader</code> upgraded to v0.11.2</li>
+<li><code>file-loader</code> removed from <code>html-loader</code> middleware, switched to <code>html-loader</code></li>
+<li><code>babili-webpack-plugin</code> upgraded to v0.1.1</li>
+<li><code>css-loader</code> upgraded to v0.28.4</li>
+<li><code>style-loader</code> upgraded to v0.18.2</li>
+<li><code>jest</code> upgraded to v20.0.3</li>
+<li><code>react-hot-loader</code> upgraded to v3.0.0-beta.7</li>
+</ul>
+<ul>
+<li>Async polyfills are now using fast-async instead of Babel&apos;s regenerator. The reasoning is explained in the
+<a href="https://github.com/MatAtBread/fast-async" target="_blank">fast-async README</a>:</li>
+</ul>
+<blockquote>
+<p>&apos;fast-async&apos; is a Babel v6.x.x plugin that implements the ES7 keywords async and await using syntax transformation
+at compile-time, rather than generators. The main reason for using &apos;fast-async&apos; as opposed to Babel&apos;s default
+implementation of async/await is performance (<a href="https://github.com/MatAtBread/nodent#performance" target="_blank">https://github.com/MatAtBread/nodent#performance</a>) - it&apos;s 3-4 times faster
+in a browser/node, and as much as 10 times faster on a mobile browsers, mainly due to avoiding generators
+(and therefore regenerator).</p>
+</blockquote>
+<p>If you wish to disable the fast-async polyfill, you can specify it to the Web, React, and Node.js presets from
+your <code>.neutrinorc.js</code>:</p>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-web&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      polyfills<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token keyword">async</span><span class="token punctuation">:</span> <span class="token boolean">false</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">]</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<ul>
+<li><p>The React preset is now additionally Babel-compiled with <code>transform-class-properties</code>, and during <code>development</code> also
+includes <code>transform-es2015-classes</code> to work around <a href="https://github.com/gaearon/react-hot-loader/issues/313" target="_blank">https://github.com/gaearon/react-hot-loader/issues/313</a>.</p>
+</li>
+<li><p>The Node.js preset, start-server middleware, and babel-preset-env in any middleware can be debugged with the <code>--debug</code>
+CLI flag or the Neutrino option <code>debug</code>.</p>
+</li>
+<li><p>The Node.js preset now compiles Babel to support Node.js LTS which has moved to v6.10 from v6.9.</p>
+</li>
+<li><p>Babel compiles using a <code>cacheDirectory</code> to improve subsequent build times.</p>
+</li>
+<li><p>The Neutrino API now exposes generic <code>prerun</code> and <code>run</code> events which are triggered prior to at any command
+running, e.g. running <code>neutrino build</code> will trigger a <code>prebuild</code>, <code>prerun</code>, <code>build</code>, and <code>run</code> events.</p>
+</li>
+<li><p>The ESLint middleware now defaults to a <code>development</code> NODE_ENV if none is specified.</p>
+</li>
+<li><p>Configuration can now more easily be overridden based on the values of environment variables from <code>.neutrinorc.js</code>
+using the <code>env</code> property. Each property within <code>env</code> maps to an environment variable with key-values mapping to 
+environment values which contain further middleware. This works for any environment variable, not just <code>NODE_ENV</code>.
+For example, if you wanted to include additional middleware when <code>NODE_ENV</code> is <code>production</code>:</p>
+</li>
+</ul>
+<pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  env<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    NODE_ENV<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      production<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        use<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;neutrino-middleware-pwa&apos;</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="neutrino-v4-to-v5">Neutrino v4 to v5</h2>
+<p>Neutrino v5 introduces a number of changes, with some of them being breaking changes. To upgrade from Neutrino v4
+to v5, be sure to check this list for tasks you may need to perform to use this latest version:</p>
+<ul>
+<li>Updates to config for creating plugins (from webpack-chain v3 upgrade):</li>
+</ul>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Creating plugins in v4</span>
+neutrino<span class="token punctuation">.</span>config
+  <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>WebpackPlugin<span class="token punctuation">,</span> <span class="token operator">...</span>args<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// Creating plugins in v5</span>
+neutrino<span class="token punctuation">.</span>config
+  <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>WebpackPlugin<span class="token punctuation">,</span> args<span class="token punctuation">)</span>
+</code></pre>
+<ul>
+<li>Updates to config for modifying plugins (from webpack-chain v3 upgrade):</li>
+</ul>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Modifying plugins in v4</span>
+neutrino<span class="token punctuation">.</span>config
+  <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">inject</span><span class="token punctuation">(</span><span class="token punctuation">(</span>Plugin<span class="token punctuation">,</span> args<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token keyword">new</span> <span class="token class-name">Plugin</span><span class="token punctuation">(</span><span class="token operator">...</span>newArgs<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// Modifying plugins in v5</span>
+neutrino<span class="token punctuation">.</span>config
+  <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">tap</span><span class="token punctuation">(</span>args <span class="token operator">=</span><span class="token operator">&gt;</span> newArgs<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<ul>
+<li>Updates to config for creating loaders (from webpack-chain v3 upgrade):</li>
+</ul>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Creating loaders in v4</span>
+neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>module
+  <span class="token punctuation">.</span><span class="token function">rule</span><span class="token punctuation">(</span><span class="token string">&apos;compile&apos;</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">loader</span><span class="token punctuation">(</span><span class="token string">&apos;babel&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;babel-loader&apos;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    options<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;object-rest-spread&apos;</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// Creating loaders in v5</span>
+neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>module
+  <span class="token punctuation">.</span><span class="token function">rule</span><span class="token punctuation">(</span><span class="token string">&apos;compile&apos;</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">&apos;babel&apos;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">loader</span><span class="token punctuation">(</span><span class="token string">&apos;babel-loader&apos;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">options</span><span class="token punctuation">(</span><span class="token punctuation">{</span> plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;object-rest-spread&apos;</span><span class="token punctuation">]</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<ul>
+<li>Updates to config for modifying loaders (from webpack-chain v3 upgrade). The function now gets its options directly
+instead of being nested in an object:</li>
+</ul>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Modifying loaders in v4</span>
+neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>module
+  <span class="token punctuation">.</span><span class="token function">rule</span><span class="token punctuation">(</span><span class="token string">&apos;compile&apos;</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">loader</span><span class="token punctuation">(</span><span class="token string">&apos;babel&apos;</span><span class="token punctuation">,</span> props <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token function">merge</span><span class="token punctuation">(</span>props<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    options<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;object-rest-spread&apos;</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// Modifying loaders in v5</span>
+neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>module
+  <span class="token punctuation">.</span><span class="token function">rule</span><span class="token punctuation">(</span><span class="token string">&apos;compile&apos;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token string">&apos;babel&apos;</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">tap</span><span class="token punctuation">(</span>options <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token function">merge</span><span class="token punctuation">(</span>options<span class="token punctuation">,</span> <span class="token punctuation">{</span> plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">&apos;object-rest-spread&apos;</span><span class="token punctuation">]</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<ul>
+<li>Updates to <code>include</code> and <code>exclude</code> for rules (from webpack-chain v3). In the previous webpack-chain
+package, <code>include</code> and <code>exclude</code> were functions where you provided paths as arguments. These are now
+<code>ChainedMap</code>s, making them much more extensible should you need to manipulate these values:</li>
+</ul>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Adding rule includes and excludes in v4</span>
+neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>module
+  <span class="token punctuation">.</span><span class="token function">rule</span><span class="token punctuation">(</span><span class="token string">&apos;compile&apos;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">include</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">exclude</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// Adding rule includes and excludes in v5</span>
+neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>module
+  <span class="token punctuation">.</span><span class="token function">rule</span><span class="token punctuation">(</span><span class="token string">&apos;compile&apos;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span>include
+      <span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span>exclude
+      <span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// You can also use .merge() to add multiple paths at once:</span>
+neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>module
+  <span class="token punctuation">.</span><span class="token function">rule</span><span class="token punctuation">(</span><span class="token string">&apos;compile&apos;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span>include<span class="token punctuation">.</span><span class="token function">merge</span><span class="token punctuation">(</span><span class="token punctuation">[</span>x<span class="token punctuation">,</span> y<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span>exclude<span class="token punctuation">.</span><span class="token function">merge</span><span class="token punctuation">(</span><span class="token punctuation">[</span>x<span class="token punctuation">,</span> y<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<ul>
+<li>Simple configuration via package.json now done from top-level <code>neutrino</code> object. Rename <code>config</code> to <code>neutrino</code>, and
+rename <code>config.neutrino</code> to <code>neutrino.config</code>. Presets also fall under this <code>neutrino</code> object. The <code>custom</code> object has
+been renamed to <code>options</code>.</li>
+</ul>
+<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">&quot;neutrino&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;config&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;entry&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;vendor&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&quot;react&quot;</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;use&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string">&quot;neutrino-preset-react&quot;</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;options&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;mocha&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;reporter&quot;</span><span class="token operator">:</span> <span class="token string">&quot;nyan&quot;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<ul>
+<li>The Web preset has renamed its styling rule from <code>css</code> to <code>style</code>:</li>
+</ul>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// v4 API for Web preset</span>
+neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>module<span class="token punctuation">.</span><span class="token function">rule</span><span class="token punctuation">(</span><span class="token string">&apos;css&apos;</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// v5 API for Web preset</span>
+neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>module<span class="token punctuation">.</span><span class="token function">rule</span><span class="token punctuation">(</span><span class="token string">&apos;style&apos;</span><span class="token punctuation">)</span>
+</code></pre>
+<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">&quot;neutrino&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;config&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;module&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;rule&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">&quot;style&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<ul>
+<li>The Neutrino CLI has renamed <code>--presets</code> to <code>--use</code> to better reflect the usage of middleware and presets, and to
+make the inclusion of middleware consistent with the API at <code>neutrino.use()</code>.</li>
+<li>Jest upgraded to v19, which changes the option <code>testPathDirs</code> to <code>roots</code>. Jest options set using
+package.json can now only be done at <code>neutrino.options.jest</code> (no more package.json <code>jest</code>);</li>
+<li>Linting base is deprecated in favor of <code>neutrino-middleware-eslint</code>:</li>
+</ul>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// v4 API</span>
+<span class="token keyword">const</span> lint <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-lint-base&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token function">lint</span><span class="token punctuation">(</span>neutrino<span class="token punctuation">)</span><span class="token punctuation">;</span>
+neutrino<span class="token punctuation">.</span>config<span class="token punctuation">.</span>module
+  <span class="token punctuation">.</span><span class="token function">rule</span><span class="token punctuation">(</span><span class="token string">&apos;lint&apos;</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">loader</span><span class="token punctuation">(</span><span class="token string">&apos;eslint&apos;</span><span class="token punctuation">,</span> props <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token function">merge</span><span class="token punctuation">(</span>props<span class="token punctuation">,</span> <span class="token punctuation">{</span> rules<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">/* */</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// v5 API</span>
+<span class="token keyword">const</span> eslint <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-middleware-eslint&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>eslint<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  eslint<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    rules<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">/* */</span> <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<ul>
+<li>When using a linting preset or consuming anything with <code>neutrino-middleware-eslint</code>, the <code>eslintrc()</code> method has been
+moved from <code>neutrino.custom.eslintrc</code> to <code>neutrino.eslintrc</code>:</li>
+</ul>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// v4 API</span>
+neutrino<span class="token punctuation">.</span>custom<span class="token punctuation">.</span><span class="token function">eslintrc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// v5 API</span>
+neutrino<span class="token punctuation">.</span><span class="token function">eslintrc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<ul>
+<li>The default export of the Neutrino package is now an object with several methods, one of these being the low-level
+Neutrino API:</li>
+</ul>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<ul>
+<li><p>The Neutrino API has undergone significant changes and no longer needs to be called as a constructor with <code>new</code>.</p>
+</li>
+<li><p>The Neutrino API no longer accepts preset strings as its argument. The function now accepts an options object to
+be set at <code>neutrino.options</code>:</p>
+</li>
+</ul>
+<pre class="language-"><code class="lang-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">{</span> mocha<span class="token punctuation">:</span> <span class="token punctuation">{</span> reporter<span class="token punctuation">:</span> <span class="token string">&apos;nyan&apos;</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+api<span class="token punctuation">.</span>options<span class="token punctuation">.</span>mocha<span class="token punctuation">.</span>reporter <span class="token comment" spellcheck="true">// &quot;nyan&quot;</span>
+</code></pre>
+<ul>
+<li>Since the Neutrino API no longer accepts preset strings in its constructor, you must now pass presets and middleware
+as code/functions to the <code>.use()</code> method.</li>
+</ul>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// v4 API</span>
+<span class="token keyword">const</span> Neutrino <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;neutrino-preset-node&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;neutrino-preset-mocha&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// v5 API</span>
+<span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+api<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-preset-node&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+api<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino-preset-mocha&apos;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>This also means the API function no longer does preset module resolution. If you wish to require presets and middleware
+and have them simultaneously <code>use</code>d, use <code>requiresAndUses</code>:</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// v5 API</span>
+<span class="token keyword">const</span> <span class="token punctuation">{</span> Neutrino <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&apos;neutrino&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> api <span class="token operator">=</span> <span class="token function">Neutrino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+api<span class="token punctuation">.</span><span class="token function">usesAndRequires</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+  <span class="token string">&apos;neutrino-preset-node&apos;</span><span class="token punctuation">,</span>
+  <span class="token string">&apos;neutrino-preset-mocha&apos;</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<ul>
+<li><code>neutrino.getWebpackOptions()</code> has been removed in favor of the lower level to <code>neutrino.config.toConfig()</code>.</li>
+<li>Using a <code>node</code> target no longer skips the watcher for a builder, it now uses the webpack source watcher. This means
+commands like <code>neutrino start &amp;&amp; node build</code> are obsolete. <code>neutrino build &amp;&amp; node build</code> would work to start a Node
+instance for production-built bundles.</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="creating-presets.html" class="navigation navigation-prev " aria-label="Previous page: Creating presets">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="presets/" class="navigation navigation-next " aria-label="Next page: Presets">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Migration Guide","level":"1.13","depth":1,"next":{"title":"Presets","level":"1.14","depth":1,"path":"presets/README.md","ref":"./presets/README.md","articles":[{"title":"Community presets","level":"1.14.1","depth":2,"path":"packages/community-presets.md","ref":"./packages/community-presets.md","articles":[]}]},"previous":{"title":"Creating presets","level":"1.12","depth":1,"path":"creating-presets.md","ref":"./creating-presets.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"migration-guide.md","mtime":"2017-12-08T02:47:52.926Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-12-08T14:56:27.718Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-edit-link/plugin.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/3.1.1/anchor.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-anchorjs/anchor-style.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-npmsearchlist/script.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
