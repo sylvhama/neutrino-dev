@@ -276,9 +276,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.14.1" data-path="../packages/community-presets.md">
+        <li class="chapter " data-level="1.14.1" data-path="../presets/community-presets.html">
             
-                <span>
+                <a href="../presets/community-presets.html">
             
                     
                     Community presets
@@ -942,7 +942,7 @@ by making them as simple as <code>neutrino start</code> or <code>neutrino build<
 <code>.neutrinorc.js</code>, the CLI will pick up these changes every time you run it.</p>
 <h3 id="middleware-formats">Middleware formats</h3>
 <p>Before we delve into making customizations in <code>.neutrinorc.js</code>, it&apos;s important to note that this file can be in any
-valid <a href="../middleware#formats">middleware format</a> that Neutrino accepts. For project-based customization, it is
+valid <a href="../middleware/#formats">middleware format</a> that Neutrino accepts. For project-based customization, it is
 recommended to use the object format, and that will be the format we focus on for the remainder of this guide. Should
 you need a lot of API customization, you may still opt to write your <code>.neutrinorc.js</code> file in the function format.</p>
 <p>Your <code>.neutrinorc.js</code> file is a JavaScript module which will be required by Neutrino using Node.js. Any code written in
@@ -1048,10 +1048,48 @@ used as-is.</p>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
+<h2 id="mutating-neutrinooptions">Mutating <code>neutrino.options</code></h2>
+<p>While it is possible to mutate <code>neutrino.options</code> directly, this should be avoided.
+Instead, it is <em>always recommended</em> to pass an <code>options</code> object to ensure proper normalization.</p>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Bad: Using function format, overriding `neutrino.options` properites.</span>
+<span class="token comment" spellcheck="true">// Paths will not be relative to `neutrino.options.root` as expected.</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> neutrino <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span>neutrino<span class="token punctuation">.</span>options<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    source<span class="token punctuation">:</span> <span class="token string">&apos;lib&apos;</span><span class="token punctuation">,</span>
+    output<span class="token punctuation">:</span> <span class="token string">&apos;dist&apos;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Good: Using function format, setting `neutrino.options.*` properties directly.</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> neutrino <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  neutrino<span class="token punctuation">.</span>options<span class="token punctuation">.</span>source <span class="token operator">=</span> <span class="token string">&apos;lib&apos;</span><span class="token punctuation">;</span>
+  neutrino<span class="token punctuation">.</span>options<span class="token punctuation">.</span>output <span class="token operator">=</span> <span class="token string">&apos;dist&apos;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Good: Use object format w/ `use` array</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  options<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    source<span class="token punctuation">:</span> <span class="token string">&apos;lib&apos;</span><span class="token punctuation">,</span>
+    output<span class="token punctuation">:</span> <span class="token string">&apos;dist&apos;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  use<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token comment" spellcheck="true">/* ... */</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// Good: Use object format w/ `use` function</span>
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  options<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    source<span class="token punctuation">:</span> <span class="token string">&apos;lib&apos;</span><span class="token punctuation">,</span>
+    output<span class="token punctuation">:</span> <span class="token string">&apos;dist&apos;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  use<span class="token punctuation">:</span> neutrino <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    neutrino<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token comment" spellcheck="true">/* ... */</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
 <h2 id="using-middleware">Using middleware</h2>
 <p>By specifying a <code>use</code> array in your <code>.neutrinorc.js</code>, you can inform Neutrino to load additional middleware when it
 runs, including any additional files you wish to include as middleware. Each item in this <code>use</code> array can be any
-Neutrino-supported <a href="../middleware#formats">middleware format</a>.</p>
+Neutrino-supported <a href="../middleware/#formats">middleware format</a>.</p>
 <p>In its simplest form, each item can be the string module name or path to middleware you wish Neutrino to require and
 use for you:</p>
 <pre class="language-"><code class="lang-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
@@ -1222,7 +1260,7 @@ development.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Customization","level":"1.11","depth":1,"next":{"title":"Creating presets","level":"1.12","depth":1,"path":"creating-presets.md","ref":"./creating-presets.md","articles":[]},"previous":{"title":"Configuration API - webpack-chain","level":"1.10","depth":1,"path":"webpack-chain.md","ref":"./webpack-chain.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"customization/README.md","mtime":"2017-12-10T15:39:00.874Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-12-13T14:26:36.491Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Customization","level":"1.11","depth":1,"next":{"title":"Creating presets","level":"1.12","depth":1,"path":"creating-presets.md","ref":"./creating-presets.md","articles":[]},"previous":{"title":"Configuration API - webpack-chain","level":"1.10","depth":1,"path":"webpack-chain.md","ref":"./webpack-chain.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"customization/README.md","mtime":"2017-12-14T15:10:17.305Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-12-14T15:12:23.417Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
