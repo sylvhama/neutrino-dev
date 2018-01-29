@@ -801,6 +801,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.15.36" data-path="../packages/stylelint/">
+            
+                <a href="../packages/stylelint/">
+            
+                    
+                    stylelint
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -1093,7 +1106,7 @@ set by the CLI when instantiating the API, but can also be set manually. This va
 middleware to determine when to augment the configuration with certain functionality.</p>
 <h3 id="optionsextensions"><code>options.extensions</code></h3>
 <p>Informs interested middleware the preferred list of module extensions to support.
-By default, <code>options.extensions</code> is set to <code>[&apos;js&apos;, &apos;jsx&apos;, &apos;vue&apos;, &apos;ts&apos;, &apos;mjs&apos;]</code>.</p>
+By default, <code>options.extensions</code> is set to <code>[&apos;js&apos;, &apos;jsx&apos;, &apos;vue&apos;, &apos;ts&apos;, &apos;tsx&apos;, &apos;mjs&apos;]</code>.</p>
 <h3 id="optionspackagejson"><code>options.packageJson</code></h3>
 <p>Returns the <code>package.json</code> object defined at the root level of the project.</p>
 <h2 id="neutrino-api">Neutrino API</h2>
@@ -1481,7 +1494,7 @@ without any parameters which fallback to <code>neutrino.options.extensions</code
 <pre class="language-"><code class="lang-js"><span class="token comment" spellcheck="true">// resolves to /\.(vue|js)$/</span>
 neutrino<span class="token punctuation">.</span><span class="token function">regexFromExtensions</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">&apos;vue&apos;</span><span class="token punctuation">,</span> <span class="token string">&apos;js&apos;</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="token comment" spellcheck="true">// defaults neutrino.options.extensions which resolves to /\.(js|jsx|vue|ts|mjs)$/</span>
+<span class="token comment" spellcheck="true">// defaults neutrino.options.extensions which resolves to /\.(js|jsx|vue|ts|tsx|mjs)$/</span>
 neutrino<span class="token punctuation">.</span><span class="token function">regexFromExtensions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 
@@ -1527,7 +1540,7 @@ neutrino<span class="token punctuation">.</span><span class="token function">reg
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"API","level":"1.8","depth":1,"next":{"title":"Configuration API - webpack-chain","level":"1.9","depth":1,"path":"webpack-chain.md","ref":"./webpack-chain.md","articles":[]},"previous":{"title":"CLI","level":"1.7","depth":1,"path":"cli/README.md","ref":"./cli/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"api/README.md","mtime":"2018-01-05T17:12:23.892Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-01-08T13:50:48.588Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"API","level":"1.8","depth":1,"next":{"title":"Configuration API - webpack-chain","level":"1.9","depth":1,"path":"webpack-chain.md","ref":"./webpack-chain.md","articles":[]},"previous":{"title":"CLI","level":"1.7","depth":1,"path":"cli/README.md","ref":"./cli/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","prism","-highlight","github","anchorjs","npmsearchlist"],"root":"./docs","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/mozilla-neutrino/neutrino-dev/"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"npmsearchlist":{},"fontsettings":{"theme":"white","family":"sans","size":2},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit page","base":"https://github.com/mozilla-neutrino/neutrino-dev/tree/master/docs"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Neutrino","gitbook":"*"},"file":{"path":"api/README.md","mtime":"2018-01-14T23:47:50.742Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-01-29T20:11:01.546Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
